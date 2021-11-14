@@ -1,0 +1,120 @@
+/* common */
+.spinner{
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* login */
+.login{
+    padding:1rem 20rem;
+}
+
+.login-input{
+    padding:15px;
+}
+
+.login-button{
+    display: flex;
+    background: white;
+    width: 100%;
+    justify-content: center;
+    margin-top: 2rem;
+    padding: 10px 0;
+    color:black;
+}
+
+.login-or{
+    display: flex;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.login-or p{
+    margin-top: 1rem;
+}
+
+.login-or div{
+    width: 47%;
+    height: 1px;
+    background-color: black;
+}
+
+
+/* Register */
+.register{
+    padding:1rem 20rem;
+}
+
+.register-input{
+    padding:15px;
+}
+
+.register-button{
+    display: flex;
+    background: white;
+    width: 100%;
+    justify-content: center;
+    margin-top: 2rem;
+    padding: 10px 0;
+    color:black;
+}
+
+.register-or{
+    display: flex;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.register-or p{
+    margin-top: 1rem;
+}
+
+.register-or div{
+    width: 47%;
+    height: 1px;
+    background-color: black;
+}
+
+
+/* logout */
+.logout{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.logout svg{
+    font-size: 5rem;
+    color: green;
+}
+
+@media screen and (max-width:1000px) {
+    /* login */
+    .login{
+        padding:5rem;
+    }
+
+    /* register */
+    .register{
+        padding:5rem;
+    }
+}
+
+
+
+@media screen and (max-width:700px) {
+    /* login */
+    .login{
+        padding:1rem;
+    }
+
+
+    /* register */
+    .register{
+        padding:1rem;
+    }
+}

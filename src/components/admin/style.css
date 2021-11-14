@@ -1,0 +1,29 @@
+/* admin login */
+.admin-login{
+    background-color: #3B8AFF;
+    height: 100vh;
+}
+
+.admin-login-container{
+    background-color: white;
+    height: 80vh;
+    border-radius: 20px;
+    padding:2rem;
+}
+
+/* admin list */
+.admin-router-list{
+    width: 20%;
+}
+
+
+
+@media screen and (max-width:1000px) {
+    
+}
+
+
+
+@media screen and (max-width:700px) {
+    
+}
