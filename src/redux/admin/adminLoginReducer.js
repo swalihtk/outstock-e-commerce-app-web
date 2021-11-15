@@ -70,7 +70,7 @@ const adminLoginFetchReducer=(state=initialState, action)=>{
 function isAdminLogedIn(){
     return (dispatch=>{
         dispatch(fetchLogin());
-        axios.get("http://localhost:8000/admin/auth/check").then(response=>{
+        axios.get("/admin/auth/check").then(response=>{
             dispatch(fetchLoginSuccess(response.data));
         }).catch(err=>{
             dispatch(fetchLoginError(err.message));

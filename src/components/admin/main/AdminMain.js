@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import ContentSpinner from '../../layouts/user/ContentSpinner';
-import { isAdminLogedIn } from '../../redux/admin/adminLoginReducer';
-import AdminDashboard from './AdminDashboard';
+import ContentSpinner from '../../../layouts/user/ContentSpinner';
+import { isAdminLogedIn } from '../../../redux/admin/adminLoginReducer';
+import AdminDashboard from '../../../layouts/admin/AdminDashboard';
 import AdminLogin from './AdminLogin';
 import "./style.css";
+import Dashboard from './Dashboard';
 
 
 function AdminMain() {
@@ -21,7 +22,11 @@ function AdminMain() {
         return <ContentSpinner variant="warning"/>
     }else{
         if(logedin){
-            return <AdminDashboard />
+            return (
+            <>
+            <AdminDashboard container={<Dashboard />}/>
+            </>
+            )
         }else{
             return <AdminLogin />
         }

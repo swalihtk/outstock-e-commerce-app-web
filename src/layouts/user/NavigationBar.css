@@ -43,6 +43,10 @@
     .nav-link{
         margin-left:1rem;
     }
+
+    .navbar-text{
+        margin-left: 1rem;
+    }
 }
 
 
@@ -58,5 +62,17 @@
 
     .nav-form-search{
         width: 100%;
+    }
+
+    .navbar-collapse{
+        margin-top: 1rem;
+    }
+    
+    .navbar-collapse-icon{
+        display: inline;
+    }
+
+    .navbar-text{
+        margin-left: 1rem;
     }
 }

@@ -61,14 +61,14 @@ function NavigationBar({iconShow}) {
                                         </div>
                                     </Form>
                                     <Nav className="nav-link"><Link to={logedin?"/cart":"login"} style={linkStyle}>Cart</Link></Nav>
-                                    <NavDropdown title={<PersonIcon />} id="basic-nav-dropdown">
+                                    <NavDropdown title={<PersonIcon /> } className="navbar-collapse-icon" id="basic-nav-dropdown">
                                     <NavDropdown.Item as={Link} to={logedin?"/myaccount":"login"}>My Account</NavDropdown.Item>
                                     <NavDropdown.Item as={Link} to={logedin?"/orders":"login"}>Orders</NavDropdown.Item>
                                     <NavDropdown.Item as={Link} to={logedin?"/whislist":"login"}>Whishlist</NavDropdown.Item>
                                     <NavDropdown.Divider />
                                     <NavDropdown.Item>Contact</NavDropdown.Item>
                                     </NavDropdown>
-                                    <Navbar.Text>{
+                                    <Navbar.Text className="navbar-text">{
                                         logedin?userName:"Guest"
                                         }</Navbar.Text>
                                     <Nav className="nav-link"><Link to={logedin?"/logout":"login"} style={linkStyle}>{logedin?"Logout":"Login"}</Link></Nav>
