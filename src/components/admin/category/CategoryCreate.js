@@ -47,6 +47,7 @@ function CategoryCreate() {
 
     }
 
+
     // subArray handling
     function addToSubArray(){
         setSubArray((prev)=>{

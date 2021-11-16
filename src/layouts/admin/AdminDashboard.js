@@ -23,7 +23,7 @@ function AdminDashboard({container}) {
             <i className='bx bxl-c-plus-plus'></i>
             <span className="logo_name">CodingLab</span>
             </div>
-            <ul className="nav-links">
+            <ul className="nav-links" style={{padding:0}}>
                 <li>
                 <Link to="/admin">
                     <i className='bx bx-grid-alt' ></i>
@@ -37,7 +37,7 @@ function AdminDashboard({container}) {
                 </Link>
                 </li>
                 <li>
-                <Link to="/product">
+                <Link to="/admin/product">
                     <i className='bx bx-box' ></i>
                     <span className="links_name">Product</span>
                 </Link>

@@ -1,7 +1,8 @@
 import { LinearProgress } from '@material-ui/core';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import { Form } from 'react-bootstrap'
+import { Form, Button } from 'react-bootstrap'
+import swal from 'sweetalert';
 
 function CategoryDelete() {
 
@@ -13,12 +14,31 @@ function CategoryDelete() {
     let [subCatLoading, setSubCatLoading]=useState(false);
 
     // select handler
+    let [mainCatValue, setMainCatValue]=useState("");
+    let [subCatValue, setSubCatValue]=useState("");
+
     let [subCategoryArray, setSubCategoryArray]=useState([]);
 
     // main select hanlder
     function handleMainSelect(e){
         let value=e.target.value;
+        setMainCatValue(value);
         getSubCategory(value);
+    }
+
+    // get main array
+    function getMainCat(){
+        setCategoryLoading(true);
+        axios.get("/admin/category/get").then(response=>{
+            let data=response.data;
+            setCategoryArray(data);
+            getSubCategory(data[0].categoryName);
+            setCategoryLoading(false);
+            setMainCatValue(data[0].categoryName)
+        }).catch(err=>{
+            alert("Something went wrong!!");
+            setCategoryLoading(false);
+        })
     }
 
     // get Subcategory
@@ -28,6 +48,7 @@ function CategoryDelete() {
             let data=response.data;
             setSubCatLoading(false);
             setSubCategoryArray(data);
+            setSubCatValue(data[0]);
         }).catch(err=>{
             setSubCatLoading(false);
             alert("Something went wrong!!")
@@ -36,17 +57,66 @@ function CategoryDelete() {
 
     // component did mount
     useEffect(()=>{
-        setCategoryLoading(true);
-        axios.get("/admin/category/get").then(response=>{
-            let data=response.data;
-            setCategoryArray(data);
-            getSubCategory(data[0].categoryName);
-            setCategoryLoading(false);
-        }).catch(err=>{
-            alert("Something went wrong!!");
-            setCategoryLoading(false);
-        })
+        getMainCat();
     }, [])
+
+    // delete handlier
+    function deleteMainCategory(){
+        swal({
+            title: "Are you sure?",
+            text: `Do you want to delete category ${mainCatValue}`,
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+          })
+          .then((willDelete) => {
+            if (willDelete) {
+                axios.delete(`/admin/category/deleteMain/${mainCatValue}`).then(response=>{
+                    swal("Category has been deleted!!", {
+                        icon: "success",
+                      });
+                    getMainCat();
+                }).catch(err=>{
+                    swal("Something went wrong", {
+                        icon:"error",
+                      });
+                })
+            } else {
+              return;
+            }
+          });
+    }
+
+    function deleteSubCategory(){
+        swal({
+            title: "Are you sure?",
+            text: `Do you want to delete category ${subCatValue}`,
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+          })
+          .then((willDelete) => {
+            if (willDelete) {
+                axios.delete(`/admin/category/deleteSub/`, {
+                    params:{
+                        categoryName:mainCatValue,
+                        subName:subCatValue
+                    }
+                }).then(response=>{
+                    swal("SubCategory has been deleted!!", {
+                        icon: "success",
+                      });
+                      getSubCategory(mainCatValue);
+                }).catch(err=>{
+                    swal("Something went wrong", {
+                        icon:"error",
+                      });
+                })
+            } else {
+              return;
+            }
+          });
+    }
 
     return (
         <div>
@@ -61,7 +131,7 @@ function CategoryDelete() {
                         {
                             categoryLoading&&<LinearProgress />
                         }
-                        <Form.Select size="lg" onChange={handleMainSelect}>
+                        <Form.Select size="lg" value={mainCatValue} onChange={handleMainSelect}>
                             {
                                 categoryArray?.map((item)=>{
                                     return <option key={item._id}>{item.categoryName}</option>
@@ -73,7 +143,7 @@ function CategoryDelete() {
                         {
                             subCatLoading&&<LinearProgress />
                         }
-                        <Form.Select>
+                        <Form.Select value={subCatValue} onChange={(e)=>setSubCatValue(e.target.value)}>
                             {
                             subCategoryArray?.map((item, index)=>{
                                 return <option key={index}>{item}</option>
@@ -81,6 +151,8 @@ function CategoryDelete() {
                             }
                         </Form.Select>
                         <br />
+                        <Button variant="secondary" style={{marginLeft:"1rem", marginTop:"1rem"}} onClick={deleteMainCategory}>Delete MainCategory</Button>
+                        <Button variant="success" style={{marginLeft:"1rem", marginTop:"1rem"}} onClick={deleteSubCategory}>Delete SubCategory</Button>
                         </form>
                     </div>
                     <div className="col-12 col-md-2"></div>

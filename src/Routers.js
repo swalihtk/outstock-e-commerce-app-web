@@ -4,6 +4,7 @@ import {BrowserRouter, Routes, Route, Navigate} from 'react-router-dom';
 import CategoryMain from './components/admin/category/CategoryMain';
 import ListUsersMain from './components/admin/listUsers/ListUsersMain';
 import AdminMain from './components/admin/main/AdminMain';
+import ProductMain from './components/admin/product/ProductMain';
 import Home from './components/common/Home';
 import Login from './components/user/Login';
 import Logout from './components/user/Logout';
@@ -37,6 +38,7 @@ function Routers() {
                         <>
                         <Route path="/admin/users" element={<ListUsersMain />} />
                         <Route path="/admin/category" element={<CategoryMain />} />
+                        <Route path="/admin/product" element={<ProductMain />} />
                         </>
                     }
                     

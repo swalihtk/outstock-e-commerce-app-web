@@ -35,6 +35,7 @@ function NavigationBar({iconShow}) {
     }, [])
 
 
+    
     if(loading){
         return (
             <LinearProgress color="secondary" />
