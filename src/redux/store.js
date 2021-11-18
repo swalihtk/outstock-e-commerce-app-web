@@ -5,10 +5,13 @@ import { userLoginFetchReducer } from "./user/logincheckReducer";
 import { spinnerReducer } from "./user/spinnerLoading";
 import { productAddReducer } from "./admin/productAdd";
 import { productShowReducer } from "./admin/showAllProduct";
-import { oneProductShowAdminReducer } from "./admin/showOneProduct";
 import { productUpdateReducer } from "./admin/productUpdate";
 import { listCategoryHomeReducer } from "./home/categoryList";
 import { fetchProductDetailsHomeReducer } from "./home/productDetails";
+import { fetchAllCatgoryProductReducer } from "./home/AllProduct";
+
+import { composeWithDevTools } from "redux-devtools-extension";
+import { subCategoryListReducer } from "./home/AllProductSub";
 
 const rootReducer = combineReducers({
   // user
@@ -19,14 +22,18 @@ const rootReducer = combineReducers({
   adminLogedin: adminLoginFetchReducer,
   productAddAdmin: productAddReducer,
   productListAdmin: productShowReducer,
-  productOneAdmin: oneProductShowAdminReducer,
   productUpdateAdmin: productUpdateReducer,
 
   // home
   categoryList: listCategoryHomeReducer,
   productDetailsHome: fetchProductDetailsHomeReducer,
+  productByCategory: fetchAllCatgoryProductReducer,
+  productBySubCat: subCategoryListReducer,
 });
 
-const store = createStore(rootReducer, applyMiddleware(thunk));
+const store = createStore(
+  rootReducer,
+  composeWithDevTools(applyMiddleware(thunk))
+);
 
 export default store;

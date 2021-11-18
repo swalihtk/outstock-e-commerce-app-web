@@ -15,7 +15,6 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import { CircularProgress } from "@material-ui/core";
 import EditProduct from "./EditProduct";
-import { showOneProductAdmin } from "../../../redux/admin/showOneProduct";
 
 const useStyles = makeStyles({
   table: {

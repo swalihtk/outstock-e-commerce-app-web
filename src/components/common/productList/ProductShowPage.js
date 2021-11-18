@@ -25,31 +25,78 @@ function ProductShowPage({ product }) {
     window.addEventListener("resize", slideImage);
   }, []);
 
+  let productImages = product.productImages;
+
   return (
     <div className="card-wrapper" style={{ display: "flex" }}>
       <div className="card">
         <div className="product-imgs">
           <div className="img-display">
             <div className="img-showcase">
-              <img src={product?.productImages[0].img} alt="shoe image" />
-              <img src={product?.productImages[1].img} alt="shoe image" />
-              <img src={product?.productImages[2].img} alt="shoe image" />
+              <img
+                src={
+                  productImages
+                    ? productImages[0].img
+                    : "https://previews.123rf.com/images/pavelstasevich/pavelstasevich1811/pavelstasevich181101027/112815900-no-image-available-icon-flat-vector.jpg"
+                }
+                alt="shoe image"
+              />
+              <img
+                src={
+                  productImages
+                    ? productImages[1].img
+                    : "https://previews.123rf.com/images/pavelstasevich/pavelstasevich1811/pavelstasevich181101027/112815900-no-image-available-icon-flat-vector.jpg"
+                }
+                alt="shoe image"
+              />
+              <img
+                src={
+                  productImages
+                    ? productImages[2].img
+                    : "https://previews.123rf.com/images/pavelstasevich/pavelstasevich1811/pavelstasevich181101027/112815900-no-image-available-icon-flat-vector.jpg"
+                }
+                alt="shoe image"
+              />
             </div>
           </div>
           <div className="img-select">
             <div className="img-item">
               <a href="#" data-id="1">
-                <img src={product.productImages[0].img} alt="shoe image" />
+                <img
+                  style={{ maxHeight: "200px" }}
+                  src={
+                    productImages
+                      ? productImages[0].img
+                      : "https://previews.123rf.com/images/pavelstasevich/pavelstasevich1811/pavelstasevich181101027/112815900-no-image-available-icon-flat-vector.jpg"
+                  }
+                  alt="shoe image"
+                />
               </a>
             </div>
             <div className="img-item">
               <a href="#" data-id="2">
-                <img src={product.productImages[1].img} alt="shoe image" />
+                <img
+                  style={{ maxHeight: "200px" }}
+                  src={
+                    productImages
+                      ? productImages[1].img
+                      : "https://previews.123rf.com/images/pavelstasevich/pavelstasevich1811/pavelstasevich181101027/112815900-no-image-available-icon-flat-vector.jpg"
+                  }
+                  alt="shoe image"
+                />
               </a>
             </div>
             <div className="img-item">
               <a href="#" data-id="3">
-                <img src={product.productImages[2].img} alt="shoe image" />
+                <img
+                  style={{ maxHeight: "200px" }}
+                  src={
+                    productImages
+                      ? productImages[2].img
+                      : "https://previews.123rf.com/images/pavelstasevich/pavelstasevich1811/pavelstasevich181101027/112815900-no-image-available-icon-flat-vector.jpg"
+                  }
+                  alt="shoe image"
+                />
               </a>
             </div>
           </div>
@@ -107,7 +154,7 @@ function ProductShowPage({ product }) {
               Add to Cart <i className="fas fa-shopping-cart"></i>
             </button>
             <button type="button" className="btn">
-              Compare
+              Add to Wishlist
             </button>
           </div>
 

@@ -5,6 +5,7 @@ import SubCategory from "./SubCategory";
 
 function MainCategory({ category }) {
   let subCategory = category.subCategery;
+  let routeCategory = category.categoryName.replace("&", "%26");
 
   return (
     <NavDropdown
@@ -14,12 +15,12 @@ function MainCategory({ category }) {
     >
       <NavDropdown.Item
         as={Link}
-        to={`/products/${category.categoryName}`}
+        to={`/category/${routeCategory}`}
         eventKey="4.1"
       >
         All
       </NavDropdown.Item>
-      <SubCategory sub={subCategory} />
+      <SubCategory sub={subCategory} mainCategory={category.categoryName} />
     </NavDropdown>
   );
 }

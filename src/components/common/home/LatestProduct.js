@@ -15,7 +15,6 @@ function LatestProduct() {
       .then((response) => {
         setLoading(false);
         setProducts(response.data);
-        console.log(products);
       })
       .catch((err) => {
         setLoading(false);

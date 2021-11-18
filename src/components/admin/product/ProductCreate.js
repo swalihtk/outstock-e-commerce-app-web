@@ -349,7 +349,6 @@ function ProductCreate() {
               placeholder="short description"
               value={shortDescription}
               onChange={(e) => setShortDescription(e.target.value)}
-              required
             />
           </FloatingLabel>
           <FloatingLabel controlId="floatingTextarea2" label="details">

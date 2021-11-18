@@ -69,6 +69,7 @@ function updateProductAdmin(filesForm, body, id) {
 
     if (imageIdLength > 0) {
       dispach(fetchProductAdd());
+      swal("Updating product", { buttons: false });
       axios
         .post("/admin/product/getImageLink", filesForm)
         .then((response) => {
@@ -85,7 +86,7 @@ function updateProductAdmin(filesForm, body, id) {
                 button: "Ok!",
               });
 
-              window.location.assign("/admin/product");
+              window.location.reload();
             })
             .catch((err) => {
               dispach(fetchProductError(err));

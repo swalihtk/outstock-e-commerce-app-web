@@ -8,6 +8,9 @@ import EditProduct from "./components/admin/product/EditProduct";
 import ProductMain from "./components/admin/product/ProductMain";
 import Home from "./components/common/home/Home";
 import ProductDetails from "./components/common/productList/ProductDetails";
+import CategoryProduct from "./components/common/productPage/CategoryProduct";
+import ProductListMain from "./components/common/productPage/ProductListMain";
+import SubCategoryListMain from "./components/common/SubCatList/ProductListMain";
 import Login from "./components/user/Login";
 import Logout from "./components/user/Logout";
 import Register from "./components/user/Register";
@@ -41,6 +44,8 @@ function Routers() {
 
         {/* Home routers */}
         <Route path="/productdetails/:prodId" element={<ProductDetails />} />
+        <Route path="/category/:category" element={<ProductListMain />} />
+        <Route path="/subcategory" element={<SubCategoryListMain />} />
 
         {/* Admin Routers */}
         <Route path="/admin" element={<AdminMain />} />

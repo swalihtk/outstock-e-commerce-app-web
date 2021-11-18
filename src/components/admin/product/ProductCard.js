@@ -55,12 +55,14 @@ function ProductCard({ item, index }) {
         <TableCell component="th" scope="row">
           {index}
         </TableCell>
-        <TableCell align="center">{name}</TableCell>
+        <TableCell align="center" style={{ width: "30%" }}>
+          {name}
+        </TableCell>
         <TableCell align="center">{price}</TableCell>
         <TableCell align="center">{category}</TableCell>
         <TableCell align="center">
           <img
-            style={{ maxWidth: "100px" }}
+            style={{ maxWidth: "100px", maxHeight: "100px" }}
             src={productImages[0].img}
             alt=""
           />
