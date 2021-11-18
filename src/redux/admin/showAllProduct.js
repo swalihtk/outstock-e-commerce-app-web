@@ -1,78 +1,79 @@
 import axios from "axios";
 
-const PRODUCT_FETCH="PRODUCT_FETCH";
-const PRODUCT_SUCCESS="PRODUCT_SUCCESS";
-const PRODUCT_ERROR="PRODUCT_ERROR";
+const PRODUCT_FETCH = "PRODUCT_FETCH";
+const PRODUCT_SUCCESS = "PRODUCT_SUCCESS";
+const PRODUCT_ERROR = "PRODUCT_ERROR";
 
-const initialState={
-    loading:false,
-    productsArray:[],
-    error:""
-}
+const initialState = {
+  loading: false,
+  productsArray: [],
+  error: "",
+};
 
 // action
-function fetchProduct(){
-    return {
-        type:PRODUCT_FETCH
-    }
+function fetchProduct() {
+  return {
+    type: PRODUCT_FETCH,
+  };
 }
 
-
-function fetchProductSuccess(data){
-    return {
-        type:PRODUCT_SUCCESS,
-        payload:data
-    }
+function fetchProductSuccess(data) {
+  return {
+    type: PRODUCT_SUCCESS,
+    payload: data,
+  };
 }
 
-function fetchProductError(data){
-    return {
-        type:PRODUCT_ERROR,
-        payload:data
-    }
+function fetchProductError(data) {
+  return {
+    type: PRODUCT_ERROR,
+    payload: data,
+  };
 }
 
 // reducer
-const productShowReducer=(state=initialState, action)=>{
-    switch(action.type){
-        case PRODUCT_FETCH:
-            return {
-                ...state,
-                loading:true,
-                productsArray:[],
-                error:""
-            }
-        
-        case PRODUCT_SUCCESS:
-            return {
-                loading:false,
-                productsArray:action.payload,
-                error:""
-            }
-        
-        case PRODUCT_ERROR:
-            return {
-                loading:false,
-                productsArray:[],
-                error:action.payload
-            }
+const productShowReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case PRODUCT_FETCH:
+      return {
+        ...state,
+        loading: true,
+        productsArray: [],
+        error: "",
+      };
 
-        default:
-            return state;
-    }
-}
+    case PRODUCT_SUCCESS:
+      return {
+        loading: false,
+        productsArray: action.payload,
+        error: "",
+      };
 
+    case PRODUCT_ERROR:
+      return {
+        loading: false,
+        productsArray: [],
+        error: action.payload,
+      };
+
+    default:
+      return state;
+  }
+};
 
 // dispatch function
-function showAllProductAdmin(){
-    return dispatch=>{
-        dispatch(fetchProduct());
-        axios.get("/admin/product/listAll").then(response=>{
-            dispatch(fetchProductSuccess(response.data));
-        }).catch(err=>{
-            dispatch(fetchProductError(err))
-        })
-    }
+function showAllProductAdmin() {
+  return (dispatch) => {
+    dispatch(fetchProduct());
+    axios
+      .get("/admin/product/listAll")
+      .then((response) => {
+        dispatch(fetchProductSuccess(response.data));
+      })
+      .catch((err) => {
+        dispatch(fetchProductError(err));
+      });
+  };
 }
 
-export {showAllProductAdmin, productShowReducer};
+export { showAllProductAdmin, productShowReducer };
