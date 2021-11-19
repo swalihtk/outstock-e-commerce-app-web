@@ -10,10 +10,8 @@ import {
 } from "react-bootstrap";
 import "../style.css";
 import { useSelector, useDispatch } from "react-redux";
-import { addProductAdmin } from "../../../redux/admin/productAdd";
 import swal from "sweetalert";
 import { LinearProgress } from "@material-ui/core";
-import { useNavigate } from "react-router";
 
 function ProductCreate() {
   /*****PARAMS********
@@ -87,18 +85,13 @@ function ProductCreate() {
     getMainCat();
   }, []);
 
-  /********* Redux *****/
-  const productState = useSelector((state) => state.productAddAdmin);
-  let dispatch = useDispatch();
-
   /*********** Form Handler State ********/
   let [name, setName] = useState("");
-  let [price, setPrice] = useState(0);
+  let [price, setPrice] = useState("");
   let [details, setDetails] = useState("");
-  let [shortDescription, setShortDescription] = useState("");
   let [color, setColor] = useState("black");
   let [brand, setBrand] = useState("");
-  let [quanity, setQuantity] = useState(0);
+  let [quanity, setQuantity] = useState("");
 
   // image handler
   let [image1, setImage1] = useState("");
@@ -109,6 +102,14 @@ function ProductCreate() {
   let [previewSource2, setPreviewSource2] = useState("");
   let [previewSource3, setPreviewSource3] = useState("");
   let [allImageFiles, setAllImageFiles] = useState([]);
+
+  // form error
+  let [nameErr, setNameErr] = useState("");
+  let [priceErr, setPriceErr] = useState("");
+  let [detailsErr, setDetailsErr] = useState("");
+  let [quantityErr, setQuantityErr] = useState("");
+  let [brandErr, setBrandErr] = useState("");
+  let [imageErr, setImageErr] = useState("");
 
   /********** Handle Image *********/
   function previewImageOne(e) {
@@ -138,42 +139,90 @@ function ProductCreate() {
   /****** Upload Product Handler *****/
   function uploadProduct(e) {
     e.preventDefault();
+    if (!name) {
+      resetError();
+      setNameErr("Please provide a name");
+    } else if (!price) {
+      resetError();
+      setPriceErr("Enter the price");
+    } else if (!details) {
+      resetError();
+      setDetailsErr("Please provide details");
+    } else if (!quanity) {
+      console.log("jldkj");
+      resetError();
+      setQuantityErr("Please provide quanity");
+    } else if (!brand) {
+      resetError();
+      setBrandErr("Please provide brand name");
+    } else if (!previewSource1 && !previewSource2 && !previewSource3) {
+      resetError();
+      setImageErr("You need three images to create product!");
+    } else {
+      resetError();
 
-    let formData = new FormData();
-    for (let file of allImageFiles) {
-      formData.append("image", file);
+      let formData = new FormData();
+      for (let file of allImageFiles) {
+        formData.append("image", file);
+      }
+
+      let body = {
+        name: name,
+        price: price,
+        details: details,
+        color: color,
+        brand: brand,
+        category: mainCatValue,
+        subCategory: subCatValue,
+        quantity: quanity,
+      };
+
+      swal("Product Uploading", { buttons: false });
+      axios
+        .post("/admin/product/getImageLink", formData)
+        .then((response) => {
+          let data = response.data;
+          body.productImages = data;
+          axios
+            .post("/admin/product/add", body)
+            .then((response) => {
+              swal({
+                title: "Success",
+                text: "Product Uploaded!",
+                icon: "success",
+                button: "Ok!",
+              });
+
+              window.location.reload();
+            })
+            .catch((err) => {
+              swal({
+                title: "Error",
+                text: err,
+                icon: "error",
+                button: "Ok!",
+              });
+            });
+        })
+        .catch((err) => {
+          alert("Something went wrong");
+        });
     }
+  }
 
-    let body = {
-      name: name,
-      price: price,
-      details: details,
-      shortDescription: shortDescription,
-      color: color,
-      brand: brand,
-      category: mainCatValue,
-      subCategory: subCatValue,
-      quantity: quanity,
-    };
-
-    dispatch(addProductAdmin(formData, body));
+  function resetError() {
+    setNameErr("");
+    setPriceErr("");
+    setQuantityErr("");
+    setDetailsErr("");
+    setBrandErr("");
+    setImageErr("");
   }
 
   return (
     <div>
       <h5 className="text-center">--</h5>
       <h3 className="text-center">Create new Product</h3>
-
-      {productState.loading && (
-        <div className="spinner-loading">
-          <div className="spinner-loading-class">
-            <Spinner animation="border" role="status">
-              <span className="visually-hidden">Loading...</span>
-            </Spinner>
-            <h1>Uploading</h1>
-          </div>
-        </div>
-      )}
 
       <div className="container">
         <Form
@@ -188,8 +237,8 @@ function ProductCreate() {
                 placeholder="Name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                required
               />
+              {nameErr && <FormError err={nameErr} />}
             </Col>
             <Col>
               <Form.Control
@@ -198,8 +247,8 @@ function ProductCreate() {
                 min={0}
                 value={price}
                 onChange={(e) => setPrice(e.target.value)}
-                required
               />
+              {priceErr && <FormError err={priceErr} />}
             </Col>
           </Row>
           <Row className="mt-4">
@@ -208,8 +257,8 @@ function ProductCreate() {
                 placeholder="brand"
                 value={brand}
                 onChange={(e) => setBrand(e.target.value)}
-                required
               />
+              {brandErr && <FormError err={brandErr} />}
             </Col>
             <Col>
               <Form.Select
@@ -232,6 +281,7 @@ function ProductCreate() {
                 value={quanity}
                 onChange={(e) => setQuantity(e.target.value)}
               />
+              {quantityErr && <FormError err={quantityErr} />}
             </Col>
           </Row>
           <Row className="mt-4">
@@ -242,7 +292,6 @@ function ProductCreate() {
                   type="file"
                   onChange={previewImageOne}
                   name="image"
-                  required
                 />
               </Form.Group>
             </Col>
@@ -253,7 +302,6 @@ function ProductCreate() {
                   type="file"
                   onChange={previewImageTwo}
                   name="image"
-                  required
                 />
               </Form.Group>
             </Col>
@@ -264,7 +312,6 @@ function ProductCreate() {
                   type="file"
                   onChange={previewImageThree}
                   name="image"
-                  required
                 />
               </Form.Group>
             </Col>
@@ -303,6 +350,18 @@ function ProductCreate() {
                 alt=""
               />
             </Col>
+            {imageErr && (
+              <p
+                className="text-center text-danger"
+                style={{
+                  display: "inline",
+                  marginBottom: "0",
+                  marginTop: "0.4rem",
+                }}
+              >
+                {imageErr}
+              </p>
+            )}
           </Row>
           <Row className="g-2 mt-4">
             <Col md>
@@ -343,14 +402,7 @@ function ProductCreate() {
             controlId="floatingTextarea"
             label="short description"
             className="mb-3 mt-4"
-          >
-            <Form.Control
-              as="textarea"
-              placeholder="short description"
-              value={shortDescription}
-              onChange={(e) => setShortDescription(e.target.value)}
-            />
-          </FloatingLabel>
+          ></FloatingLabel>
           <FloatingLabel controlId="floatingTextarea2" label="details">
             <Form.Control
               as="textarea"
@@ -358,8 +410,8 @@ function ProductCreate() {
               style={{ height: "100px" }}
               value={details}
               onChange={(e) => setDetails(e.target.value)}
-              required
             />
+            {detailsErr && <FormError err={detailsErr} />}
           </FloatingLabel>
 
           <Button className="mb-4 mt-3 product-create-btn" type="submit">
@@ -368,6 +420,17 @@ function ProductCreate() {
         </Form>
       </div>
     </div>
+  );
+}
+
+function FormError({ err }) {
+  return (
+    <p
+      className="text-danger"
+      style={{ display: "inline", marginLeft: "0.4rem" }}
+    >
+      {err}
+    </p>
   );
 }
 

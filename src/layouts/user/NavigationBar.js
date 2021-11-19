@@ -101,7 +101,7 @@ function NavigationBar({ iconShow }) {
                     </Navbar.Text>
                     <Nav className="nav-link">
                       <Link
-                        to={logedin ? "/logout" : "login"}
+                        to={logedin ? "/logout" : "/login"}
                         style={linkStyle}
                       >
                         {logedin ? "Logout" : "Login"}

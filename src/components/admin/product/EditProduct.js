@@ -9,13 +9,9 @@ import {
   Spinner,
 } from "react-bootstrap";
 import "../style.css";
-import { useSelector, useDispatch } from "react-redux";
-import { addProductAdmin } from "../../../redux/admin/productAdd";
 import swal from "sweetalert";
-import { CircularProgress, LinearProgress } from "@material-ui/core";
+import { LinearProgress } from "@material-ui/core";
 import { useNavigate, useParams } from "react-router";
-import { updateProductAdmin } from "../../../redux/admin/productUpdate";
-import ContentSpinner from "../../../layouts/user/ContentSpinner";
 
 function EditProduct(props) {
   /**** Update functions  ***/
@@ -82,16 +78,14 @@ function EditProduct(props) {
   }
 
   /********* Redux *****/
-  let dispatch = useDispatch();
 
   /*********** Form Handler State ********/
   let [name, setName] = useState("");
-  let [price, setPrice] = useState(1);
+  let [price, setPrice] = useState("");
   let [details, setDetails] = useState("");
-  let [shortDescription, setShortDescription] = useState("");
   let [color, setColor] = useState("black");
   let [brand, setBrand] = useState("");
-  let [quanity, setQuantity] = useState(1);
+  let [quanity, setQuantity] = useState("");
 
   // image handler
   let [image1, setImage1] = useState("");
@@ -144,7 +138,7 @@ function EditProduct(props) {
   }
 
   useEffect(() => {
-    // getMainCat();
+    getMainCat();
     axios
       .get("/admin/product/listOne/" + id)
       .then((response) => {
@@ -155,7 +149,6 @@ function EditProduct(props) {
         setName(data.name);
         setPrice(data.price);
         setDetails(data.details);
-        setShortDescription(data.shortDescription);
         setColor(data.color);
         setBrand(data.brand);
         // setQuantity(data.quanity);
@@ -173,29 +166,110 @@ function EditProduct(props) {
       });
   }, [id]);
 
+  // form error
+  let [nameErr, setNameErr] = useState("");
+  let [priceErr, setPriceErr] = useState("");
+  let [detailsErr, setDetailsErr] = useState("");
+  let [quantityErr, setQuantityErr] = useState("");
+  let [brandErr, setBrandErr] = useState("");
+  let [imageErr, setImageErr] = useState("");
+
   /****** Upload Product Handler *****/
   function uploadProduct(e) {
     e.preventDefault();
+    if (!name) {
+      resetError();
+      setNameErr("Please provide a name");
+    } else if (!price) {
+      resetError();
+      setPriceErr("Enter the price");
+    } else if (!details) {
+      resetError();
+      setDetailsErr("Please provide details");
+    } else if (!quanity) {
+      console.log("jldkj");
+      resetError();
+      setQuantityErr("Please provide quanity");
+    } else if (!brand) {
+      resetError();
+      setBrandErr("Please provide brand name");
+    } else if (!previewSource1 && !previewSource2 && !previewSource3) {
+      resetError();
+      setImageErr("You need three images to create product!");
+    } else {
+      let formData = new FormData();
+      for (let file of allImageFiles) {
+        formData.append("image", file);
+      }
 
-    let formData = new FormData();
-    for (let file of allImageFiles) {
-      formData.append("image", file);
+      let body = {
+        name: name,
+        price: price,
+        details: details,
+        color: color,
+        brand: brand,
+        category: mainCatValue,
+        subCategory: subCatValue,
+        quantity: quanity,
+        imageIds: imageIds,
+      };
+
+      /*** Product Updating ***/
+      let imageIdLength = imageIds.length;
+
+      if (imageIdLength > 0) {
+        swal("Updating product", { buttons: false });
+        axios
+          .post("/admin/product/getImageLink", formData)
+          .then((response) => {
+            let data = response.data;
+            body.productImages = data;
+            axios
+              .put("/admin/product/update/" + id, body)
+              .then((response) => {
+                swal({
+                  title: "Success",
+                  text: "Product Uploaded!",
+                  icon: "success",
+                  button: "Ok!",
+                });
+
+                navigate("/admin/product");
+              })
+              .catch((err) => {
+                alert("Something went wrong");
+              });
+          })
+          .catch((err) => {
+            alert("Something went wrong");
+          });
+      } else {
+        axios
+          .put("/admin/product/update/" + id, body)
+          .then((response) => {
+            swal({
+              title: "Success",
+              text: "Product Uploaded!",
+              icon: "success",
+              button: "Ok!",
+            });
+
+            navigate("/admin/product");
+          })
+          .catch((err) => {
+            alert("Something went wrong!");
+          });
+      }
     }
+  }
 
-    let body = {
-      name: name,
-      price: price,
-      details: details,
-      shortDescription: shortDescription,
-      color: color,
-      brand: brand,
-      category: mainCatValue,
-      subCategory: subCatValue,
-      quantity: quanity,
-      imageIds: imageIds,
-    };
-
-    dispatch(updateProductAdmin(formData, body, id));
+  function resetError() {
+    setNameErr("");
+    setPriceErr("");
+    setQuantityErr("");
+    setDetailsErr("");
+    setBrandErr("");
+    setImageErr("");
   }
 
   return (
@@ -216,8 +290,8 @@ function EditProduct(props) {
                 placeholder="Name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                required
               />
+              {nameErr && <FormError err={nameErr} />}
             </Col>
             <Col>
               <Form.Control
@@ -226,8 +300,8 @@ function EditProduct(props) {
                 min={0}
                 value={price}
                 onChange={(e) => setPrice(e.target.value)}
-                required
               />
+              {priceErr && <FormError err={priceErr} />}
             </Col>
           </Row>
           <Row className="mt-4">
@@ -236,8 +310,8 @@ function EditProduct(props) {
                 placeholder="brand"
                 value={brand}
                 onChange={(e) => setBrand(e.target.value)}
-                required
               />
+              {brandErr && <FormError err={brandErr} />}
             </Col>
             <Col>
               <Form.Select
@@ -368,15 +442,7 @@ function EditProduct(props) {
             controlId="floatingTextarea"
             label="short description"
             className="mb-3 mt-4"
-          >
-            <Form.Control
-              as="textarea"
-              placeholder="short description"
-              value={shortDescription}
-              onChange={(e) => setShortDescription(e.target.value)}
-              required
-            />
-          </FloatingLabel>
+          ></FloatingLabel>
           <FloatingLabel controlId="floatingTextarea2" label="details">
             <Form.Control
               as="textarea"
@@ -384,8 +450,8 @@ function EditProduct(props) {
               style={{ height: "100px" }}
               value={details}
               onChange={(e) => setDetails(e.target.value)}
-              required
             />
+            {detailsErr && <FormError err={detailsErr} />}
           </FloatingLabel>
 
           <Button className="mb-4 mt-3 product-create-btn" type="submit">
@@ -400,6 +466,17 @@ function EditProduct(props) {
         </Form>
       </div>
     </div>
+  );
+}
+
+function FormError({ err }) {
+  return (
+    <p
+      className="text-danger"
+      style={{ display: "inline", marginLeft: "0.4rem" }}
+    >
+      {err}
+    </p>
   );
 }
 

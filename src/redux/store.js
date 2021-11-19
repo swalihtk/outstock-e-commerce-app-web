@@ -3,9 +3,7 @@ import thunk from "redux-thunk";
 import { adminLoginFetchReducer } from "./admin/adminLoginReducer";
 import { userLoginFetchReducer } from "./user/logincheckReducer";
 import { spinnerReducer } from "./user/spinnerLoading";
-import { productAddReducer } from "./admin/productAdd";
 import { productShowReducer } from "./admin/showAllProduct";
-import { productUpdateReducer } from "./admin/productUpdate";
 import { listCategoryHomeReducer } from "./home/categoryList";
 import { fetchProductDetailsHomeReducer } from "./home/productDetails";
 import { fetchAllCatgoryProductReducer } from "./home/AllProduct";
@@ -20,9 +18,7 @@ const rootReducer = combineReducers({
 
   // admin
   adminLogedin: adminLoginFetchReducer,
-  productAddAdmin: productAddReducer,
   productListAdmin: productShowReducer,
-  productUpdateAdmin: productUpdateReducer,
 
   // home
   categoryList: listCategoryHomeReducer,

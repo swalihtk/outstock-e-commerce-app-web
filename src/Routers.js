@@ -23,6 +23,7 @@ function Routers() {
   let dispatch = useDispatch();
 
   useEffect(() => {
+    console.log("working");
     dispatch(isUserLogedIn());
     dispatch(isAdminLogedIn());
   }, []);
@@ -32,6 +33,12 @@ function Routers() {
       <Routes>
         {/* User Routers */}
         <Route path="/" element={<Home />} />
+
+        <Route
+          path="/cart"
+          element={logedin ? <h1>Cart</h1> : <Navigate to="/" />}
+        />
+
         <Route
           path="/login"
           element={logedin ? <Navigate to="/" /> : <Login />}

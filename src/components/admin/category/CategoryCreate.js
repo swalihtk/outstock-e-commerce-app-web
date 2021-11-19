@@ -15,43 +15,59 @@ function CategoryCreate() {
   // create loader
   let [createLoader, setCreateLoader] = useState(false);
 
+  // form error handler
+  let [formError, setFormError] = useState("");
+
   // create category
   function createCategory(e) {
     e.preventDefault();
-    setCreateLoader(true);
-    axios
-      .post("/admin/category/add", {
-        mainCategoryName: mainCatName,
-        subCategoryArray: subArray,
-      })
-      .then((response) => {
-        setCreateLoader(false);
-        swal({
-          title: "Success!!",
-          text: "Category Created",
-          icon: "success",
-          button: "Ok!",
+
+    if (!mainCatName) {
+      setFormError("please input main category name!");
+    } else if (subArray.length <= 0) {
+      setFormError("you need atleast one sub category");
+    } else {
+      setCreateLoader(true);
+      setFormError("");
+      axios
+        .post("/admin/category/add", {
+          mainCategoryName: mainCatName,
+          subCategoryArray: subArray,
+        })
+        .then((response) => {
+          setCreateLoader(false);
+          swal({
+            title: "Success!!",
+            text: "Category Created",
+            icon: "success",
+            button: "Ok!",
+          });
+          setMainCatName("");
+          setSubArray([]);
+        })
+        .catch((err) => {
+          setCreateLoader(false);
+          swal({
+            title: "Error!!",
+            text: "Something went problem!",
+            icon: "error",
+            button: "Ok!",
+          });
         });
-        setMainCatName("");
-        setSubArray([]);
-      })
-      .catch((err) => {
-        setCreateLoader(false);
-        swal({
-          title: "Error!!",
-          text: "Something went problem!",
-          icon: "error",
-          button: "Ok!",
-        });
-      });
+    }
   }
 
   // subArray handling
   function addToSubArray() {
-    setSubArray((prev) => {
-      return [...prev, subCatName];
-    });
-    setSubCatName("");
+    if (!subCatName) {
+      setFormError("You need to input subcat name");
+    } else {
+      setFormError("");
+      setSubArray((prev) => {
+        return [...prev, subCatName];
+      });
+      setSubCatName("");
+    }
   }
 
   return (
@@ -73,7 +89,6 @@ function CategoryCreate() {
                   placeholder="Category Name"
                   value={mainCatName}
                   onChange={(e) => setMainCatName(e.target.value)}
-                  required
                 />
               </FloatingLabel>
               <div style={{ display: "flex" }}>
@@ -91,7 +106,13 @@ function CategoryCreate() {
                 <Button variant="warning" onClick={addToSubArray}>
                   Add
                 </Button>
+                {formError && (
+                  <p className="text-danger" style={{ marginLeft: "1rem" }}>
+                    {formError}
+                  </p>
+                )}
               </div>
+
               <Button
                 variant="primary"
                 type="submit"

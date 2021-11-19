@@ -1,51 +1,58 @@
 /* List Users */
-.listUsers-nav{
-    margin-left: 3rem !important;
+.listUsers-nav {
+  margin-left: 3rem !important;
 }
 
-.listUsers-nav button{
-    margin-left: 1rem;
-    margin-top: 1rem;
+.listUsers-nav button {
+  margin-left: 1rem;
+  margin-top: 1rem;
 }
-
-
 
 /* product */
-.product-preview_image{
-    height: 100px;
-    width: 50%;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+.product-preview_image {
+  height: 100px;
+  width: 50%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.product-create-btn{
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 1rem;
+.product-create-btn {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 1rem;
 }
 
-.progress-bar-product{
-    height: 80vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+.progress-bar-product {
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 /* spinner */
-.spinner-loading{
-    position: absolute;
-    left: 30vw;
-    top: 69%;
-    background: aliceblue;
-    padding: 10px
+.spinner-loading {
+  position: absolute;
+  left: 30vw;
+  top: 69%;
+  background: aliceblue;
+  padding: 10px;
 }
 
-.spinner-loading-class{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+.spinner-loading-class {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/** category **/
+.categorymain-editing {
+  display: block;
+  padding: 10px;
+  margin: auto;
+  font-size: 1.3rem;
+  font-weight: 600;
 }

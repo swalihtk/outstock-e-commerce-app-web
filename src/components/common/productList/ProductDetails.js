@@ -24,7 +24,7 @@ function ProductDetails() {
       <>
         <NavigationBar iconShow={true} />
 
-        <div style={{ marginTop: "4rem" }}>
+        <div style={{ marginTop: "1rem" }}>
           <ProductShowPage product={product} />
         </div>
       </>
