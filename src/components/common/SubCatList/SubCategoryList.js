@@ -11,7 +11,7 @@ function SubCategoryList({ mainCat, subCat }) {
 
   useEffect(() => {
     dispatch(listProductsInSubCat(mainCat, subCat));
-  }, [mainCat, subCat]);
+  }, [mainCat, subCat, dispatch]);
 
   if (loading) {
     return <ContentSpinner variant="success" />;

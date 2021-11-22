@@ -47,6 +47,11 @@
   .navbar-text {
     margin-left: 1rem;
   }
+
+  .nav__search {
+    width: 100% !important;
+    margin-left: 0 !important;
+  }
 }
 
 @media screen and (max-width: 700px) {

@@ -20,6 +20,11 @@ function LatestProduct() {
         setLoading(false);
         alert("Something went wrong");
       });
+
+    return () => {
+      setProducts([]);
+      setLoading(false);
+    };
   }, []);
 
   if (loading) {

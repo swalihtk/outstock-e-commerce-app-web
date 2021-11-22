@@ -1,10 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { Container, Form, Nav, Navbar, NavDropdown } from "react-bootstrap";
+import {
+  Container,
+  Form,
+  FormControl,
+  Nav,
+  Navbar,
+  NavDropdown,
+  Button,
+} from "react-bootstrap";
 import "./NavigationBar.css";
 import PersonIcon from "@material-ui/icons/Person";
 import { useDispatch, useSelector } from "react-redux";
 import { isUserLogedIn } from "../../redux/user/logincheckReducer";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { LinearProgress } from "@material-ui/core";
 import axios from "axios";
 import MenuIcon from "@material-ui/icons/Menu";
@@ -18,8 +26,13 @@ function NavigationBar({ iconShow }) {
   let { loading, logedin, userId } = useSelector((state) => state.userLogin);
   let dispatch = useDispatch();
 
+  let [searchText, setSearchText] = useState("");
+
   // userDetails
   let [userName, setUserName] = useState("");
+
+  // navigate
+  let navigate = useNavigate();
 
   useEffect(() => {
     dispatch(isUserLogedIn());
@@ -35,7 +48,21 @@ function NavigationBar({ iconShow }) {
           console.log(err);
         });
     }
-  }, []);
+
+    return () => {
+      setUserName("");
+    };
+  }, [dispatch]);
+
+  // search
+  function searchProductNavigate(e) {
+    e.preventDefault();
+    if (!searchText) {
+      return;
+    }
+
+    navigate(`/search?product=${searchText}`);
+  }
 
   if (loading) {
     return <LinearProgress color="secondary" />;
@@ -44,7 +71,7 @@ function NavigationBar({ iconShow }) {
       <nav>
         <Navbar bg="light" expand="lg" sticky="top">
           <Container>
-            <Navbar.Brand href="/">
+            <Navbar.Brand as={Link} to="/">
               <img
                 src="http://themepure.net/template/outstock-prv/outstock/assets/img/logo/logo.png"
                 alt="#"
@@ -53,18 +80,25 @@ function NavigationBar({ iconShow }) {
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="me-auto">
-                <Nav.Link as={Link} to="/" className="nav-home">
-                  Home
-                </Nav.Link>
+                {/* <Nav.Link className="nav-home"></Nav.Link> */}
                 {iconShow && (
                   <>
-                    <Form className="d-flex nav-form">
-                      <div className="nav-form-search">
-                        <input type="text" />
-                        {/* <SearchIcon /> */}
-                        <p>Search</p>
-                      </div>
+                    <Form
+                      className="d-flex nav__search"
+                      style={{ width: "40vw", marginLeft: "2rem" }}
+                      onSubmit={searchProductNavigate}
+                    >
+                      <FormControl
+                        type="search"
+                        value={searchText}
+                        onChange={(e) => setSearchText(e.target.value)}
+                        placeholder="Search"
+                        className="me-2"
+                        aria-label="Search"
+                      />
+                      <Button variant="outline-success">Search</Button>
                     </Form>
+
                     <Nav className="nav-link">
                       <Link to={logedin ? "/cart" : "login"} style={linkStyle}>
                         Cart

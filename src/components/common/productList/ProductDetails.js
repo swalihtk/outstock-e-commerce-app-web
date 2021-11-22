@@ -5,6 +5,7 @@ import ContentSpinner from "../../../layouts/user/ContentSpinner";
 import NavigationBar from "../../../layouts/user/NavigationBar";
 import { getProductDetails } from "../../../redux/home/productDetails";
 import ProductShowPage from "./ProductShowPage";
+import SimilaryProducts from "./SimilaryProducts";
 
 function ProductDetails() {
   let { prodId } = useParams();
@@ -15,7 +16,7 @@ function ProductDetails() {
 
   useEffect(() => {
     dispatch(getProductDetails(prodId));
-  }, []);
+  }, [prodId]);
 
   if (loading) {
     return <ContentSpinner variant={"primary"} />;
@@ -26,6 +27,15 @@ function ProductDetails() {
 
         <div style={{ marginTop: "1rem" }}>
           <ProductShowPage product={product} />
+        </div>
+
+        <div style={{ marginTop: "3rem" }}>
+          <hr />
+          <SimilaryProducts
+            productName={product.name}
+            categoryName={product.category}
+            subCategory={product.subCategory}
+          />
         </div>
       </>
     );

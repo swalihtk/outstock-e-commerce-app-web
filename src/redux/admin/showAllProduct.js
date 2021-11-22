@@ -7,6 +7,7 @@ const PRODUCT_ERROR = "PRODUCT_ERROR";
 const initialState = {
   loading: false,
   productsArray: [],
+  count: 0,
   error: "",
 };
 
@@ -39,13 +40,15 @@ const productShowReducer = (state = initialState, action) => {
         ...state,
         loading: true,
         productsArray: [],
+        totalItem: 0,
         error: "",
       };
 
     case PRODUCT_SUCCESS:
       return {
         loading: false,
-        productsArray: action.payload,
+        productsArray: action.payload.listProducts,
+        totalItem: action.payload.count,
         error: "",
       };
 
@@ -62,11 +65,11 @@ const productShowReducer = (state = initialState, action) => {
 };
 
 // dispatch function
-function showAllProductAdmin() {
+function showAllProductAdmin(pageNum) {
   return (dispatch) => {
     dispatch(fetchProduct());
     axios
-      .get("/admin/product/listAll")
+      .get("/admin/product/listAll?page=" + pageNum)
       .then((response) => {
         dispatch(fetchProductSuccess(response.data));
       })

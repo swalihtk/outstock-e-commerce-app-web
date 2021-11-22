@@ -3,7 +3,7 @@ import React from "react";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import "./style.css";
 
-function AdminDashboard({ container }) {
+function AdminDashboard({ children }) {
   function toggleScreen() {
     let sidebar = document.querySelector(".sidebar");
     let sidebarBtn = document.querySelector(".sidebarBtn");
@@ -117,7 +117,7 @@ function AdminDashboard({ container }) {
           </div>
         </nav>
 
-        <div className="home-content">{container}</div>
+        <div className="home-content">{children}</div>
       </section>
     </>
   );

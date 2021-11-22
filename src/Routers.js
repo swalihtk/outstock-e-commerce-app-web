@@ -10,12 +10,18 @@ import Home from "./components/common/home/Home";
 import ProductDetails from "./components/common/productList/ProductDetails";
 import CategoryProduct from "./components/common/productPage/CategoryProduct";
 import ProductListMain from "./components/common/productPage/ProductListMain";
+import SearchMain from "./components/common/search/SearchMain";
 import SubCategoryListMain from "./components/common/SubCatList/ProductListMain";
 import Login from "./components/user/Login";
 import Logout from "./components/user/Logout";
 import Register from "./components/user/Register";
 import { isAdminLogedIn } from "./redux/admin/adminLoginReducer";
 import { isUserLogedIn } from "./redux/user/logincheckReducer";
+import Cart from "./components/user/Cart/index";
+import Checkout from "./components/user/Checkout/index";
+import OrderSuccess from "./components/user/Success/index";
+import Order from "./components/user/Order/index";
+import OrderDetails from "./components/user/OrderDetails/index";
 
 function Routers() {
   let { logedin } = useSelector((state) => state.userLogin);
@@ -23,7 +29,7 @@ function Routers() {
   let dispatch = useDispatch();
 
   useEffect(() => {
-    console.log("working");
+    console.log(logedin);
     dispatch(isUserLogedIn());
     dispatch(isAdminLogedIn());
   }, []);
@@ -33,12 +39,11 @@ function Routers() {
       <Routes>
         {/* User Routers */}
         <Route path="/" element={<Home />} />
-
-        <Route
-          path="/cart"
-          element={logedin ? <h1>Cart</h1> : <Navigate to="/" />}
-        />
-
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/cart/checkout" element={<Checkout />} />
+        <Route path="/order/success" element={<OrderSuccess />} />
+        <Route path="/orders/" element={<Order />} />
+        <Route path="/order_details/:orderId" element={<OrderDetails />} />
         <Route
           path="/login"
           element={logedin ? <Navigate to="/" /> : <Login />}
@@ -53,6 +58,7 @@ function Routers() {
         <Route path="/productdetails/:prodId" element={<ProductDetails />} />
         <Route path="/category/:category" element={<ProductListMain />} />
         <Route path="/subcategory" element={<SubCategoryListMain />} />
+        <Route path="/search" element={<SearchMain />} />
 
         {/* Admin Routers */}
         <Route path="/admin" element={<AdminMain />} />

@@ -11,7 +11,8 @@ import {
 import "../style.css";
 import { useSelector, useDispatch } from "react-redux";
 import swal from "sweetalert";
-import { LinearProgress } from "@material-ui/core";
+import { LinearProgress, Slider } from "@material-ui/core";
+import Cropper from "react-easy-crop";
 
 function ProductCreate() {
   /*****PARAMS********
@@ -139,6 +140,7 @@ function ProductCreate() {
   /****** Upload Product Handler *****/
   function uploadProduct(e) {
     e.preventDefault();
+
     if (!name) {
       resetError();
       setNameErr("Please provide a name");
@@ -261,17 +263,15 @@ function ProductCreate() {
               {brandErr && <FormError err={brandErr} />}
             </Col>
             <Col>
-              <Form.Select
+              <Form.Label htmlFor="exampleColorInput">Color picker</Form.Label>
+              <Form.Control
+                type="color"
+                id="exampleColorInput"
+                defaultValue="#563d7c"
+                title="Choose your color"
                 value={color}
                 onChange={(e) => setColor(e.target.value)}
-              >
-                <option>Black</option>
-                <option>Blue</option>
-                <option>White</option>
-                <option>Red</option>
-                <option>Yellow</option>
-                <option>Green</option>
-              </Form.Select>
+              />
             </Col>
             <Col>
               <Form.Control

@@ -314,17 +314,15 @@ function EditProduct(props) {
               {brandErr && <FormError err={brandErr} />}
             </Col>
             <Col>
-              <Form.Select
+              <Form.Label htmlFor="exampleColorInput">Color picker</Form.Label>
+              <Form.Control
+                type="color"
+                id="exampleColorInput"
+                defaultValue={color}
+                title="Choose your color"
                 value={color}
                 onChange={(e) => setColor(e.target.value)}
-              >
-                <option>Black</option>
-                <option>Blue</option>
-                <option>White</option>
-                <option>Red</option>
-                <option>Yellow</option>
-                <option>Green</option>
-              </Form.Select>
+              />
             </Col>
             <Col>
               <Form.Control

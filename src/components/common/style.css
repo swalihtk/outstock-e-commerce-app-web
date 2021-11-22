@@ -45,6 +45,7 @@ body {
   margin: 0 auto;
   transition: all 0.2s ease-in-out;
   border-radius: 6px;
+  object-fit: contain;
 }
 .wsk-cp-product:hover .wsk-cp-img {
   top: -40px;

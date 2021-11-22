@@ -1,14 +1,16 @@
-import React from 'react'
-import AdminDashboard from '../../../layouts/admin/AdminDashboard'
+import React from "react";
+import AdminDashboard from "../../../layouts/admin/AdminDashboard";
 import "../style.css";
-import ListUsers from './ListUsers';
+import ListUsers from "./ListUsers";
 
 function ListUsersMain() {
-    return (
-        <>
-          <AdminDashboard container={<ListUsers />}/>  
-        </>
-    )
+  return (
+    <>
+      <AdminDashboard>
+        <ListUsers />
+      </AdminDashboard>
+    </>
+  );
 }
 
-export default ListUsersMain
+export default ListUsersMain;

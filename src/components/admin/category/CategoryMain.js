@@ -5,7 +5,9 @@ import CategoryShow from "./CategoryShow";
 function CategoryMain() {
   return (
     <>
-      <AdminDashboard container={<CategoryShow />} />
+      <AdminDashboard>
+        <CategoryShow />
+      </AdminDashboard>
     </>
   );
 }

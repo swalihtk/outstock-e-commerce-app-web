@@ -1,14 +1,19 @@
 import React, { useState } from "react";
 import { Nav } from "react-bootstrap";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { showAllProductAdmin } from "../../../redux/admin/showAllProduct";
 import AllProducts from "./AllProducts";
 import ProductCreate from "./ProductCreate";
+import { Pagination } from "@material-ui/lab";
 
 function ProductShow() {
   // category state
   let [productPageState, setProductPageState] = useState("show");
   let dispatch = useDispatch();
+
+  let { loading, error, productsArray, totalItem } = useSelector(
+    (state) => state.productListAdmin
+  );
 
   // manage categoy state
   function changeToShow() {
@@ -18,6 +23,10 @@ function ProductShow() {
   function changeToCreate() {
     setProductPageState("create");
     dispatch(showAllProductAdmin());
+  }
+
+  function paginationHandler(e) {
+    dispatch(showAllProductAdmin(e.target.textContent));
   }
 
   return (
@@ -37,7 +46,13 @@ function ProductShow() {
 
       <div style={{ background: "white", height: "80vh" }}>
         {productPageState === "show" ? (
-          <AllProducts />
+          <>
+            <AllProducts />
+            <Pagination
+              count={Math.ceil(totalItem / 10)}
+              onClick={paginationHandler}
+            />
+          </>
         ) : (
           productPageState === "create" && <ProductCreate />
         )}

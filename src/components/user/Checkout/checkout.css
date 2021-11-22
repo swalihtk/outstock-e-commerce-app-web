@@ -1,0 +1,75 @@
+/* Address */
+.address__main {
+  margin-top: 3rem;
+}
+
+.address__container {
+  max-height: 55vh;
+  overflow: auto;
+}
+
+.addresss__list {
+  margin-top: 1rem;
+}
+
+.address__form {
+  margin-bottom: 2rem;
+}
+
+.address__form h1 {
+  font-size: 1rem;
+  text-align: center;
+  text-decoration: underline;
+}
+
+.address__form form {
+  margin-top: 2rem;
+}
+
+/* Order Details */
+.orderDetails__body {
+  margin-top: 3rem;
+}
+
+.orderDetails__body h1 {
+  font-size: 1.5rem;
+}
+
+.orderDetails__bodyTable {
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+.orderDetails__total {
+  margin-top: 1rem;
+}
+
+/* Order payment */
+.order__payment {
+  border: 2px solid grey;
+  padding: 5px 20px;
+  margin-top: 1rem;
+}
+
+.order__paymentMethod {
+  display: flex;
+}
+
+.order__paymentMethod input[type="checkbox"] {
+  margin-top: 0.5rem;
+}
+
+.order__paymentMethod p {
+  margin-left: 1rem;
+}
+
+.order__btn {
+  display: grid;
+}
+
+.order__btn button {
+  border: none;
+  background-color: #444;
+  padding: 5px 0px;
+  margin-bottom: 2rem;
+}

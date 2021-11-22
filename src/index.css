@@ -1,7 +1,10 @@
 body {
   margin: 0;
-  font-family: 'Fruktur', cursive !important;
-  font-family: 'Poppins', sans-serif !important;
+  font-family: "Fruktur", cursive !important;
+  font-family: "Poppins", sans-serif !important;
 }
 
-
+* {
+  margin: 0;
+  padding: 0;
+}

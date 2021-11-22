@@ -1,0 +1,89 @@
+/* Order Address */
+.orderAddress__main {
+  margin-top: 1rem;
+  border: 1px solid #444;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.orderAddress__main h1 {
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+/* Orderd product */
+.orderProduct__main {
+  margin-top: 1rem;
+  border: 1px solid #444;
+  padding: 5px 10px;
+  border-radius: 5px;
+  margin-bottom: 2rem;
+}
+
+.orderProduct__main h1 {
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.orderProduct__container {
+  display: flex;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.orderProduct__img {
+  width: 10vw;
+  height: 30vh;
+}
+
+.orderProduct__img img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.orderProduct__details {
+  margin-left: 1rem;
+}
+
+.orderProduct__details h1 {
+  font-size: 1.3rem;
+}
+
+.orderProduct__details p {
+  font-size: 1rem;
+}
+
+/* Order Status */
+.orderStatus__main {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.orderStatus__main h1 {
+  font-size: 1.5rem;
+}
+
+.orderStatus__line {
+  display: grid;
+  grid-template-columns: auto auto;
+  margin-top: 1rem;
+}
+
+.orderStatus__line div {
+  height: 1px;
+  background-color: black;
+  font-weight: 700;
+}
+
+/* Media Screen */
+@media screen and (max-width: 700px) {
+  .orderProduct__img {
+    width: 20vw;
+    height: 30vh;
+  }
+
+  .orderStatus__line div {
+    font-size: 0.7rem;
+  }
+}

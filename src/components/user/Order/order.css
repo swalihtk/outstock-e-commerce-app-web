@@ -1,0 +1,78 @@
+/* All Orders */
+.allOrders__main {
+}
+
+.allOrders__main h1 {
+  font-size: 1.5rem;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+/* Order Card  */
+.orderCard__main {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.orderCard__leftSide {
+  display: flex;
+}
+
+.orderCard__img {
+  width: 10vw;
+  height: 10vh;
+  margin: auto;
+}
+
+.orderCard__img img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.orderCard__productDetails {
+  margin-left: 1rem;
+  margin-top: 1rem;
+}
+
+.orderCard__productDetails h3 {
+  font-size: 1rem;
+}
+
+.orderCard__productDetails p {
+  font-size: 0.8rem;
+}
+
+.orderCard__productPrice p {
+  font-size: 0.8rem;
+}
+
+.orderCard__status p {
+  padding: 1px 4px;
+  color: white;
+  border-radius: 5px;
+}
+
+/* Media screen */
+@media screen and (max-width: 700px) {
+  .orderCard__productDetails h3 {
+    font-size: 0.7rem;
+  }
+
+  .orderCard__productDetails p {
+    font-size: 0.5rem;
+  }
+
+  .orderCard__productPrice p {
+    font-size: 0.5rem;
+  }
+
+  .orderCard__status p {
+    font-size: 0.5rem;
+  }
+
+  .orderCard__action button {
+    font-size: 0.5rem !important;
+  }
+}

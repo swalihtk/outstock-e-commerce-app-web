@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { showAllProductAdmin } from "../../../redux/admin/showAllProduct";
 import ProductCard from "./ProductCard";
 import "../style.css";
+import Pagination from "@material-ui/lab/Pagination";
 
 // product table
 import { makeStyles } from "@material-ui/core/styles";
@@ -15,6 +16,7 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import { CircularProgress } from "@material-ui/core";
 import EditProduct from "./EditProduct";
+// import { Pagination } from "react-bootstrap";
 
 const useStyles = makeStyles({
   table: {
@@ -26,14 +28,18 @@ function AllProducts() {
   const classes = useStyles();
 
   // product redux
-  let { loading, error, productsArray } = useSelector(
+  let { loading, error, productsArray, totalItem } = useSelector(
     (state) => state.productListAdmin
   );
   let dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(showAllProductAdmin());
+    dispatch(showAllProductAdmin(1));
   }, []);
+
+  function paginationHandler(e) {
+    dispatch(showAllProductAdmin(e.target.textContent));
+  }
 
   if (loading) {
     return (

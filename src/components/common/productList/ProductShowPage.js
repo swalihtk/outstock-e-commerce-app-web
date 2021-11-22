@@ -49,7 +49,7 @@ function ProductShowPage({ product }) {
       alt: "Phasellus laoreet",
       width: 450,
       height: 450,
-      // isFluidWidth: true,
+      isFluidWidth: true,
       src: showImage,
     },
     largeImage: {
@@ -67,6 +67,7 @@ function ProductShowPage({ product }) {
       <div className="row mt-4">
         <div className="col-md-5">
           <ReactImageMagnify {...imageProps} />
+
           {/* <img src={product} alt="Phasellus laoreet" width="100%" /> */}
           <div className="product-subimages">
             <img
@@ -106,7 +107,15 @@ function ProductShowPage({ product }) {
             <p>Product Details</p>
             <p className="btn btn-outline-secondary mr-2">
               <strong style={{ color: "red" }}>Color: </strong>
-              {product.color}
+              <span
+                style={{
+                  background: product.color,
+                  width: "10px",
+                  height: "10px",
+                }}
+              >
+                {product.color}
+              </span>
             </p>
             <p className="btn btn-outline-secondary mr-2">
               <strong style={{ color: "red" }}>Brand: </strong>
