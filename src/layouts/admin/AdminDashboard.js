@@ -57,21 +57,21 @@ function AdminDashboard({ children }) {
             </Link>
           </li>
           <li>
-            <a href="#">
+            <Link to="/admin/banners">
               <i className="bx bx-pie-chart-alt-2"></i>
-              <span className="links_name">Analytics</span>
-            </a>
+              <span className="links_name">Banners</span>
+            </Link>
+          </li>
+          <li>
+            <Link to="/admin/orders">
+              <i className="bx bx-book-alt"></i>
+              <span className="links_name">Total order</span>
+            </Link>
           </li>
           <li>
             <a href="#">
               <i className="bx bx-coin-stack"></i>
               <span className="links_name">Stock</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <i className="bx bx-book-alt"></i>
-              <span className="links_name">Total order</span>
             </a>
           </li>
           <li>

@@ -1,6 +1,4 @@
 /* All Orders */
-.allOrders__main {
-}
 
 .allOrders__main h1 {
   font-size: 1.5rem;
@@ -56,6 +54,11 @@
 
 /* Media screen */
 @media screen and (max-width: 700px) {
+
+  .orderCard__main{
+    flex-direction: column;
+  }
+
   .orderCard__productDetails h3 {
     font-size: 0.7rem;
   }

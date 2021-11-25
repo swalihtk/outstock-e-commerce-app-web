@@ -1,40 +1,70 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router";
 
-function OrderCard() {
+function OrderCard({orders, userId}) {
+
+  // hooks
   let navigate = useNavigate();
 
-  // handle show detail page
+  // state
+  let [totalQuantity, setTotalQuantity]=useState(0);
+  let [date, setDate]=useState("");
+  let [status, setStatus]=useState({});
+
+  // mount
+  useEffect(()=>{
+
+    if(!orders.date) return;
+    let orderdDate=orders.date;
+    setDate(orderdDate);
+
+    if(!orders.products) return;
+    let items=orders.products;
+    let total=0;
+    items.forEach(item=>total+=item.quantity)
+    setTotalQuantity(total);
+
+    if(!orders.status) return;
+    setStatus(orders.status[orders.status.length-1]);
+  }, [])
+
+  // actions
   function handleShowDetailPage() {
-    navigate("/order_details/94394u45989");
+    navigate(`/order_details?userId=${userId}&orderId=${orders._id}`);
   }
 
+  console.log();
+
   return (
+    <>
     <div className="orderCard__main">
       <div className="orderCard__leftSide">
         <div className="orderCard__img">
           <img
-            src="https://rukminim1.flixcart.com/image/224/224/ktx9si80/mobile/q/a/c/narzo-50a-rmx3430-realme-original-imag75kybaer8scz.jpeg?q=90"
+            src="https://media.istockphoto.com/vectors/shopping-cart-icon-isolated-on-white-background-vector-id1206806317?k=20&m=1206806317&s=612x612&w=0&h=waK8qOHV2Fgz2ntEWHWBQtXpNDAQ_wdhd4tkTUz6tfE="
             alt=""
           />
         </div>
         <div className="orderCard__productDetails">
-          <h3>Samsung One</h3>
+          {/* <h5>{orders._id}</h5> */}
           <p>
-            <strong>Color: </strong>Red
+            <strong>Total Items: </strong>{totalQuantity}
           </p>
           <p>
-            <strong>Brand: </strong>Nike
+            <strong>Payment Method: </strong>{orders.paymentMethod}
+          </p>
+          <p>
+            <strong>Orderd Date: </strong>{date.substr(0,10)}
           </p>
         </div>
       </div>
 
       <div className="orderCard__productPrice">
-        <p>₹23,0000</p>
+        <p>₹{orders.totalPrice}</p>
       </div>
       <div className="orderCard__status">
-        <p style={{ background: "blue" }}>Orderd</p>
+        <p style={{background:"blue"}}>{status.state}</p>
       </div>
       <div className="orderCard__action">
         <Button className="btn-secondary" onClick={handleShowDetailPage}>
@@ -42,6 +72,8 @@ function OrderCard() {
         </Button>
       </div>
     </div>
+    <hr/>
+    </>
   );
 }
 

@@ -2,15 +2,58 @@ import React, { useEffect, useState } from "react";
 import { Carousel } from "react-bootstrap";
 import "./style.css";
 import ReactImageMagnify from "react-image-magnify";
+import { useNavigate } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+import { Alert } from "react-bootstrap";
+import { addToCart } from "../../../redux/user/cartReducer";
 
-function ProductShowPage({ product }) {
+function ProductShowPage({ product, prodId }) {
   let productImages = product.productImages;
+  let navigate = useNavigate();
+  let { products } = useSelector((state) => state.cart);
+
+  let [inCart, setInCart] = useState(false);
+  useEffect(() => {
+    products &&
+      products.map(
+        (items) =>
+          items.products &&
+          items.products.productId === prodId &&
+          setInCart(true)
+      );
+
+    return () => {
+      setInCart(false);
+    };
+  }, []);
+
+  let dispatch = useDispatch();
+
+  const [visible, setVisible] = useState(false);
+
+  let { logedin, userId } = useSelector((state) => state.userLogin);
 
   let [showImage, setShowImage] = useState(
     productImages
       ? productImages[0].img
       : "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/450px-No_image_available.svg.png"
   );
+
+  function handleAddToCart() {
+    if (!logedin) {
+      navigate("/login");
+      return;
+    }
+
+    if (inCart) {
+      navigate("/cart");
+    } else {
+      dispatch(addToCart(userId, product._id));
+      setVisible(true);
+      setInCart(true);
+    }
+  }
 
   function changeShowImage(num) {
     switch (num) {
@@ -62,8 +105,16 @@ function ProductShowPage({ product }) {
 
   return (
     <div className="container">
-      <h2>Product details</h2>
-
+      <div className="row">
+        <div className="col-md-6 col-12">
+          <h2>Product details</h2>
+        </div>
+        <div className="col-md-6 col-12">
+          {visible && (
+            <Alert variant={"success"}>Item uploaded to cart!!</Alert>
+          )}
+        </div>
+      </div>
       <div className="row mt-4">
         <div className="col-md-5">
           <ReactImageMagnify {...imageProps} />
@@ -130,8 +181,9 @@ function ProductShowPage({ product }) {
             <p className="float-left mr-3">₹{product.price}</p>
             <input
               type="button"
-              value="Add to cart"
+              value={inCart ? "Go to cart" : "Add to cart"}
               className="btn btn-success float-left"
+              onClick={handleAddToCart}
             />
             <input
               type="button"

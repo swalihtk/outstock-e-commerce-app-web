@@ -1,15 +1,16 @@
 import React from "react";
 import AdminDashboard from "../../../layouts/admin/AdminDashboard";
-import ProductShow from "./ProductShow";
+import BannerList from "./BannerList";
+import "./Banner.css";
 
-function ProductMain() {
+function index() {
   return (
     <>
       <AdminDashboard>
-        <ProductShow />
+        <BannerList />
       </AdminDashboard>
     </>
   );
 }
 
-export default ProductMain;
+export default index;

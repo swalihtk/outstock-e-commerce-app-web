@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { showAllProductAdmin } from "../../../redux/admin/showAllProduct";
 import AllProducts from "./AllProducts";
 import ProductCreate from "./ProductCreate";
-import { Pagination } from "@material-ui/lab";
+import { Pagination } from "antd";
 
 function ProductShow() {
   // category state
@@ -26,7 +26,7 @@ function ProductShow() {
   }
 
   function paginationHandler(e) {
-    dispatch(showAllProductAdmin(e.target.textContent));
+    dispatch(showAllProductAdmin(e));
   }
 
   return (
@@ -48,10 +48,17 @@ function ProductShow() {
         {productPageState === "show" ? (
           <>
             <AllProducts />
-            <Pagination
+            {/* <Pagination
               count={Math.ceil(totalItem / 10)}
               onClick={paginationHandler}
+            /> */}
+            <Pagination
+              style={{ marginTop: "1rem", marginLeft: "2rem" }}
+              defaultCurrent={1}
+              total={Math.ceil(totalItem / 10) * 10}
+              onChange={paginationHandler}
             />
+            <div style={{ height: "2vh" }}></div>
           </>
         ) : (
           productPageState === "create" && <ProductCreate />

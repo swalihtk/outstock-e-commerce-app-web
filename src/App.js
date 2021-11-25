@@ -5,6 +5,7 @@ import { Provider } from "react-redux";
 import store from "./redux/store";
 import Routers from "./Routers";
 import { useEffect } from "react";
+import "antd/dist/antd.css";
 
 // axios
 axios.defaults.baseURL = "http://localhost:8000/";

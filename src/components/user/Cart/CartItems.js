@@ -1,92 +1,66 @@
-import React from "react";
-import RemoveIcon from "@material-ui/icons/Remove";
-import AddIcon from "@material-ui/icons/Add";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
+import { isUserLogedIn } from "../../../redux/user/logincheckReducer";
+import { getCartItems, cartCountMange } from "../../../redux/user/cartReducer";
+import CartItem from "./CartItem";
+import cartHelper from "../../../helper/user/cartHelper";
 
 function CartItems() {
   let navigate = useNavigate();
+  let { logedin, userId } = useSelector((state) => state.userLogin);
+  let cartItems = useSelector((state) => state.cart);
+
+  // state
+  let [products, setProducts] = useState(cartItems.products);
+
+  let dispatch = useDispatch();
 
   function handlerPlaceOrder() {
-    navigate("/cart/checkout");
+    if(products.length > 0){
+      cartHelper.gotoCheckoutPage(navigate, dispatch, userId);
+    }else{
+      navigate("/");
+    }
   }
+
+  useEffect(() => {
+    if(!cartItems) return;
+    setProducts(cartItems.products);
+  }, [cartItems]);
+
+  useEffect(() => {
+    dispatch(getCartItems(userId));
+  }, []);
 
   return (
     <div className="cartItems__main">
-      <h1>My Cart (1)</h1>
+      <h1>My Cart ({cartItems.count})</h1>
       <hr />
+
       <div className="cartItems__container">
         {/* Cartitems product */}
-        <div className="cartItems__productMain">
-          <div className="cartItems__product">
-            <div className="cartItems__product_img">
-              <img
-                src="https://rukminim1.flixcart.com/image/224/224/ktx9si80/mobile/q/a/c/narzo-50a-rmx3430-realme-original-imag75kybaer8scz.jpeg?q=90"
-                alt=""
+        {products && products.length > 0 ? (
+          products.map((item, index) => {
+            let productInfo = item.productInfo;
+            return (
+              <CartItem
+                productInfo={productInfo}
+                userId={userId}
+                key={index}
+                item={item}
               />
-            </div>
-            <div className="cartItems__product_details">
-              <h1>Realme Narzo 50A (Oxygen Green, 64 GB)</h1>
-              <p>₹45,007</p>
-              <div className="cartItems__count">
-                <RemoveIcon />
-                <p>1</p>
-                <AddIcon />
-              </div>
-            </div>
-            <div className="cartItems__product_delivery">
-              <h4>Delivery in 2 days</h4>
-              <p>7 days replacement policy</p>
-            </div>
-          </div>
-
-          {/* Cart actions  */}
-          <div className="cartItems__action">
-            <div className="cartItems__actionButton">
-              <button>SAVE FOR LATER</button>
-            </div>
-            <div className="cartItems__actionButton">
-              <button>REMOVE</button>
-            </div>
-          </div>
-        </div>
+            );
+          })
+        ) : (
+          <h1>Not item found</h1>
+        )}
         {/* End of product main */}
-        <div className="cartItems__productMain">
-          <div className="cartItems__product">
-            <div className="cartItems__product_img">
-              <img
-                src="https://rukminim1.flixcart.com/image/224/224/ktx9si80/mobile/q/a/c/narzo-50a-rmx3430-realme-original-imag75kybaer8scz.jpeg?q=90"
-                alt=""
-              />
-            </div>
-            <div className="cartItems__product_details">
-              <h1>Realme Narzo 50A (Oxygen Green, 64 GB)</h1>
-              <p>₹45,007</p>
-              <div className="cartItems__count">
-                <RemoveIcon />
-                <p>1</p>
-                <AddIcon />
-              </div>
-            </div>
-            <div className="cartItems__product_delivery">
-              <h4>Delivery in 2 days</h4>
-              <p>7 days replacement policy</p>
-            </div>
-          </div>
-
-          {/* Cart actions  */}
-          <div className="cartItems__action">
-            <div className="cartItems__actionButton">
-              <button>SAVE FOR LATER</button>
-            </div>
-            <div className="cartItems__actionButton">
-              <button>REMOVE</button>
-            </div>
-          </div>
-        </div>
       </div>
+
       {/* Place Order */}
       <div className="cartItems__placeOrder">
-        <button onClick={handlerPlaceOrder}>PROCEED TO CHECKOUT</button>
+        <button onClick={handlerPlaceOrder}>{products.length > 0?"PROCEED TO CHECKOUT":"BROWSE PRODUCTS"}</button>
       </div>
     </div>
   );

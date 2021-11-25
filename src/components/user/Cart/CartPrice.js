@@ -1,13 +1,32 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 function CartPrice() {
+  let cartProducts = useSelector((state) => state.cart);
+  let [totalPrice, setTotalPrice] = useState(0);
+  let [cartItems,setCartItems]=useState([]);
+
+  useEffect(() => {
+
+    if(cartProducts.products){
+      setCartItems(cartProducts.products);
+      let total = 0;
+      cartProducts.products.forEach((item) => {
+      let productInfo = item.productInfo;
+      setTotalPrice((total += item.products.quantity * productInfo.price));
+    });
+    }
+
+  
+  }, [cartProducts]);
+
   return (
     <div className="cartPrice__main">
       <h1>PRICE DETAILS</h1>
       <hr />
       <div className="cartPrice__price">
-        <p>Price (1 item)</p>
-        <p>₹12,999</p>
+        <p>Price ({cartProducts.count} item)</p>
+        <p>₹{totalPrice}</p>
       </div>
       <div className="cartPrice__discount">
         <p>Discount</p>
@@ -23,7 +42,7 @@ function CartPrice() {
           <strong>Total Amount</strong>
         </h4>
         <h4>
-          <strong>₹45,999</strong>
+          <strong>₹{totalPrice}</strong>
         </h4>
       </div>
     </div>

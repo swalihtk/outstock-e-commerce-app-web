@@ -28,12 +28,20 @@
 .orderProduct__container {
   display: flex;
   align-items: center;
-  margin-top: 1rem;
+  overflow-x:auto;
+  width:100%;
+}
+
+.orderProduct__card{
+  display: flex;
+  align-items: center;
+  padding:5px;
+  border-right:1px solid #333;
 }
 
 .orderProduct__img {
-  width: 10vw;
-  height: 30vh;
+  width: 5vw;
+  height: 15vh;
 }
 
 .orderProduct__img img {
@@ -43,15 +51,15 @@
 }
 
 .orderProduct__details {
-  margin-left: 1rem;
+  margin-left: 0.5rem;
 }
 
 .orderProduct__details h1 {
-  font-size: 1.3rem;
+  font-size: 1rem;
 }
 
 .orderProduct__details p {
-  font-size: 1rem;
+  font-size: 0.7rem;
 }
 
 /* Order Status */
@@ -61,19 +69,63 @@
 }
 
 .orderStatus__main h1 {
-  font-size: 1.5rem;
+  font-size: 1rem;
+  text-align: left;
+  margin-left: 1rem;
 }
 
 .orderStatus__line {
-  display: grid;
-  grid-template-columns: auto auto;
   margin-top: 1rem;
+  padding: 0px 30px;
+  position: relative;
 }
 
-.orderStatus__line div {
+.orderStatus__orderd {
+  background-color: green;
+  height: 20px;
+  width: 20px;
+  position: absolute;
+  top: -9px;
+  border-radius: 10px;
+}
+
+.orderStatus__canceled,
+.orderStatus__shipped,
+.orderStatus__packed,
+.orderStatus__deliverd {
+  background-color: yellow;
+  height: 20px;
+  width: 20px;
+  position: absolute;
+  top: -9px;
+  right: 10px;
+  border-radius: 10px;
+}
+
+.orderStatus__details_left {
+  position: absolute;
+  top: 5px;
+}
+
+.orderStatus__details_left p {
+  font-size: 0.7rem;
+  display: inline;
+}
+
+.orderStatus__line__main {
+  background-color: #444;
   height: 1px;
-  background-color: black;
-  font-weight: 700;
+}
+
+.orderStatus__details_right {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
+
+.orderStatus__details_right p {
+  font-size: 0.7rem;
+  display: inline;
 }
 
 /* Media Screen */
@@ -83,7 +135,48 @@
     height: 30vh;
   }
 
-  .orderStatus__line div {
+  .orderProduct__details h1 {
     font-size: 0.7rem;
+  }
+
+  .orderProduct__details p {
+    font-size: 0.5rem;
+  }
+
+  .orderStatus__main h1 {
+    font-size: 0.7rem;
+  }
+
+  .orderStatus__details_left {
+    left: 0;
+  }
+
+  .orderStatus__details_left p {
+    font-size: 0.5rem;
+  }
+
+  .orderStatus__details_right p {
+    font-size: 0.5rem;
+  }
+  .orderStatus__details_right {
+    right: 0;
+  }
+
+  .orderStatus__orderd {
+    background-color: green;
+    height: 10px;
+    width: 10px;
+    top: -5px;
+  }
+
+  .orderStatus__canceled,
+  .orderStatus__shipped,
+  .orderStatus__packed,
+  .orderStatus__deliverd {
+    background-color: yellow;
+    height: 10px;
+    width: 10px;
+    top: -5px;
+    right: 20px;
   }
 }

@@ -7,6 +7,7 @@ import {
   Navbar,
   NavDropdown,
   Button,
+  Badge,
 } from "react-bootstrap";
 import "./NavigationBar.css";
 import PersonIcon from "@material-ui/icons/Person";
@@ -16,6 +17,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { LinearProgress } from "@material-ui/core";
 import axios from "axios";
 import MenuIcon from "@material-ui/icons/Menu";
+import { getCartItems } from "../../redux/user/cartReducer";
 
 let linkStyle = {
   textDecoration: "none",
@@ -24,6 +26,7 @@ let linkStyle = {
 
 function NavigationBar({ iconShow }) {
   let { loading, logedin, userId } = useSelector((state) => state.userLogin);
+  let { count } = useSelector((state) => state.cart);
   let dispatch = useDispatch();
 
   let [searchText, setSearchText] = useState("");
@@ -48,6 +51,8 @@ function NavigationBar({ iconShow }) {
           console.log(err);
         });
     }
+
+    dispatch(getCartItems(userId));
 
     return () => {
       setUserName("");
@@ -101,7 +106,7 @@ function NavigationBar({ iconShow }) {
 
                     <Nav className="nav-link">
                       <Link to={logedin ? "/cart" : "login"} style={linkStyle}>
-                        Cart
+                        Cart <Badge bg="secondary">{count}</Badge>
                       </Link>
                     </Nav>
                     <NavDropdown
@@ -117,7 +122,7 @@ function NavigationBar({ iconShow }) {
                       </NavDropdown.Item>
                       <NavDropdown.Item
                         as={Link}
-                        to={logedin ? "/orders" : "login"}
+                        to={logedin ? `/orders/${userId}` : "login"}
                       >
                         Orders
                       </NavDropdown.Item>

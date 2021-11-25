@@ -3,7 +3,7 @@ import NavigationBar from "../../../layouts/user/NavigationBar";
 import AllOrders from "./AllOrders";
 import "./order.css";
 
-function index() {
+function Index() {
   return (
     <>
       <NavigationBar iconShow={true} />
@@ -12,4 +12,4 @@ function index() {
   );
 }
 
-export default index;
+export default Index;

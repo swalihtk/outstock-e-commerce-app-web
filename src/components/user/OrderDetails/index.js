@@ -1,12 +1,33 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Container, Row } from "react-bootstrap";
 import NavigationBar from "../../../layouts/user/NavigationBar";
 import OrderAddress from "./OrderAddress";
 import "./OrderDetails.css";
 import OrderProduct from "./OrderProduct";
 import OrderStatus from "./OrderStatus";
+import {useSearchParams} from "react-router-dom"
+import orderHelper from "../../../helper/user/orderHelper";
 
-function index() {
+function Index() {
+
+  // hooks
+  let [searchParams,setSearchPrams]=useSearchParams();
+
+  // querys
+  let userId=searchParams.get("userId");
+  let orderId=searchParams.get("orderId");
+
+  // state
+  let [orderDetails,setOrderDetails]=useState({});
+
+  // mount
+  useEffect(()=>{
+    orderHelper.getUserOrderDetails(userId, orderId, setOrderDetails);
+  }, [])
+
+  // test
+  //console.log(orderDetails);
+  
   return (
     <>
       <NavigationBar iconShow={true} />
@@ -17,14 +38,11 @@ function index() {
           Order Details
         </h1>
         <Row>
-          <div className="col-12">
-            <OrderStatus />
+          <div className="col-md-12 col-12">
+            <OrderAddress orderDetails={orderDetails.orderDetails}/>
           </div>
-          <div className="col-md-6 col-12">
-            <OrderAddress />
-          </div>
-          <div className="col-md-6 col-12">
-            <OrderProduct />
+          <div className="col-md-12 col-12">
+            <OrderProduct productInfo={orderDetails.productsInfo} orderDetails={orderDetails.orderDetails}/>
           </div>
         </Row>
       </Container>
@@ -32,4 +50,4 @@ function index() {
   );
 }
 
-export default index;
+export default Index;

@@ -16,7 +16,9 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import { CircularProgress } from "@material-ui/core";
 import EditProduct from "./EditProduct";
-// import { Pagination } from "react-bootstrap";
+import ProductFilter from "./ProductFilter";
+
+// Datagrid
 
 const useStyles = makeStyles({
   table: {
@@ -41,18 +43,22 @@ function AllProducts() {
     dispatch(showAllProductAdmin(e.target.textContent));
   }
 
-  if (loading) {
-    return (
-      <div className="progress-bar-product">
-        <CircularProgress color="secondary" />
-        <h3>Loading product</h3>
-      </div>
-    );
-  } else {
-    return (
-      <div className="container">
-        <h5 className="text-center">--</h5>
-        <h3 className="text-center">All Product</h3>
+  // if (loading) {
+  //   return (
+  //     c
+  //   );
+  // } else {
+  return (
+    <div className="container">
+      <h5 className="text-center">--</h5>
+      <h3 className="text-center">All Product</h3>
+      <ProductFilter />
+      {loading ? (
+        <div className="progress-bar-product">
+          <CircularProgress color="secondary" />
+          <h3>Loading product</h3>
+        </div>
+      ) : (
         <TableContainer component={Paper}>
           <Table className={classes.table} aria-label="simple table">
             <TableHead>
@@ -74,9 +80,9 @@ function AllProducts() {
             </TableBody>
           </Table>
         </TableContainer>
-      </div>
-    );
-  }
+      )}
+    </div>
+  );
 }
 
 export default AllProducts;

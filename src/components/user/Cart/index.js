@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Container } from "react-bootstrap";
+import { useSelector } from "react-redux";
 import NavigationBar from "../../../layouts/user/NavigationBar";
+import { isUserLogedIn } from "../../../redux/user/logincheckReducer";
 import "./cart.css";
 import CartItems from "./CartItems";
 import CartPrice from "./CartPrice";

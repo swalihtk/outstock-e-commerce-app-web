@@ -1,11 +1,26 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 import NavigationBar from "../../../layouts/user/NavigationBar";
 import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 import "./style.css";
 import { useNavigate } from "react-router";
+import {useSelector} from "react-redux";
 
-function index() {
+function Index() {
+
+  // redux
+  let tempFile=useSelector(state=>state.temp)
+
+  // state
+  let [address, setAddress]=useState({});
+
+  // useEffect
+  useEffect(()=>{
+    if(tempFile.address){
+      setAddress(tempFile.address);
+    }
+  },[tempFile])
+
   return (
     <>
       <NavigationBar iconShow={true} />
@@ -23,19 +38,19 @@ function index() {
           <div className="orderSuccess__orderDetails">
             <h1>Order Address</h1>
             <p>
-              <strong> Name: </strong>Swaliht{" "}
+              <strong> Name: </strong>{address.FullName}
             </p>
             <p>
-              <strong> Mobile: </strong>7034785939
+              <strong> Mobile: </strong>{address.Mobile}
             </p>
             <p>
-              <strong> Pincode: </strong>678900
+              <strong> Pincode: </strong>{"111"}
             </p>
             <p>
-              <strong> Address: </strong>Thaikkaden(h),Kaithachira
+              <strong> Address: </strong>{address.Address}
             </p>
             <p>
-              <strong> Town: </strong>Mannarkkad
+              <strong> Town: </strong>{address.Town}
             </p>
             <p>
               <strong> Landmark: </strong>Linsha Medicals
@@ -63,4 +78,4 @@ function HomeNavigationButton() {
   );
 }
 
-export default index;
+export default Index;

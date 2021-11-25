@@ -47,7 +47,7 @@ const productShowReducer = (state = initialState, action) => {
     case PRODUCT_SUCCESS:
       return {
         loading: false,
-        productsArray: action.payload.listProducts,
+        productsArray: action.payload.products,
         totalItem: action.payload.count,
         error: "",
       };
@@ -79,4 +79,19 @@ function showAllProductAdmin(pageNum) {
   };
 }
 
-export { showAllProductAdmin, productShowReducer };
+// filter
+function showFilterdProducts(mainCat, subCat) {
+  return (dispatch) => {
+    dispatch(fetchProduct());
+    axios
+      .get("/admin/product/filter?mainCat=" + mainCat + "&subCat=" + subCat)
+      .then((response) => {
+        dispatch(fetchProductSuccess(response.data));
+      })
+      .catch((err) => {
+        dispatch(fetchProductError(err));
+      });
+  };
+}
+
+export { showAllProductAdmin, productShowReducer, showFilterdProducts };
