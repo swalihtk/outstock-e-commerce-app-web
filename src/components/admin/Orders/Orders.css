@@ -35,3 +35,7 @@
   font-size: 0.7rem;
   margin: 1px;
 }
+
+.MuiTableCell-root{
+  font-size: 0.7rem !important;
+}

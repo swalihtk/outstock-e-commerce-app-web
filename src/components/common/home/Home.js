@@ -6,6 +6,7 @@ import ContentSpinner from "../../../layouts/user/ContentSpinner";
 import HomeBanner from "./HomeBanner";
 import HomeCategory from "./HomeCategory";
 import LatestProduct from "./LatestProduct";
+import "./style.css";
 
 function Home() {
   let { loading } = useSelector((state) => state.spinner);

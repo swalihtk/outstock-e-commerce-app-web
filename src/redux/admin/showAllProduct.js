@@ -65,11 +65,19 @@ const productShowReducer = (state = initialState, action) => {
 };
 
 // dispatch function
-function showAllProductAdmin(pageNum) {
+function showAllProductAdmin(pageNum, categoryName, searchName, sort) {
   return (dispatch) => {
+    
     dispatch(fetchProduct());
     axios
-      .get("/admin/product/listAll?page=" + pageNum)
+      .get("/admin/product/listAll", {
+        params:{
+          page:pageNum,
+          mainCategory:categoryName,
+          name:searchName,
+          sort:sort
+        }
+      })
       .then((response) => {
         dispatch(fetchProductSuccess(response.data));
       })
@@ -79,19 +87,6 @@ function showAllProductAdmin(pageNum) {
   };
 }
 
-// filter
-function showFilterdProducts(mainCat, subCat) {
-  return (dispatch) => {
-    dispatch(fetchProduct());
-    axios
-      .get("/admin/product/filter?mainCat=" + mainCat + "&subCat=" + subCat)
-      .then((response) => {
-        dispatch(fetchProductSuccess(response.data));
-      })
-      .catch((err) => {
-        dispatch(fetchProductError(err));
-      });
-  };
-}
 
-export { showAllProductAdmin, productShowReducer, showFilterdProducts };
+
+export { showAllProductAdmin, productShowReducer };

@@ -63,7 +63,7 @@ function AdminDashboard({ children }) {
             </Link>
           </li>
           <li>
-            <Link to="/admin/orders">
+            <Link to="/admin/orders?page=1">
               <i className="bx bx-book-alt"></i>
               <span className="links_name">Total order</span>
             </Link>

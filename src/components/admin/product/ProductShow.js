@@ -15,6 +15,12 @@ function ProductShow() {
     (state) => state.productListAdmin
   );
 
+  // state
+  let [mainCatValue, setMainCatValue]=useState("");
+  let [totalCount, setTotalCount]=useState(1);
+  let [sort, setSort]=useState(-1);
+  let [serachName, setSearchName]=useState("");
+
   // manage categoy state
   function changeToShow() {
     setProductPageState("show");
@@ -47,7 +53,8 @@ function ProductShow() {
       <div style={{ background: "white", height: "80vh" }}>
         {productPageState === "show" ? (
           <>
-            <AllProducts />
+            <AllProducts mainCatValue={mainCatValue} setMainCatValue={setMainCatValue} setTotalCount={setTotalCount}
+            sort={sort} setSort={setSort} serachName={serachName} setSearchName={setSearchName}/>
             {/* <Pagination
               count={Math.ceil(totalItem / 10)}
               onClick={paginationHandler}
@@ -55,7 +62,7 @@ function ProductShow() {
             <Pagination
               style={{ marginTop: "1rem", marginLeft: "2rem" }}
               defaultCurrent={1}
-              total={Math.ceil(totalItem / 10) * 10}
+              total={Math.ceil(totalCount / 10) * 10}
               onChange={paginationHandler}
             />
             <div style={{ height: "2vh" }}></div>

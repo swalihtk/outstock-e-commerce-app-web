@@ -18,7 +18,6 @@ function OrderAddress({orderDetails}) {
     setEndStatus(orderDetails.status[orderDetails.status.length-1])
   }, [orderDetails])
 
-  console.log(orderDetails);
 
   return (
     <div className="orderAddress__main">

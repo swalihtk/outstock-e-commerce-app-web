@@ -1,48 +1,55 @@
-import React, { useState } from "react";
-import { Carousel } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import { Carousel, Placeholder } from "react-bootstrap";
+import bannerHelper from "../../../helper/user/bannerHelper";
 
 function HomeBanner() {
+
+  // state
+  let [allBanners, setAllBanners]=useState([]);
+  let [loading,setLoading]=useState(false);
+
+  // mount
+  useEffect(()=>{
+    bannerHelper.getAllBanners(setAllBanners, setLoading);
+  },[])
+
   return (
     <div>
       <Carousel>
-        <Carousel.Item interval={1000}>
+        {
+          loading?
+          <Carousel.Item interval={1000}>
           <img
-            style={{ maxHeight: "60vh" }}
+            style={{ maxHeight: "60vh", objectFit:"contain" }}
             className="d-block w-100"
-            src="https://res.cloudinary.com/da9w4jcnl/image/upload/v1637059596/Outstock%20E-Commerce%20web%20app/qnjacdarwa3lczxahtwy.jpg"
+            src="https://c.tenor.com/I6kN-6X7nhAAAAAi/loading-buffering.gif"
             alt="First slide"
           />
           <Carousel.Caption>
-            <h3>First slide label</h3>
-            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+            <Placeholder animation="glow">
+              <Placeholder xs={6} />
+            </Placeholder>
           </Carousel.Caption>
         </Carousel.Item>
-        <Carousel.Item interval={500}>
-          <img
-            style={{ maxHeight: "60vh" }}
-            className="d-block w-100"
-            src="https://res.cloudinary.com/da9w4jcnl/image/upload/v1637059596/Outstock%20E-Commerce%20web%20app/qnjacdarwa3lczxahtwy.jpg"
-            alt="Second slide"
-          />
-          <Carousel.Caption>
-            <h3>Second slide label</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-          </Carousel.Caption>
-        </Carousel.Item>
-        <Carousel.Item>
-          <img
-            style={{ maxHeight: "60vh" }}
-            className="d-block w-100"
-            src="https://res.cloudinary.com/da9w4jcnl/image/upload/v1637059596/Outstock%20E-Commerce%20web%20app/qnjacdarwa3lczxahtwy.jpg"
-            alt="Third slide"
-          />
-          <Carousel.Caption>
-            <h3>Third slide label</h3>
-            <p>
-              Praesent commodo cursus magna, vel scelerisque nisl consectetur.
-            </p>
-          </Carousel.Caption>
-        </Carousel.Item>
+          :
+          allBanners.map(item=>{
+            return (
+              <Carousel.Item key={item._id} interval={1000}>
+                <a href={item.link}>
+                <img
+                  style={{ maxHeight: "60vh" }}
+                  className="d-block w-100"
+                  src={item.poster_image}
+                  alt="First slide"
+                />
+                </a>
+                <Carousel.Caption>
+                  <h3 style={{textShadow:" 0 0 2px black",color: "white"}}>{item.title}</h3>
+                </Carousel.Caption>
+                </Carousel.Item>
+            )
+          })
+        }
       </Carousel>
     </div>
   );

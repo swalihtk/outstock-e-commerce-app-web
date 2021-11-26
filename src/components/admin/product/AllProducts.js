@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { showAllProductAdmin } from "../../../redux/admin/showAllProduct";
 import ProductCard from "./ProductCard";
 import "../style.css";
-import Pagination from "@material-ui/lab/Pagination";
+import SearchIcon from '@material-ui/icons/Search';
 
 // product table
 import { makeStyles } from "@material-ui/core/styles";
@@ -15,10 +15,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import { CircularProgress } from "@material-ui/core";
-import EditProduct from "./EditProduct";
-import ProductFilter from "./ProductFilter";
-
-// Datagrid
+import productHelper from "../../../helper/admin/productHelper";
 
 const useStyles = makeStyles({
   table: {
@@ -26,7 +23,15 @@ const useStyles = makeStyles({
   },
 });
 
-function AllProducts() {
+function AllProducts({
+  mainCatValue,
+  setMainCatValue,
+  setTotalCount,
+  sort,
+  setSort,
+  serachName,
+  setSearchName,
+}) {
   const classes = useStyles();
 
   // product redux
@@ -35,24 +40,66 @@ function AllProducts() {
   );
   let dispatch = useDispatch();
 
+  // states
+  let [allProducts, setAllProducts] = useState([]);
+  let [mainCategory, setMainCategory] = useState([]);
+
+  // mount
   useEffect(() => {
-    dispatch(showAllProductAdmin(1));
+    dispatch(showAllProductAdmin(1, mainCatValue, serachName, sort));
+  }, [mainCatValue, sort, serachName]);
+
+  useEffect(() => {
+    if (!productsArray) return;
+    setAllProducts(productsArray);
+
+    if (!totalItem) return;
+    setTotalCount(totalItem);
+  }, [productsArray]);
+
+  useEffect(() => {
+    productHelper.getMainCategory(setMainCategory);
   }, []);
 
+  // actions
   function paginationHandler(e) {
-    dispatch(showAllProductAdmin(e.target.textContent));
+    dispatch(
+      showAllProductAdmin(e.target.textContent, mainCatValue, serachName, sort)
+    );
   }
 
-  // if (loading) {
-  //   return (
-  //     c
-  //   );
-  // } else {
+  function categoryFilterHandler(e) {
+    setMainCatValue(e.target.value);
+  }
+
   return (
     <div className="container">
       <h5 className="text-center">--</h5>
       <h3 className="text-center">All Product</h3>
-      <ProductFilter />
+
+      {/* <ProductFilter /> */}
+      <div className="d-flex">
+        <select
+          style={{ padding: "3px 50px" }}
+          onChange={categoryFilterHandler}
+        >
+          <option value="">All</option>
+          {mainCategory.map((item) => (
+            <option key={item._id} value={item.categoryName}>
+              {item.categoryName}
+            </option>
+          ))}
+        </select>
+        <div className="sort_button">
+          <button onClick={() => (sort == -1 ? setSort(1) : setSort(-1))}>
+            {sort == -1 ? "Sort" : "UnSort"}
+          </button>
+        </div>
+        <div className="search_input">
+          <input type="text" value={serachName} onChange={(e)=>setSearchName(e.target.value)} />
+          <SearchIcon/>
+        </div>
+      </div>
       {loading ? (
         <div className="progress-bar-product">
           <CircularProgress color="secondary" />
@@ -72,7 +119,7 @@ function AllProducts() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {productsArray?.map((item, index) => {
+              {allProducts?.map((item, index) => {
                 return (
                   <ProductCard key={item._id} index={index + 1} item={item} />
                 );

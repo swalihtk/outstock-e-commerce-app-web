@@ -1,9 +1,39 @@
 import { TableCell, TableRow, Button, ButtonGroup } from "@material-ui/core";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Modal } from "react-bootstrap";
+import orderHelper from "../../../helper/admin/orderHelper";
 
-function OrderTable() {
+function OrderTable({ order }) {
+  // state
   let [showOrderDetails, setShowOrderDetails] = useState(false);
+  let [orderDetails, setOrderDetails] = useState({});
+  let [address, setAddress] = useState({});
+  let [productInfo, setProductInfo] = useState([]);
+  let [endStatus, setEndStatus]=useState(" ");
+
+  // mount
+  useEffect(() => {
+    if (!order) return;
+    setOrderDetails(order.orderDetails);
+    setProductInfo(order.productInfo);
+
+    if (!orderDetails) return;
+    setAddress(orderDetails.address);
+
+    if(!orderDetails.status) return;
+    let status=orderDetails.status[orderDetails.status.length-1];
+    setEndStatus(status.state);
+  }, [order, orderDetails]);
+
+  // actions
+  function handleChangeStatus(e){
+    let status=e.target.value;
+    orderHelper.changeStatus(order.userId, orderDetails._id, status);
+  }
+
+  // test
+  // console.log(orderDetails.status[orderDetails.status.length-1]);
+
   return (
     <>
       {/* Modal */}
@@ -22,34 +52,39 @@ function OrderTable() {
           <h5 style={{ textDecoration: "underline" }}>Billing Address</h5>
           <div className="order__shiping">
             <p>
-              <strong>Swalih t</strong>
+              <strong>{address?.FullName}</strong>
             </p>
-            <p>Thaikkaden(h),Kaithachira (PO),Mannarkkad-678900, Kerala</p>
+            <p>{address?.Address}</p>
             <p>
-              <strong>Phone No. </strong>7034785939
+              <strong>Phone No. </strong>
+              {address?.Mobile}
             </p>
           </div>
           <h5 style={{ textDecoration: "underline", marginTop: "1rem" }}>
             Orderd Items
           </h5>
           <div className="order__items">
-            <div className="order__items_details">
-              <div className="order__items_img">
-                <img
-                  src="https://res.cloudinary.com/da9w4jcnl/image/upload/v1637259191/Outstock%20E-Commerce%20web%20app/obope4oz5mcqeryujvtw.jpg"
-                  alt=""
-                />
-              </div>
-              <div className="order__items__details">
-                <p>
-                  <strong>HP Pavilon</strong>
-                </p>
-                <p>₹34,999</p>
-                <p>Red Color</p>
-                <p>2 Items</p>
-                <p>Nike Brand</p>
-              </div>
-            </div>
+            {productInfo.map((item, index) => {
+              return (
+                <div className="order__items_details">
+                  <div className="order__items_img">
+                    <img
+                      src={item?.productImages?.[0].img}
+                      alt=""
+                    />
+                  </div>
+                  <div className="order__items__details">
+                    <p>
+                      <strong>{item?.name}</strong>
+                    </p>
+                    <p>₹{item?.price}</p>
+                    <p>{item.color}</p>
+                    <p>{orderDetails?.products?.[0].quantity} Items</p>
+                    <p>{item.brand} Brand</p>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </Modal.Body>
         <Modal.Footer>
@@ -68,23 +103,24 @@ function OrderTable() {
         <TableCell component="th" scope="row">
           {"1"}
         </TableCell>
-        <TableCell align="center">443ef343ee8</TableCell>
-        <TableCell align="center">swaliht</TableCell>
-        <TableCell align="center">1 Item</TableCell>
+        <TableCell align="center">{orderDetails?._id}</TableCell>
+        <TableCell align="center">{address?.FullName}</TableCell>
         <TableCell align="center">
-          <Form.Select aria-label="Default select example">
-            <option value="1">Orderd</option>
-            <option value="1">Shipped</option>
-            <option value="2">Packed</option>
-            <option value="3">Deliverd</option>
+          {orderDetails?.products?.length} Item
+        </TableCell>
+        <TableCell align="center">
+          <Form.Select onChange={handleChangeStatus}>
+            <option value={endStatus}>{endStatus}</option>
+            <option value="confirmed">confirmed</option>
+            <option value="packed">packed</option>
+            <option value="shipped">shipped</option>
+            <option value="deliverd">deliverd</option>
+            <option value="canceled">canceled</option>
           </Form.Select>
         </TableCell>
-        <TableCell align="center">₹29,999</TableCell>
+        <TableCell align="center">₹{orderDetails?.totalPrice}</TableCell>
         <TableCell align="center">
           <ButtonGroup>
-            <Button variant="contained" color="secondary">
-              Cancel Order
-            </Button>
             <Button
               variant="contained"
               onClick={() => {

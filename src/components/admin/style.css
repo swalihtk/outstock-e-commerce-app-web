@@ -77,3 +77,29 @@
     margin-top: 1rem !important;
   }
 }
+
+/* My style */
+.sort_button {
+  margin-left: 1rem;
+}
+
+.sort_button button {
+  padding: 3px 10px;
+  border: none;
+  color: white;
+  background: black;
+}
+
+.search_input {
+  display: flex;
+  margin-left: 1rem;
+  border: 1px solid black;
+  flex: 0.5;
+  padding: 3px 5px;
+  border-radius: 5px;
+}
+
+.search_input input{
+  border: none;
+  flex: 1;
+}

@@ -30,13 +30,14 @@
   align-items: center;
   overflow-x:auto;
   width:100%;
+  justify-content: center;
 }
 
 .orderProduct__card{
   display: flex;
   align-items: center;
   padding:5px;
-  border-right:1px solid #333;
+  /* border-right:1px solid #333; */
 }
 
 .orderProduct__img {
@@ -81,7 +82,7 @@
 }
 
 .orderStatus__orderd {
-  background-color: green;
+  background-color:blueviolet;
   height: 20px;
   width: 20px;
   position: absolute;
@@ -93,13 +94,28 @@
 .orderStatus__shipped,
 .orderStatus__packed,
 .orderStatus__deliverd {
-  background-color: yellow;
   height: 20px;
   width: 20px;
   position: absolute;
   top: -9px;
   right: 10px;
   border-radius: 10px;
+}
+
+.orderStatus__canceled{
+  background-color: red;
+}
+
+.orderStatus__shipped{
+  background-color: blue;
+}
+
+.orderStatus__packed{
+  background-color: aqua;
+}
+
+.orderStatus__deliverd{
+  background-color: greenyellow;
 }
 
 .orderStatus__details_left {
