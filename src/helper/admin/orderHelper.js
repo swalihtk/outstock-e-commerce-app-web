@@ -18,7 +18,7 @@ const helpers={
         }
     },
 
-    changeStatus:async function(userId, orderId, status){
+    changeStatus:async function(userId, orderId, status, getAllOrders){
 
         if(!userId || !orderId || !status) return;
 
@@ -27,6 +27,7 @@ const helpers={
 
             if(response.status===201){
                 swal("Status changed!", "Ok!", "success");
+                getAllOrders();
             }else{
                 swal("Something went wrong!", "Ok!", "error");
             }

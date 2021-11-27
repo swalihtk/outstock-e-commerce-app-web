@@ -47,9 +47,10 @@
 }
 
 .orderCard__status p {
-  padding: 1px 4px;
+  padding: 1px 15px;
   color: white;
-  border-radius: 5px;
+  border-radius: 20px;
+  font-weight: 500;
 }
 
 /* Media screen */

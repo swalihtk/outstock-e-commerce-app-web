@@ -7,15 +7,6 @@ function SubCategory({ sub, mainCategory }) {
   let mainCategoryNew = mainCategory.replace("&", "%26");
   return (
     <>
-      {/* {sub.map((item, index) => {
-        let itemModi = item.replace("&", "%26");
-        let link = `/subcategory?category=${mainCategoryNew}&subcategory=${itemModi}`;
-        return (
-          <NavDropdown.Item as={Link} to={link} key={index} eventKey="4.1">
-            {item}
-          </NavDropdown.Item>
-        );
-      })} */}
       
       {
         sub.map((item,index)=>{
@@ -23,7 +14,7 @@ function SubCategory({ sub, mainCategory }) {
           let link = `/subcategory?category=${mainCategoryNew}&subcategory=${itemModi}`;
 
           return (
-            <Menu.Item key="1">
+            <Menu.Item key={index}>
               <p style={{ fontSize: "12px" }}>
                 <Link to={link}>
                   {item}

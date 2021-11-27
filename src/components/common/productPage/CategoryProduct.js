@@ -37,7 +37,7 @@ function CategoryProduct({ categoryName }) {
       return (
         <section>
           <div className="container text-center mt-4">
-            <h3 style={{ color: "black" }}>
+            <h3 style={{ color: "black", fontSize:"1.2rem" }}>
               Category <span style={{ color: "green" }}>"{categoryName}"</span>
             </h3>
           </div>

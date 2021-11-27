@@ -27,12 +27,16 @@ function Index() {
 
   // mount
   useEffect(()=>{
-    orderHelper.listAllOrders(pageNu, setAllOrders, setTotalOrders, setLoading);
+    getAllOrders();
   }, [])
 
   // actions
   function handlePageChange(e){ 
     orderHelper.listAllOrders(e, setAllOrders, setTotalOrders, setLoading);
+  }
+
+  function getAllOrders(){
+    orderHelper.listAllOrders(pageNu, setAllOrders, setTotalOrders, setLoading);
   }
 
   // test
@@ -84,7 +88,7 @@ function Index() {
                 {
                   allOrders.length>0?
                     allOrders.map((item, index)=>{
-                      return <OrderTable key={index} order={item}/>
+                      return <OrderTable key={index} order={item} getAllOrders={getAllOrders}/>
                     })
                   :
                   <TableRow>

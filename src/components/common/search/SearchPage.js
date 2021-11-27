@@ -28,7 +28,7 @@ function SearchPage(props) {
   return (
     <section>
       <div className="container text-center mt-4">
-        <h3 style={{ color: "black" }}>
+        <h3 style={{ color: "black",fontSize:"1.3rem" }}>
           showing result for{" "}
           <span style={{ color: "blue" }}>"{searchText}"</span>
         </h3>

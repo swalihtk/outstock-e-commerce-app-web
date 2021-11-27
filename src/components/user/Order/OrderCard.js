@@ -11,6 +11,7 @@ function OrderCard({orders, userId}) {
   let [totalQuantity, setTotalQuantity]=useState(0);
   let [date, setDate]=useState("");
   let [status, setStatus]=useState({});
+  let [statusStyle, setStatusStyle]=useState({});
 
   // mount
   useEffect(()=>{
@@ -27,14 +28,31 @@ function OrderCard({orders, userId}) {
 
     if(!orders.status) return;
     setStatus(orders.status[orders.status.length-1]);
-  }, [])
+    
+  }, [orders])
+
+  useEffect(()=>{
+
+    if(!status) return;
+
+    if(status.state==="confirmed"){
+      setStatusStyle({background:"blue"})
+    }else if(status.state==="canceled"){
+      setStatusStyle({background:"red"}) 
+    }else if(status.state==="packed"){
+      setStatusStyle({background:"violet"})
+    }else if(status.state==="shipped"){
+      setStatusStyle({background:"lightgreen"})
+    }else if(status.state==="deliverd"){
+      setStatusStyle({background:"green"})
+    }
+  }, [status])
 
   // actions
   function handleShowDetailPage() {
     navigate(`/order_details?userId=${userId}&orderId=${orders._id}`);
   }
 
-  console.log();
 
   return (
     <>
@@ -64,7 +82,7 @@ function OrderCard({orders, userId}) {
         <p>₹{orders.totalPrice}</p>
       </div>
       <div className="orderCard__status">
-        <p style={{background:"blue"}}>{status.state}</p>
+        <p style={statusStyle}>{status.state}</p>
       </div>
       <div className="orderCard__action">
         <Button className="btn-secondary" onClick={handleShowDetailPage}>

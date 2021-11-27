@@ -46,7 +46,7 @@ function LatestProduct() {
     return (
       <section>
         <div className="container text-center mt-4">
-          <h1 style={{ color: "black" }}>Latest Products</h1>
+          <h1 style={{ color: "black", fontSize:"1.4rem" }}>Latest Products</h1>
         </div>
         <div className="shell">
           <div className="container">

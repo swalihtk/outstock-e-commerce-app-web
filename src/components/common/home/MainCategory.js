@@ -10,26 +10,19 @@ function MainCategory({ category }) {
   let routeCategory = category.categoryName.replace("&", "%26");
 
   return (
-    // <NavDropdown
-    //   style={{ color: "black" }}
-    //   title={category.categoryName}
-    //   id="nav-dropdown"
-    // >
-    //   <NavDropdown.Item style={{display:"inline"}}
-    //     as={Link}
-    //     to={`/category/${routeCategory}`}
-    //     eventKey="4.1"
-    //   >
-    //     All
-    //   </NavDropdown.Item>
-    //   <SubCategory sub={subCategory} mainCategory={category.categoryName} />
-    // </NavDropdown>
     <div className="mainCategory__main">
     <Space direction="vertical">
       <Space wrap>
         <Dropdown
           overlay={
             <Menu>
+              <Menu.Item key={-1}>
+                <p style={{ fontSize: "12px" }}>
+                  <Link to={`/category/${routeCategory}`}>
+                    All
+                  </Link>
+                </p>
+              </Menu.Item>
               <SubCategory sub={subCategory} mainCategory={category.categoryName} />
             </Menu>
           }

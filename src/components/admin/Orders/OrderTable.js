@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Form, Modal } from "react-bootstrap";
 import orderHelper from "../../../helper/admin/orderHelper";
 
-function OrderTable({ order }) {
+function OrderTable({ order, getAllOrders }) {
   // state
   let [showOrderDetails, setShowOrderDetails] = useState(false);
   let [orderDetails, setOrderDetails] = useState({});
@@ -28,7 +28,7 @@ function OrderTable({ order }) {
   // actions
   function handleChangeStatus(e){
     let status=e.target.value;
-    orderHelper.changeStatus(order.userId, orderDetails._id, status);
+    orderHelper.changeStatus(order.userId, orderDetails._id, status, getAllOrders);
   }
 
   // test
@@ -109,6 +109,12 @@ function OrderTable({ order }) {
           {orderDetails?.products?.length} Item
         </TableCell>
         <TableCell align="center">
+          {
+            endStatus==="canceled"?
+            <Form.Select disabled>
+              <option>Canceled</option>
+            </Form.Select>
+            :
           <Form.Select onChange={handleChangeStatus}>
             <option value={endStatus}>{endStatus}</option>
             <option value="confirmed">confirmed</option>
@@ -117,6 +123,7 @@ function OrderTable({ order }) {
             <option value="deliverd">deliverd</option>
             <option value="canceled">canceled</option>
           </Form.Select>
+        }
         </TableCell>
         <TableCell align="center">₹{orderDetails?.totalPrice}</TableCell>
         <TableCell align="center">

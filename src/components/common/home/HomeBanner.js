@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Carousel, Placeholder } from "react-bootstrap";
+import { Carousel, Spinner } from "react-bootstrap";
 import bannerHelper from "../../../helper/user/bannerHelper";
 
 function HomeBanner() {
@@ -18,18 +18,10 @@ function HomeBanner() {
       <Carousel>
         {
           loading?
-          <Carousel.Item interval={1000}>
-          <img
-            style={{ maxHeight: "60vh", objectFit:"contain" }}
-            className="d-block w-100"
-            src="https://c.tenor.com/I6kN-6X7nhAAAAAi/loading-buffering.gif"
-            alt="First slide"
-          />
-          <Carousel.Caption>
-            <Placeholder animation="glow">
-              <Placeholder xs={6} />
-            </Placeholder>
-          </Carousel.Caption>
+          <Carousel.Item interval={3000}>
+            <div style={{height:"40vh", display:"grid", placeItems:"center"}}>
+            <Spinner animation="border" variant="primary" />
+            </div>
         </Carousel.Item>
           :
           allBanners.map(item=>{

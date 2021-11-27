@@ -12,9 +12,15 @@ function CartItems() {
   let cartItems = useSelector((state) => state.cart);
 
   // state
-  let [products, setProducts] = useState(cartItems.products);
+  let [products, setProducts] = useState([]);
 
   let dispatch = useDispatch();
+
+  // mount
+  useEffect(()=>{
+    if(!cartItems) return;
+    setProducts(cartItems.products);
+  }, [cartItems.products])
 
   function handlerPlaceOrder() {
     if(products.length > 0){
@@ -60,7 +66,7 @@ function CartItems() {
 
       {/* Place Order */}
       <div className="cartItems__placeOrder">
-        <button onClick={handlerPlaceOrder}>{products.length > 0?"PROCEED TO CHECKOUT":"BROWSE PRODUCTS"}</button>
+        <button onClick={handlerPlaceOrder}>{products?.length > 0?"PROCEED TO CHECKOUT":"BROWSE PRODUCTS"}</button>
       </div>
     </div>
   );

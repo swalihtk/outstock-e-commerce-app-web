@@ -63,27 +63,7 @@ function HomeCategory() {
               </Offcanvas.Body>
             </Offcanvas>
           </div>
-          {/* <Nav
-            className="justify-content-center"
-            activeKey="/home"
-            style={{ background: "white" }}
-          >
-            <Nav.Item>
-              <Nav.Link href="#" style={{ color: "black" }}>
-                <LocalOfferIcon />
-                Offers
-              </Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link href="#" style={{ color: "black" }}>
-                <WhatshotIcon />
-                Trending Product
-              </Nav.Link>
-            </Nav.Item>
-            {categorys.map((category) => {
-              return <MainCategory key={category._id} category={category} />;
-            })}
-          </Nav> */}
+          
         </div>
       </div>
     );

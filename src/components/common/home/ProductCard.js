@@ -4,16 +4,15 @@ import "../style.css";
 
 function ProductCard({ product }) {
 
-  let [productName, setProductName]=useState("");
   let [displayName, setDisplayName]=useState("");
 
   // mount
   useEffect(()=>{
     if(!product) return;
-    setProductName(product.name)
+
+    let str=product.name.length>30?"...":" "
+    setDisplayName(product.name.substr(0, 30)+str);
     
-    let str=productName.length>30?"...":" "
-    setDisplayName(productName.substr(0, 30)+str);
   })
 
 
