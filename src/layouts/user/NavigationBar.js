@@ -131,7 +131,7 @@ function NavigationBar({ iconShow }) {
               </Offcanvas.Header>
               <Offcanvas.Body>
                 <p>
-                  <Link to="/myaccount">
+                  <Link to="/profile">
                     <AccountCircleIcon /> My Profile
                   </Link>
                 </p>
@@ -180,7 +180,7 @@ function MyAccountLi() {
             <Menu>
               <Menu.Item key="1">
                 <p style={{fontSize:"12px"}}>
-                  <Link to="/myaccount">
+                  <Link to="/profile">
                     <AccountCircleIcon /> My Profile
                   </Link>
                 </p>

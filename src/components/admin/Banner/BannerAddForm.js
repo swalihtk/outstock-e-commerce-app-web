@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Form, Button, Spinner } from "react-bootstrap";
-import bannerHelper from '../../../helper/admin/bannerHelper';
+import bannerHelper from '../../../actions/admin/bannerHelper';
+import ImageCroper from "../../../layouts/admin/ImageCroper";
 
 function BannerAddForm({setAddFormShow}) {
-
   // form handler state
   let [bannerImage, setBannerImage] = useState("");
   let [bannerImgPrv, setBannerImgPrv] = useState("");
@@ -11,12 +11,18 @@ function BannerAddForm({setAddFormShow}) {
   let [link, setLink] = useState("");
   let [loading, setLoading]=useState(false);
   let [formErr, setFormErr]=useState("");
+  let [isImage,setIsImage]=useState(false);
 
   // action
   function imageChangeHandler(e) {
+    setIsImage(true);
     setBannerImage(e.target.files[0]);
-    let imgUrl = URL.createObjectURL(e.target.files[0]);
-    setBannerImgPrv(imgUrl);
+    
+    let reader=new FileReader();
+    reader.readAsDataURL(e.target.files[0]);
+    reader.onloadend=()=>{
+      setBannerImgPrv(reader.result);
+    }
   }
 
   function createNewBanner(e){
@@ -30,15 +36,18 @@ function BannerAddForm({setAddFormShow}) {
 
     setFormErr("");
     // form data
-    let formSubmitData=new FormData();
-    formSubmitData.append("image", bannerImage);
-    formSubmitData.append("title", title);
-    formSubmitData.append("url", link);
+    let body={
+      title:title,
+      url:link,
+      image:bannerImgPrv
+    }
 
-    bannerHelper.createNewBanner(formSubmitData, setLoading, setAddFormShow);
+    bannerHelper.createNewBanner(body, setLoading, setAddFormShow);
   }
 
   return (
+    <>
+     {isImage&&<ImageCroper imageToCrop={bannerImgPrv} setBoolean={setIsImage} setPreview={setBannerImgPrv} aspectRatio={16/9}/>}
     <div className="bannerAddForm__main container">
       <Form onSubmit={createNewBanner}>
         <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -80,6 +89,7 @@ function BannerAddForm({setAddFormShow}) {
         </Button>
       </Form>
     </div>
+    </>
   );
 }
 

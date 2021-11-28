@@ -10,7 +10,7 @@ import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
 import { Modal, Placeholder, Spinner } from "react-bootstrap";
 import BannerAddForm from "./BannerAddForm";
-import bannerHelper from "../../../helper/admin/bannerHelper";
+import bannerHelper from "../../../actions/admin/bannerHelper";
 
 function BannerList() {
   // state

@@ -10,7 +10,7 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import OrderTable from "./OrderTable";
 import { Pagination } from "antd";
-import orderHelper from "../../../helper/admin/orderHelper";
+import orderHelper from "../../../actions/admin/orderHelper";
 import { useSearchParams } from "react-router-dom";
 import {Placeholder} from "react-bootstrap"
 

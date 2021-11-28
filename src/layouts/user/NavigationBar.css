@@ -2,12 +2,15 @@
   padding: 0.4rem 0;
   background-color: white;
   color:#444;
-  font-size: 13px;
+  font-size: 16px;
   letter-spacing: 0.3px;
   font-weight: 600;
   position: sticky;
   top:0;
   z-index: 1;
+  height: 56px;
+  display: flex;
+  align-items: center;
 }
 
 a{
@@ -16,6 +19,7 @@ a{
 
 .navbar__list{
   display: flex;
+  flex: 1;
   list-style-type: none;
   margin-bottom: 0;
   cursor: pointer;
@@ -50,7 +54,7 @@ a{
   border: none;
   flex: 1;
   color:black;
-  font-size: 11px;
+  font-size: 14px;
 }
 
 .navbar__search input:focus{
@@ -82,7 +86,7 @@ a{
 
 .navbar__offcanvas{
   display: none;
-  margin-left: 1rem;
+  margin-left: 0.2rem;
 }
 
 

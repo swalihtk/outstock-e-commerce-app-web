@@ -3,7 +3,7 @@ import RemoveIcon from "@material-ui/icons/Remove";
 import AddIcon from "@material-ui/icons/Add";
 import { useDispatch } from "react-redux";
 import { getCartItems } from "../../../redux/user/cartReducer";
-import cartHelper from "../../../helper/user/cartHelper";
+import cartHelper from "../../../actions/user/cartHelper";
 
 function CartItem({ productInfo, item, userId }) {
   let [quantity, setQuanity] = useState(

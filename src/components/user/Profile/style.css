@@ -1,0 +1,167 @@
+.profileNavigation__container{
+    border: 1px solid #636464;
+    min-height: 80vh;
+    border-radius: 5px;
+}
+
+/* My Account */
+.myAccount__main{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    
+    align-items: center;
+    flex-direction: column;
+}
+
+.myAccount__profilePhoto{
+    width: 20vw;
+    height: 20vh;
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.myAccount__profilePhoto img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.myAccount__profilePhoto label{
+    cursor: pointer;
+}
+
+
+.myAccount__detailsForm{
+    margin-top: 1rem;
+}
+
+.myAccount__detailsForm form label{
+    margin-top: 1rem;
+}
+
+.myAccount__detailsForm form input{
+    width: 30vw;
+    padding:5px;
+    margin-top: 3px;
+    border-radius: 5px;
+}
+
+.myAccount__detailsForm form button{
+    margin-top: 1rem;
+    padding: 3px 10px;
+    border:none;
+    color:white;
+    background-color: black;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 5px;
+}
+
+.myAccount__detailsForm form div{
+    display: block;
+    margin: auto;
+}
+
+/* Manage Address */
+.manageAddress__main{
+    margin-top: 1rem;
+}
+
+.manageAddress__main h1{
+    font-size: 1rem;
+}
+
+.manageAddress__newAddress{
+    margin-top: 1rem;
+}
+
+.manageAddress__addBtn{
+    border:1px solid #636464;
+    padding:10px 5px;
+    padding:5px;
+}
+
+.manageAddress__addBtn button{
+    border:none;
+    background: none;
+    color: #636464;
+}
+
+.manageAddress__allAddress{
+    margin-top: 1rem;
+}
+
+.manageAddress__address_container{
+    border:1px solid #636464;
+    padding:10px 10px;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.manageAddress__actions button{
+    margin-right: 1rem;
+    padding:2px 5px;
+    border:1px solid white;
+    color:white;
+}
+
+/* Password change */
+.passwordChange__main{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 3rem;
+}
+
+.passwordChange__main h1{
+    font-size: 2rem;
+    text-decoration:underline;
+}
+
+.passwordChange__main form label{
+    font-size: 16px;
+    margin-top: 1rem;
+}
+
+.passwordChange__main form input{
+    width: 30vw;
+    padding:5px 10px;
+    border: 1px solid #636464;
+    border-radius: 5px;
+    margin-top: 5px;
+}
+
+.passwordChange__main form button{
+    padding: 5px 15px;
+    margin:1rem auto;
+    display: block;
+    border:1px solid #636464;
+    background-color: #636464;
+    color:white;
+    border-radius: 5px;
+}
+
+
+@media screen and (max-width:700px){
+    .myAccount__detailsForm form input{
+        width: 100%;
+    }
+
+    .myAccount__detailsForm form{
+        width: 100%;
+    }
+
+    .passwordChange__main form{
+        width: 100%;
+    }
+
+    .passwordChange__main form input{
+        width: 100%;
+    }
+}

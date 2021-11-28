@@ -6,7 +6,7 @@ import "./OrderDetails.css";
 import OrderProduct from "./OrderProduct";
 import OrderStatus from "./OrderStatus";
 import {useSearchParams} from "react-router-dom"
-import orderHelper from "../../../helper/user/orderHelper";
+import orderHelper from "../../../actions/user/orderHelper";
 
 function Index() {
 

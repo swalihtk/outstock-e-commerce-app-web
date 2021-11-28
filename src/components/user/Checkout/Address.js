@@ -13,7 +13,7 @@ import Paper from "@material-ui/core/Paper";
 import { useDispatch, useSelector } from "react-redux";
 
 // helpers
-import accountHelper from "../../../helper/user/accountHelper";
+import accountHelper from "../../../actions/user/accountHelper";
 
 function Address({userId, setAddressState}) {
   // address redux

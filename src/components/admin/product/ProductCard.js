@@ -1,16 +1,20 @@
 import { TableCell, TableRow, Button } from "@material-ui/core";
 import axios from "axios";
 import React, { useState } from "react";
+import { Modal } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import swal from "sweetalert";
 import { showAllProductAdmin } from "../../../redux/admin/showAllProduct";
+import EditProduct from "./EditProduct";
 
 function ProductCard({ item, index }) {
   // item distructure
   let { _id, name, price, productImages, shortDescription, category } = item;
 
   let navigate = useNavigate();
+
+  let [showEditForm, setShowEditForm]=useState(false);
 
   // redux
   let dispatch = useDispatch();
@@ -51,6 +55,24 @@ function ProductCard({ item, index }) {
 
   return (
     <>
+    {/* Modal for edit */}
+    <Modal
+        show={showEditForm}
+        dialogClassName="modal-100w"
+        aria-labelledby="example-custom-modal-styling-title"
+        size={"lg"}
+      >
+        <Modal.Header>
+          <Modal.Title id="example-custom-modal-styling-title">
+            Create New Product
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <EditProduct setShowEditForm={setShowEditForm} id={_id}/>
+        </Modal.Body>
+      </Modal>
+
+      {/* Modal End */}
       <TableRow>
         <TableCell component="th" scope="row">
           {index}
@@ -68,7 +90,7 @@ function ProductCard({ item, index }) {
           />
         </TableCell>
         <TableCell align="center">
-          <Button variant="contained" color="primary" onClick={goToEditPage}>
+          <Button variant="contained" color="primary" onClick={()=>setShowEditForm(true)}>
             Edit
           </Button>
           <Button

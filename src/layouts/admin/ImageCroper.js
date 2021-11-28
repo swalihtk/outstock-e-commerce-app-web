@@ -6,7 +6,7 @@ import 'react-image-crop/dist/ReactCrop.css';
 function ImageCroper(props) {
 
 
-    const {imageToCrop, setBoolean, setPreview, setLoadImage, imageDetails} = props;
+    const {imageToCrop, setBoolean, setPreview, aspectRatio} = props;
 
     // state
     const [cropConfig, setCropConfig] = useState(
@@ -14,7 +14,7 @@ function ImageCroper(props) {
         {
             unit: '%',
             width: 300,
-            aspect: 1/ 1,
+            aspect: aspectRatio,
         }
     );
     let [result, setResult]=useState("");
@@ -31,8 +31,8 @@ function ImageCroper(props) {
 
             // calling the props function to expose
             // croppedImage to the parent component
-            setResult(croppedImage.croppedImageUrl);
-            setLoadImage(croppedImage.file);
+            setResult(croppedImage);
+           
         }
     }
 
@@ -62,25 +62,9 @@ function ImageCroper(props) {
             cropConfig.height
         );
 
-        return new Promise((resolve, reject) => {
-            canvas.toBlob(
-                (blob) => {
-                    // returning an error
-                    if (!blob) {
-                        reject(new Error('Canvas is empty'));
-                        return;
-                    }
-                    blob.name = fileName;
-                    // creating a Object URL representing the Blob object given
-                    const croppedImageUrl = window.URL.createObjectURL(blob);
-                    let file=new File(blob, "demo", {
-                        type:imageDetails.type
-                    });
-                    resolve({croppedImageUrl, file});
-                }, 'image/jpeg'
-            );
-        });
+        return canvas.toDataURL();
     }
+
 
 
     return (

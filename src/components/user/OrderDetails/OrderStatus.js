@@ -10,7 +10,7 @@ function OrderStatus({status, handleOrderCancel }) {
     <div className="orderStatus__main container">
       <h1>Order Status</h1>
       <div className="orderStatus__container">
-      <div class="progress-track">
+      <div className="progress-track">
         <ul id="progressbar">
           {
             status.map((item, index)=>{
@@ -18,7 +18,7 @@ function OrderStatus({status, handleOrderCancel }) {
               if(item.date){
                 date=item.date;
               }
-                return <li class="step0 active" key={index} id={`step${index+1}`}>{item.state}<br/>{date.substr(0,10)}</li>
+                return <li className="step0 active" key={index} id={`step${index+1}`}>{item.state}<br/>{date.substr(0,10)}</li>
             })
           }
             

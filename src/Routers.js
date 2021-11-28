@@ -29,7 +29,7 @@ import Order from "./components/user/Order/index";
 import OrderDetails from "./components/user/OrderDetails/index";
 import AdminBanners from "./components/admin/Banner/index";
 import AdminOrders from "./components/admin/Orders/index";
-import { NavItem } from "react-bootstrap";
+import Profile from "./components/user/Profile/index";
 
 function Routers() {
   let { logedin } = useSelector((state) => state.userLogin);
@@ -54,6 +54,7 @@ function Routers() {
         <Route path="/order/success" element={<OrderSuccess />} />
         <Route path="/orders/:userId" element={<Order />} />
         <Route path="/order_details" element={<OrderDetails />} />
+        <Route path="/profile" element={<Profile />} />
         <Route
           path="/login"
           element={logedin ? <Navigate to="/" /> : <Login />}

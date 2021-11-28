@@ -29,22 +29,46 @@ const helpers={
         }
     },
 
-    createNewProduct:async function(formData, body, setLoading, setShowForm){
+    createNewProduct:async function(body, setLoading, setShowForm){
         try{
             setLoading(true);
-            
-            let response=await axios.post("/admin/product/getImageLink", formData);
-            body.productImages = response.data;
-            console.log(body);
-            let responseTwo=await axios.post("/admin/product/add", body)
+            let response=await axios.post("/admin/product/add", body)
 
-            if(responseTwo.status===201 || responseTwo.status===200){
+            if(response.status===201 || response.status===200){
                 swal({title: "Success",text: "Product Uploaded!",icon: "success",button: "Ok!"});
                 setShowForm(false);
             }
         }catch(e){
             console.log(e);
             setLoading(false);
+            return;
+        }
+    },
+
+    getEditProductDetails:async function(productId, setProudctDetails){
+        try{
+            let response=await axios.get("/admin/product/listOne/"+productId);
+            setProudctDetails(response.data);
+        }catch(e){
+            console.log(e);
+            return;
+        }
+    }, 
+
+    editProductDetails:async function(productId, body, setUpdateLoading, setShowForm){
+        try{
+            setUpdateLoading(true);
+            let response=await axios.put("/admin/product/update/" + productId, body);
+            if(response.status===200 || response.status===201){
+                setUpdateLoading(false);
+                swal({title: "Success",text: "Product Updated!",icon: "success",button: "Ok!"});
+                setShowForm(false);
+            }else{
+                setUpdateLoading(false);
+            }
+        }catch(e){
+            console.log(e);
+            setUpdateLoading(false);
             return;
         }
     }

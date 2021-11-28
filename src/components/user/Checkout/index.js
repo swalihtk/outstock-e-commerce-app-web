@@ -8,7 +8,7 @@ import Address from "./Address";
 import "./checkout.css";
 import OrderDetails from "./OrderDetails";
 import { useNavigate } from "react-router";
-import checkoutHelper from "../../../helper/user/checkoutHelper";
+import checkoutHelper from "../../../actions/user/checkoutHelper";
 
 
 function Index() {

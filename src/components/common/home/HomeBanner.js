@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Carousel, Spinner } from "react-bootstrap";
-import bannerHelper from "../../../helper/user/bannerHelper";
+import bannerHelper from "../../../actions/user/bannerHelper";
 
 function HomeBanner() {
 
@@ -29,7 +29,7 @@ function HomeBanner() {
               <Carousel.Item key={item._id} interval={1000}>
                 <a href={item.link}>
                 <img
-                  style={{ maxHeight: "60vh" }}
+                  style={{ maxHeight: "60vh", objectFit:"cover" }}
                   className="d-block w-100"
                   src={item.poster_image}
                   alt="First slide"

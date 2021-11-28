@@ -1,7 +1,7 @@
 import { TableCell, TableRow, Button, ButtonGroup } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { Form, Modal } from "react-bootstrap";
-import orderHelper from "../../../helper/admin/orderHelper";
+import orderHelper from "../../../actions/admin/orderHelper";
 
 function OrderTable({ order, getAllOrders }) {
   // state

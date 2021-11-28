@@ -5,6 +5,7 @@ div.homeCategory__main {
   padding-top: 10px;
   padding-bottom: 10px;
   font-weight: 500;
+  align-items: center;
 }
 
 .homeCategory__mainCategorys {

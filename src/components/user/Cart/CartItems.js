@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { isUserLogedIn } from "../../../redux/user/logincheckReducer";
 import { getCartItems, cartCountMange } from "../../../redux/user/cartReducer";
 import CartItem from "./CartItem";
-import cartHelper from "../../../helper/user/cartHelper";
+import cartHelper from "../../../actions/user/cartHelper";
 
 function CartItems() {
   let navigate = useNavigate();

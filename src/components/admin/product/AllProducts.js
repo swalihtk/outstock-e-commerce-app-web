@@ -15,7 +15,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import { CircularProgress, Button } from "@material-ui/core";
-import productHelper from "../../../helper/admin/productHelper";
+import productHelper from "../../../actions/admin/productHelper";
 import { Modal } from "react-bootstrap";
 import ProductCreate from "./ProductCreate";
 

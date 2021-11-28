@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../style.css";
 import ImageCroper from "../../../layouts/admin/ImageCroper";
-import productHelper from "../../../helper/user/productHelper";
+import productHelper from "../../../actions/user/productHelper";
 
 // material
 import ImageIcon from '@material-ui/icons/Image';
@@ -73,11 +73,6 @@ function ProductCreate({setShowAddProduct}) {
       e.preventDefault();
 
         if(!name || !price || !brand || !discription || !imageOne || !imageTwo || !imageThree) return;
-
-        let formData = new FormData();
-        formData.append("image", imageOne);
-        formData.append("image", imageTwo);
-        formData.append("image", imageThree);
         let body = {
           name: name,
           price: price,
@@ -86,8 +81,14 @@ function ProductCreate({setShowAddProduct}) {
           category: mainCatValue,
           subCategory: subCatValue,
           quantity: quantity,
+          discription:discription,
+          images:[
+            previewSource1,
+            previewSource2,
+            previewSource3
+          ]
         };
-        productHelper.createNewProduct(formData, body, setUploadLoading, setShowAddProduct);
+        productHelper.createNewProduct(body, setUploadLoading, setShowAddProduct);
       }
 
   return (
@@ -96,13 +97,13 @@ function ProductCreate({setShowAddProduct}) {
       {/* Croper */}
 
       {
-        image1&&<ImageCroper imageToCrop={previewSource1} setBoolean={setImage1} setPreview={setPreviewSource1} setLoadImage={setLoadImage1} imageDetails={imageOne}/>
+        image1&&<ImageCroper imageToCrop={previewSource1} setBoolean={setImage1} setPreview={setPreviewSource1} aspectRatio={700/500}/>
       } 
       {
-        image2&&<ImageCroper imageToCrop={previewSource2} setBoolean={setImage2} setPreview={setPreviewSource2} setLoadImage={setLoadImage2} imageDetails={imageTwo}/>
+        image2&&<ImageCroper imageToCrop={previewSource2} setBoolean={setImage2} setPreview={setPreviewSource2} aspectRatio={700/500}/>
       }
       {
-        image3&&<ImageCroper imageToCrop={previewSource3} setBoolean={setImage3} setPreview={setPreviewSource3} setLoadImage={setLoadImage3} imageDetails={imageThree}/>
+        image3&&<ImageCroper imageToCrop={previewSource3} setBoolean={setImage3} setPreview={setPreviewSource3} aspectRatio={700/500}/>
       }
 
       {/* New Form */}
@@ -132,15 +133,15 @@ function ProductCreate({setShowAddProduct}) {
 
           {/* Image Forms */}
           <div className="col-4 col-md-4 product__form text-center">
-            <label for="image1"><ImageIcon style={{fontSize:"3rem"}}/></label><br/>
+            <label htmlFor="image1"><ImageIcon style={{fontSize:"3rem"}}/></label><br/>
             <input type="file" id="image1" accept="image/*" value="" style={{display:"none"}} onChange={handleImageOne}/>
           </div>
           <div className="col-4 col-md-4 product__form text-center">
-            <label for="image2"><ImageIcon style={{fontSize:"3rem"}}/></label><br/>
+            <label htmlFor="image2"><ImageIcon style={{fontSize:"3rem"}}/></label><br/>
             <input type="file" id="image2" accept="image/*" value="" style={{display:"none"}} onChange={handleImageTwo}/>
           </div>
           <div className="col-4 col-md-4 product__form text-center">
-            <label for="image3"><ImageIcon style={{fontSize:"3rem"}}/></label><br/>
+            <label htmlFor="image3"><ImageIcon style={{fontSize:"3rem"}}/></label><br/>
             <input type="file" id="image3" accept="image/*" value="" style={{display:"none"}} onChange={handleImageThree}/>
           </div>
 
