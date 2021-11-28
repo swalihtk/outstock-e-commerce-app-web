@@ -14,8 +14,10 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
-import { CircularProgress } from "@material-ui/core";
+import { CircularProgress, Button } from "@material-ui/core";
 import productHelper from "../../../helper/admin/productHelper";
+import { Modal } from "react-bootstrap";
+import ProductCreate from "./ProductCreate";
 
 const useStyles = makeStyles({
   table: {
@@ -23,15 +25,7 @@ const useStyles = makeStyles({
   },
 });
 
-function AllProducts({
-  mainCatValue,
-  setMainCatValue,
-  setTotalCount,
-  sort,
-  setSort,
-  serachName,
-  setSearchName,
-}) {
+function AllProducts({mainCatValue,setMainCatValue,setTotalCount,sort,setSort,serachName,setSearchName,}) {
   const classes = useStyles();
 
   // product redux
@@ -67,21 +61,42 @@ function AllProducts({
       showAllProductAdmin(e.target.textContent, mainCatValue, serachName, sort)
     );
   }
-
   function categoryFilterHandler(e) {
     setMainCatValue(e.target.value);
   }
 
-  return (
-    <div className="container">
-      <h5 className="text-center">--</h5>
-      <h3 className="text-center">All Product</h3>
+  let [showAddProduct,setShowAddProduct]=useState(false);
 
+
+  return (
+    <>
+    <Modal
+        show={showAddProduct}
+        dialogClassName="modal-100w"
+        aria-labelledby="example-custom-modal-styling-title"
+        size={"lg"}
+      >
+        <Modal.Header>
+          <Modal.Title id="example-custom-modal-styling-title">
+            Create New Product
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <ProductCreate setShowAddProduct={setShowAddProduct}/>
+        </Modal.Body>
+      </Modal>
+    <div className="container" style={{position:"relative"}}>
+      <h5 className="text-center">--</h5>
+      <h3 className="text-left">All Product</h3>
+      <div className="createProduct__btn">
+          <Button variant="contained" size="small" onClick={(e)=>setShowAddProduct(true)}>Add New Product</Button>
+      </div>
       {/* <ProductFilter /> */}
       <div className="d-flex">
         <select
           style={{ padding: "3px 50px" }}
           onChange={categoryFilterHandler}
+          className="category_selector"
         >
           <option value="">All</option>
           {mainCategory.map((item) => (
@@ -129,6 +144,7 @@ function AllProducts({
         </TableContainer>
       )}
     </div>
+    </>
   );
 }
 

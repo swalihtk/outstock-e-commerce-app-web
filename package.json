@@ -18,6 +18,7 @@
     "react-bootstrap": "^2.0.2",
     "react-dom": "^17.0.2",
     "react-easy-crop": "^3.5.3",
+    "react-image-crop": "^9.0.5",
     "react-image-magnify": "^2.7.4",
     "react-redux": "^7.2.6",
     "react-router": "^6.0.2",

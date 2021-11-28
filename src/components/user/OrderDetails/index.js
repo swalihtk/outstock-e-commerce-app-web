@@ -22,8 +22,18 @@ function Index() {
 
   // mount
   useEffect(()=>{
-    orderHelper.getUserOrderDetails(userId, orderId, setOrderDetails);
+    getCompleteOrderDetails();
   }, [])
+
+  // handle action
+  function handleOrderCancel(){
+    orderHelper.cancelOrder(userId, orderId, getCompleteOrderDetails)
+  }
+
+  // mount action
+  function getCompleteOrderDetails(){
+    orderHelper.getUserOrderDetails(userId, orderId, setOrderDetails);
+  }
 
   // test
   //console.log(orderDetails);
@@ -39,7 +49,7 @@ function Index() {
         </h1>
         <Row>
           <div className="col-md-12 col-12">
-            <OrderAddress orderDetails={orderDetails.orderDetails}/>
+            <OrderAddress orderDetails={orderDetails.orderDetails} handleOrderCancel={handleOrderCancel}/>
           </div>
           <div className="col-md-12 col-12">
             <OrderProduct productInfo={orderDetails.productsInfo} orderDetails={orderDetails.orderDetails}/>

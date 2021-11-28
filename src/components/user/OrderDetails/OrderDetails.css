@@ -248,6 +248,14 @@
   display: inline;
 }
 
+.orderStatus__cancel button{
+  padding:3px 15px;
+  border: none;
+  background-color: tomato;
+  color:rgb(245, 236, 236);
+  border-radius: 4px;
+}
+
 /* Media Screen */
 @media screen and (max-width: 700px) {
   .orderProduct__img {

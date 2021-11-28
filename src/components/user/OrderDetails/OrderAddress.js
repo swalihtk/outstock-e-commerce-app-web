@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import OrderStatus from "./OrderStatus";
 
-function OrderAddress({orderDetails}) {
+
+function OrderAddress({orderDetails, handleOrderCancel}) {
 
   // state
   let [address, setAddress]=useState({});
+  let [status, setStatus]=useState([]);
   let [beginStatus, setBeginStatus]=useState({});
   let [endStatus, setEndStatus]=useState({});
 
@@ -14,10 +16,12 @@ function OrderAddress({orderDetails}) {
     setAddress(orderDetails.address);
 
     if(!orderDetails.status) return;
+    setStatus(orderDetails.status);
     setBeginStatus(orderDetails.status[0])
     setEndStatus(orderDetails.status[orderDetails.status.length-1])
   }, [orderDetails])
 
+  
 
   return (
     <div className="orderAddress__main">
@@ -35,7 +39,7 @@ function OrderAddress({orderDetails}) {
       </div>
       </div>
       <div className="col-12 col-md-6">
-      <OrderStatus startStatus={beginStatus} endStatus={endStatus}/>
+      <OrderStatus startStatus={beginStatus} endStatus={endStatus} status={status} handleOrderCancel={handleOrderCancel}/>
       </div>
       </div>
     </div>

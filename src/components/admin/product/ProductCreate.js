@@ -1,437 +1,212 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
-import {
-  Col,
-  Form,
-  Row,
-  Button,
-  FloatingLabel,
-  Spinner,
-} from "react-bootstrap";
 import "../style.css";
-import { useSelector, useDispatch } from "react-redux";
-import swal from "sweetalert";
-import { LinearProgress, Slider } from "@material-ui/core";
-import Cropper from "react-easy-crop";
+import ImageCroper from "../../../layouts/admin/ImageCroper";
+import productHelper from "../../../helper/user/productHelper";
 
-function ProductCreate() {
-  /*****PARAMS********
-    name,
-    price,
-    images,
-    details,
-    shortDescription,
-    color,
-    brand,
-    category,
-    subCategory,
-    quantity
-    *********************/
+// material
+import ImageIcon from '@material-ui/icons/Image';
+import { Spinner } from "react-bootstrap";
 
-  /******** Category manage ****/
-  let [categoryArray, setCategoryArray] = useState([]);
-  let [subCategoryArray, setSubCategoryArray] = useState([]);
+function ProductCreate({setShowAddProduct}) {
 
-  // loading
-  let [categoryLoading, setCategoryLoading] = useState(false);
-  let [subCatLoading, setSubCatLoading] = useState(false);
+  // form states
+  let [name,setName]=useState("");
+  let [price,setPrice]=useState(1);
+  let [quantity,setQuantity]=useState(1);
+  let [brand, setBrand]=useState("");
+  let [color, setColor]=useState("black");
+  let [discription,setDiscription]=useState("");
 
-  // select handler
-  let [mainCatValue, setMainCatValue] = useState("");
-  let [subCatValue, setSubCatValue] = useState("");
+  // image states
+  let [image1, setImage1]=useState(false);
+  let [image2, setImage2]=useState(false);
+  let [image3, setImage3]=useState(false);
+  let [previewSource1, setPreviewSource1]=useState("");
+  let [previewSource2, setPreviewSource2]=useState("");
+  let [previewSource3, setPreviewSource3]=useState("");
+  let [loadImage1, setLoadImage1]=useState("");
+  let [loadImage2, setLoadImage2]=useState("");
+  let [loadImage3, setLoadImage3]=useState("");
 
-  // main select hanlder
-  function handleMainSelect(e) {
-    let value = e.target.value;
-    setMainCatValue(value);
-    getSubCategory(value);
+  let [imageOne,setImageOne]=useState("");
+  let [imageTwo,setImageTwo]=useState("");
+  let [imageThree,setImageThree]=useState("");
+
+  // category states
+  let [mainCategoryLoading, setMainCategoryLoading]=useState(false);
+  let [subCategoryLoading, setSubCategoryLoading]=useState(false);
+  let [mainCatValue,setMainCatValue]=useState("");
+  let [subCatValue,setSubCatValue]=useState("");
+  let [mainCategoryArray, setMainCategoryArray]=useState([]);
+  let [subCategoryArray, setSubCategoryArray]=useState([]);
+
+  // create states
+  let [uploadLoading,setUploadLoading]=useState(false);
+
+  // mount
+  useEffect(()=>{
+    productHelper.getMainCategorys(setMainCategoryLoading, setMainCategoryArray, setMainCatValue);
+  },[])
+  useEffect(()=>{
+    productHelper.getSubCategory(setSubCategoryLoading, mainCatValue, setSubCategoryArray, setSubCatValue);
+  }, [mainCatValue])
+
+  // actions (image) (onchange)
+  function handleImageOne(e){
+    setImageOne(e.target.files[0]);
+    setImage1(true);
+    setPreviewSource1(URL.createObjectURL(e.target.files[0]));
   }
-
-  // get main array
-  function getMainCat() {
-    setCategoryLoading(true);
-    axios
-      .get("/admin/category/get")
-      .then((response) => {
-        let data = response.data;
-        setCategoryArray(data);
-        getSubCategory(data[0].categoryName);
-        setCategoryLoading(false);
-        setMainCatValue(data[0].categoryName);
-      })
-      .catch((err) => {
-        alert("Something went wrong!!");
-        setCategoryLoading(false);
-      });
+  function handleImageTwo(e){
+    setImageTwo(e.target.files[0]);
+    setImage2(true);
+    setPreviewSource2(URL.createObjectURL(e.target.files[0]));
   }
-
-  // get Subcategory
-  function getSubCategory(value) {
-    setSubCatLoading(true);
-    axios
-      .get(`/admin/category/getSub/${value}`)
-      .then((response) => {
-        let data = response.data;
-        setSubCatLoading(false);
-        setSubCategoryArray(data);
-        setSubCatValue(data[0]);
-      })
-      .catch((err) => {
-        setSubCatLoading(false);
-        alert("Something went wrong!!");
-      });
-  }
-
-  useEffect(() => {
-    getMainCat();
-  }, []);
-
-  /*********** Form Handler State ********/
-  let [name, setName] = useState("");
-  let [price, setPrice] = useState("");
-  let [details, setDetails] = useState("");
-  let [color, setColor] = useState("black");
-  let [brand, setBrand] = useState("");
-  let [quanity, setQuantity] = useState("");
-
-  // image handler
-  let [image1, setImage1] = useState("");
-  let [image2, setImage2] = useState("");
-  let [image3, setImage3] = useState("");
-
-  let [previewSource1, setPreviewSource1] = useState("");
-  let [previewSource2, setPreviewSource2] = useState("");
-  let [previewSource3, setPreviewSource3] = useState("");
-  let [allImageFiles, setAllImageFiles] = useState([]);
-
-  // form error
-  let [nameErr, setNameErr] = useState("");
-  let [priceErr, setPriceErr] = useState("");
-  let [detailsErr, setDetailsErr] = useState("");
-  let [quantityErr, setQuantityErr] = useState("");
-  let [brandErr, setBrandErr] = useState("");
-  let [imageErr, setImageErr] = useState("");
-
-  /********** Handle Image *********/
-  function previewImageOne(e) {
-    setAllImageFiles((prev) => [...prev, e.target.files[0]]);
-    setPreviewImage(e.target.files[0], setPreviewSource1);
-  }
-
-  function previewImageTwo(e) {
-    setAllImageFiles((prev) => [...prev, e.target.files[0]]);
-    setPreviewImage(e.target.files[0], setPreviewSource2);
-  }
-
-  function previewImageThree(e) {
-    setAllImageFiles((prev) => [...prev, e.target.files[0]]);
-    setPreviewImage(e.target.files[0], setPreviewSource3);
-  }
-
-  // image preview function
-  function setPreviewImage(image, source) {
-    let reader = new FileReader();
-    reader.readAsDataURL(image);
-    reader.onloadend = () => {
-      source(reader.result);
-    };
+  function handleImageThree(e){
+    setImageThree(e.target.files[0]);
+    setImage3(true);
+    setPreviewSource3(URL.createObjectURL(e.target.files[0]));
   }
 
   /****** Upload Product Handler *****/
-  function uploadProduct(e) {
-    e.preventDefault();
+    function formUploadHandler(e) {
+      e.preventDefault();
 
-    if (!name) {
-      resetError();
-      setNameErr("Please provide a name");
-    } else if (!price) {
-      resetError();
-      setPriceErr("Enter the price");
-    } else if (!details) {
-      resetError();
-      setDetailsErr("Please provide details");
-    } else if (!quanity) {
-      console.log("jldkj");
-      resetError();
-      setQuantityErr("Please provide quanity");
-    } else if (!brand) {
-      resetError();
-      setBrandErr("Please provide brand name");
-    } else if (!previewSource1 && !previewSource2 && !previewSource3) {
-      resetError();
-      setImageErr("You need three images to create product!");
-    } else {
-      resetError();
+        if(!name || !price || !brand || !discription || !imageOne || !imageTwo || !imageThree) return;
 
-      let formData = new FormData();
-      for (let file of allImageFiles) {
-        formData.append("image", file);
+        let formData = new FormData();
+        formData.append("image", imageOne);
+        formData.append("image", imageTwo);
+        formData.append("image", imageThree);
+        let body = {
+          name: name,
+          price: price,
+          color: color,
+          brand: brand,
+          category: mainCatValue,
+          subCategory: subCatValue,
+          quantity: quantity,
+        };
+        productHelper.createNewProduct(formData, body, setUploadLoading, setShowAddProduct);
       }
-
-      let body = {
-        name: name,
-        price: price,
-        details: details,
-        color: color,
-        brand: brand,
-        category: mainCatValue,
-        subCategory: subCatValue,
-        quantity: quanity,
-      };
-
-      swal("Product Uploading", { buttons: false });
-      axios
-        .post("/admin/product/getImageLink", formData)
-        .then((response) => {
-          let data = response.data;
-          body.productImages = data;
-          axios
-            .post("/admin/product/add", body)
-            .then((response) => {
-              swal({
-                title: "Success",
-                text: "Product Uploaded!",
-                icon: "success",
-                button: "Ok!",
-              });
-
-              window.location.reload();
-            })
-            .catch((err) => {
-              swal({
-                title: "Error",
-                text: err,
-                icon: "error",
-                button: "Ok!",
-              });
-            });
-        })
-        .catch((err) => {
-          alert("Something went wrong");
-        });
-    }
-  }
-
-  function resetError() {
-    setNameErr("");
-    setPriceErr("");
-    setQuantityErr("");
-    setDetailsErr("");
-    setBrandErr("");
-    setImageErr("");
-  }
 
   return (
     <div>
-      <h5 className="text-center">--</h5>
-      <h3 className="text-center">Create new Product</h3>
 
-      <div className="container">
-        <Form
-          className="pb-4"
-          onSubmit={uploadProduct}
-          id="productAdd"
-          encType="multipart/form-data"
-        >
-          <Row>
-            <Col>
-              <Form.Control
-                placeholder="Name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              />
-              {nameErr && <FormError err={nameErr} />}
-            </Col>
-            <Col>
-              <Form.Control
-                placeholder="Price"
-                type="number"
-                min={0}
-                value={price}
-                onChange={(e) => setPrice(e.target.value)}
-              />
-              {priceErr && <FormError err={priceErr} />}
-            </Col>
-          </Row>
-          <Row className="mt-4">
-            <Col xs={7}>
-              <Form.Control
-                placeholder="brand"
-                value={brand}
-                onChange={(e) => setBrand(e.target.value)}
-              />
-              {brandErr && <FormError err={brandErr} />}
-            </Col>
-            <Col>
-              <Form.Label htmlFor="exampleColorInput">Color picker</Form.Label>
-              <Form.Control
-                type="color"
-                id="exampleColorInput"
-                defaultValue="#563d7c"
-                title="Choose your color"
-                value={color}
-                onChange={(e) => setColor(e.target.value)}
-              />
-            </Col>
-            <Col>
-              <Form.Control
-                placeholder="quantity"
-                type="number"
-                min={1}
-                value={quanity}
-                onChange={(e) => setQuantity(e.target.value)}
-              />
-              {quantityErr && <FormError err={quantityErr} />}
-            </Col>
-          </Row>
-          <Row className="mt-4">
-            <Col>
-              <Form.Group controlId="formFileMultiple" className="mb-3">
-                <Form.Label>Image1</Form.Label>
-                <Form.Control
-                  type="file"
-                  onChange={previewImageOne}
-                  name="image"
-                />
-              </Form.Group>
-            </Col>
-            <Col>
-              <Form.Group controlId="formFileMultiple" className="mb-3">
-                <Form.Label>Image2</Form.Label>
-                <Form.Control
-                  type="file"
-                  onChange={previewImageTwo}
-                  name="image"
-                />
-              </Form.Group>
-            </Col>
-            <Col>
-              <Form.Group controlId="formFileMultiple" className="mb-3">
-                <Form.Label>Image3</Form.Label>
-                <Form.Control
-                  type="file"
-                  onChange={previewImageThree}
-                  name="image"
-                />
-              </Form.Group>
-            </Col>
-          </Row>
-          <Row className="mt-4">
-            <Col>
-              <img
-                className="product-preview_image"
-                src={
-                  previewSource1
-                    ? previewSource1
-                    : "https://thumbs.dreamstime.com/z/no-image-available-icon-flat-vector-no-image-available-icon-flat-vector-illustration-132484366.jpg"
-                }
-                alt=""
-              />
-            </Col>
-            <Col>
-              <img
-                className="product-preview_image"
-                src={
-                  previewSource2
-                    ? previewSource2
-                    : "https://thumbs.dreamstime.com/z/no-image-available-icon-flat-vector-no-image-available-icon-flat-vector-illustration-132484366.jpg"
-                }
-                alt=""
-              />
-            </Col>
-            <Col>
-              <img
-                className="product-preview_image"
-                src={
-                  previewSource3
-                    ? previewSource3
-                    : "https://thumbs.dreamstime.com/z/no-image-available-icon-flat-vector-no-image-available-icon-flat-vector-illustration-132484366.jpg"
-                }
-                alt=""
-              />
-            </Col>
-            {imageErr && (
-              <p
-                className="text-center text-danger"
-                style={{
-                  display: "inline",
-                  marginBottom: "0",
-                  marginTop: "0.4rem",
-                }}
-              >
-                {imageErr}
-              </p>
-            )}
-          </Row>
-          <Row className="g-2 mt-4">
-            <Col md>
-              <FloatingLabel
-                controlId="floatingSelectGrid"
-                label="Main Category"
-              >
-                {categoryLoading && <LinearProgress />}
-                <Form.Select
-                  value={mainCatValue}
-                  onChange={handleMainSelect}
-                  aria-label="Floating label select example"
-                >
-                  {categoryArray?.map((item) => {
-                    return <option key={item._id}>{item.categoryName}</option>;
-                  })}
-                </Form.Select>
-              </FloatingLabel>
-            </Col>
-            <Col md>
-              <FloatingLabel
-                controlId="floatingSelectGrid"
-                label="Sub Category"
-              >
-                {subCatLoading && <LinearProgress />}
-                <Form.Select
-                  value={subCatValue}
-                  onChange={(e) => setSubCatValue(e.target.value)}
-                >
-                  {subCategoryArray?.map((item, index) => {
-                    return <option key={index}>{item}</option>;
-                  })}
-                </Form.Select>
-              </FloatingLabel>
-            </Col>
-          </Row>
-          <FloatingLabel
-            controlId="floatingTextarea"
-            label="short description"
-            className="mb-3 mt-4"
-          ></FloatingLabel>
-          <FloatingLabel controlId="floatingTextarea2" label="details">
-            <Form.Control
-              as="textarea"
-              placeholder="details"
-              style={{ height: "100px" }}
-              value={details}
-              onChange={(e) => setDetails(e.target.value)}
-            />
-            {detailsErr && <FormError err={detailsErr} />}
-          </FloatingLabel>
+      {/* Croper */}
 
-          <Button className="mb-4 mt-3 product-create-btn" type="submit">
-            Create Product
-          </Button>
-        </Form>
+      {
+        image1&&<ImageCroper imageToCrop={previewSource1} setBoolean={setImage1} setPreview={setPreviewSource1} setLoadImage={setLoadImage1} imageDetails={imageOne}/>
+      } 
+      {
+        image2&&<ImageCroper imageToCrop={previewSource2} setBoolean={setImage2} setPreview={setPreviewSource2} setLoadImage={setLoadImage2} imageDetails={imageTwo}/>
+      }
+      {
+        image3&&<ImageCroper imageToCrop={previewSource3} setBoolean={setImage3} setPreview={setPreviewSource3} setLoadImage={setLoadImage3} imageDetails={imageThree}/>
+      }
+
+      {/* New Form */}
+      <div className="productCreate__main container">
+        <form onSubmit={formUploadHandler}>
+        <div className="row" style={{marginTop:"-1rem"}}>
+          <div className="col-6 col-md-6 product__form">
+            <label>Name</label><br/>
+            <input type="text" value={name} onChange={e=>setName(e.target.value)} />
+          </div>
+          <div className="col-6 col-md-6 product__form">
+            <label>Price</label><br/>
+            <input type="number" min={1} value={price} onChange={e=>setPrice(e.target.value)} />
+          </div>
+          <div className="col-4 col-md-4 product__form">
+            <label>Brand</label><br/>
+            <input type="text" value={brand} onChange={e=>setBrand(e.target.value)} />
+          </div>
+          <div className="col-4 col-md-4 product__form">
+            <label>Color</label><br/>
+            <input type="color" value={color} onChange={e=>setColor(e.target.value)} />
+          </div>
+          <div className="col-4 col-md-4 product__form">
+            <label>Quanity</label><br/>
+            <input type="number" min="1" value={quantity} onChange={e=>setQuantity(e.target.value)} />
+          </div>
+
+          {/* Image Forms */}
+          <div className="col-4 col-md-4 product__form text-center">
+            <label for="image1"><ImageIcon style={{fontSize:"3rem"}}/></label><br/>
+            <input type="file" id="image1" accept="image/*" value="" style={{display:"none"}} onChange={handleImageOne}/>
+          </div>
+          <div className="col-4 col-md-4 product__form text-center">
+            <label for="image2"><ImageIcon style={{fontSize:"3rem"}}/></label><br/>
+            <input type="file" id="image2" accept="image/*" value="" style={{display:"none"}} onChange={handleImageTwo}/>
+          </div>
+          <div className="col-4 col-md-4 product__form text-center">
+            <label for="image3"><ImageIcon style={{fontSize:"3rem"}}/></label><br/>
+            <input type="file" id="image3" accept="image/*" value="" style={{display:"none"}} onChange={handleImageThree}/>
+          </div>
+
+          <div className="col-4 col-md-4 product__form">
+          <img src={previewSource1?previewSource1:"https://thumbs.dreamstime.com/z/no-image-available-icon-flat-vector-no-image-available-icon-flat-vector-illustration-132484366.jpg"} alt="" 
+          />
+          </div>
+          <div className="col-4 col-md-4 product__form">
+          <img src={previewSource2?previewSource2:"https://thumbs.dreamstime.com/z/no-image-available-icon-flat-vector-no-image-available-icon-flat-vector-illustration-132484366.jpg"} alt="" 
+          />
+          </div>
+          <div className="col-4 col-md-4 product__form">
+          <img src={previewSource3?previewSource3:"https://thumbs.dreamstime.com/z/no-image-available-icon-flat-vector-no-image-available-icon-flat-vector-illustration-132484366.jpg"} alt="" 
+          />
+          </div>
+
+          {/* Select category */}
+          <div className="col-6 col-md-6 product__form">
+            <label>MainCategory</label><br/>
+            <select value={mainCatValue} onChange={e=>setMainCatValue(e.target.value)}>
+              {
+                mainCategoryArray.map((item, index)=>{
+                  return <option key={index}>{item.categoryName}</option>
+                })
+              }
+            </select>
+          </div>
+
+          <div className="col-6 col-md-6 product__form">
+            <label>SubCategory</label><br/>
+            <select value={setSubCatValue} onChange={e=>setSubCatValue(e.target.value)}>
+              {
+                subCategoryArray.map((item, index)=>{
+                  return <option key={index}>{item}</option>
+                })
+              }
+            </select>
+          </div>
+
+          <div className="col-12 col-md-12 product__form">
+            <label>Description</label><br/>
+            <textarea cols="10" row="10" value={discription} onChange={e=>setDiscription(e.target.value)}/>  
+          </div>
+
+          <div className="col-6 col-6 product__form" style={{textAlign:"right"}}>
+            {
+              uploadLoading?
+              <button style={{background:"grey"}}>CANCEL</button>
+              :
+              <button onClick={()=>setShowAddProduct(false)} type="button">CANCEL</button>
+            }
+          </div>
+          <div className="col-6 col-6 product__form">
+            {
+              uploadLoading?
+              <button style={{background:"#f0f0f0", color:"black"}} type="submit"><Spinner animation="border" size="sm" style={{marginRight:"1rem"}} variant="success" />UPLOADING</button>
+              :
+              <button style={{background:"blue"}} type="submit">SAVE</button>
+            }
+          </div>
+        </div>
+        </form>
       </div>
     </div>
   );
 }
 
-function FormError({ err }) {
-  return (
-    <p
-      className="text-danger"
-      style={{ display: "inline", marginLeft: "0.4rem" }}
-    >
-      {err}
-    </p>
-  );
-}
 
 export default ProductCreate;

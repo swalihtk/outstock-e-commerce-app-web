@@ -110,18 +110,18 @@ function OrderTable({ order, getAllOrders }) {
         </TableCell>
         <TableCell align="center">
           {
-            endStatus==="canceled"?
+            endStatus==="CANCELED"?
             <Form.Select disabled>
               <option>Canceled</option>
             </Form.Select>
             :
           <Form.Select onChange={handleChangeStatus}>
             <option value={endStatus}>{endStatus}</option>
-            <option value="confirmed">confirmed</option>
-            <option value="packed">packed</option>
-            <option value="shipped">shipped</option>
-            <option value="deliverd">deliverd</option>
-            <option value="canceled">canceled</option>
+            <option value="CONFIRMED">confirmed</option>
+            <option value="PACKED">packed</option>
+            <option value="SHIPPED">shipped</option>
+            <option value="DELIVERD">deliverd</option>
+            <option value="CANCELED">canceled</option>
           </Form.Select>
         }
         </TableCell>

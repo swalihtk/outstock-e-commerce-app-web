@@ -35,15 +35,15 @@ function OrderCard({orders, userId}) {
 
     if(!status) return;
 
-    if(status.state==="confirmed"){
+    if(status.state==="CONFIRMED"){
       setStatusStyle({background:"blue"})
-    }else if(status.state==="canceled"){
+    }else if(status.state==="CANCELED"){
       setStatusStyle({background:"red"}) 
-    }else if(status.state==="packed"){
+    }else if(status.state==="PACKED"){
       setStatusStyle({background:"violet"})
-    }else if(status.state==="shipped"){
+    }else if(status.state==="SHIPPED"){
       setStatusStyle({background:"lightgreen"})
-    }else if(status.state==="deliverd"){
+    }else if(status.state==="DELIVERD"){
       setStatusStyle({background:"green"})
     }
   }, [status])

@@ -37,7 +37,7 @@ function ProductShow() {
 
   return (
     <div>
-      <Nav variant="tabs" defaultActiveKey="/home">
+      {/* <Nav variant="tabs" defaultActiveKey="/home">
         <Nav.Item>
           <Nav.Link eventKey="link-1" onClick={changeToShow}>
             Show Products
@@ -48,7 +48,7 @@ function ProductShow() {
             Create Product
           </Nav.Link>
         </Nav.Item>
-      </Nav>
+      </Nav> */}
 
       <div style={{ background: "white", height: "80vh" }}>
         {productPageState === "show" ? (
