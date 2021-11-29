@@ -9,10 +9,10 @@ import SaveIcon from '@material-ui/icons/Save';
 function MyAccount() {
 
     // state 
-    let [username, setUsername]=useState("");
-    let [email, setEmail]=useState("");
-    let [firstName, setFirstname]=useState("");
-    let [lastName, setLastname]=useState("");
+    let [username, setUsername]=useState("....");
+    let [email, setEmail]=useState("....");
+    let [firstName, setFirstname]=useState("....");
+    let [lastName, setLastname]=useState("...");
 
     let [detailUpdateLoading, setDetailUpdateLoading]=useState(false);
     let [imageUpdateLoading, setImageUpdateLoading]=useState(false);

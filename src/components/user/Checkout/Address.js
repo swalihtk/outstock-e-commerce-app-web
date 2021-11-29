@@ -139,12 +139,13 @@ function Address({userId, setAddressState}) {
                           <input type="radio" name="quizOption" onClick={checkboxHandler} value={JSON.stringify(addressBody)}/>
                         </TableCell>
                         <TableCell align="center">
-                          <strong> Name: </strong>{address.fullName},
+                          <p style={{fontSize:"14px"}}><strong> Name: </strong>{address.fullName},
                           <strong> Mobile: </strong>{address.mobileNu},
                           <strong> Pincode: </strong>{address.pincode},
                           <strong> Address: </strong>{address.address},
                           <strong> Town: </strong>{address.town},
                           <strong> Landmark: </strong>{address.landmark}
+                          </p>
                         </TableCell>
                       </TableRow>
                     );

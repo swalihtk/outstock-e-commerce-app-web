@@ -51,7 +51,7 @@ function Routers() {
           element={logedin ? <Cart /> : <Navigate to="/login" />}
         />
         <Route path="/cart/checkout/:userId" element={<Checkout />} />
-        <Route path="/order/success" element={<OrderSuccess />} />
+        <Route path="/orders/success/:userId" element={<OrderSuccess />} />
         <Route path="/orders/:userId" element={<Order />} />
         <Route path="/order_details" element={<OrderDetails />} />
         <Route path="/profile" element={<Profile />} />

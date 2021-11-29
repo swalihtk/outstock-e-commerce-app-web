@@ -18,7 +18,7 @@ function ProfileNavigation() {
     <div className="container">
         <div className="row mt-4">
             <div className="col-md-3">
-                <ListGroup.Item variant="success">Welcome Username</ListGroup.Item>
+                <ListGroup.Item variant="success" className="text-center">Welcome to Profile!!</ListGroup.Item>
                 <ListGroup className="mt-3">
                     <ListGroup.Item action variant="light" onClick={()=>setNavItem("ACCOUNT")}><AccountCircleIcon/> Account Settings</ListGroup.Item>
                     <ListGroup.Item action variant="light" onClick={()=>setNavItem("MANAGE")}><HomeIcon/> Manage Address</ListGroup.Item>

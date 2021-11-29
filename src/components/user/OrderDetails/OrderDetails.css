@@ -154,7 +154,11 @@
 }
 
 .progress-track {
-  padding: 0 8%
+  padding: 0 8%;
+}
+
+#progressbar li{
+  font-size:small;
 }
 
 #progressbar li:nth-child(2):after {

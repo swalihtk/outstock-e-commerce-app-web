@@ -137,6 +137,11 @@
     margin-top: 5px;
 }
 
+.passwordChange__main form div{
+    display: block;
+    margin:auto;
+}
+
 .passwordChange__main form button{
     padding: 5px 15px;
     margin:1rem auto;

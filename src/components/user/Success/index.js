@@ -3,7 +3,7 @@ import { Container } from "react-bootstrap";
 import NavigationBar from "../../../layouts/user/NavigationBar";
 import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 import "./style.css";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import {useSelector} from "react-redux";
 
 function Index() {
@@ -13,6 +13,9 @@ function Index() {
 
   // state
   let [address, setAddress]=useState({});
+
+  // useparams
+  let {userId}=useParams();
 
   // useEffect
   useEffect(()=>{
@@ -33,36 +36,15 @@ function Index() {
               Has Been Recieved
             </h1>
           </div>
-          <HomeNavigationButton />
-
-          <div className="orderSuccess__orderDetails">
-            <h1>Order Address</h1>
-            <p>
-              <strong> Name: </strong>{address.FullName}
-            </p>
-            <p>
-              <strong> Mobile: </strong>{address.Mobile}
-            </p>
-            <p>
-              <strong> Pincode: </strong>{"111"}
-            </p>
-            <p>
-              <strong> Address: </strong>{address.Address}
-            </p>
-            <p>
-              <strong> Town: </strong>{address.Town}
-            </p>
-            <p>
-              <strong> Landmark: </strong>Linsha Medicals
-            </p>
-          </div>
+          <HomeNavigationButton userId={userId}/>
+          
         </div>
       </Container>
     </>
   );
 }
 
-function HomeNavigationButton() {
+function HomeNavigationButton({userId}) {
   let navigate = useNavigate();
 
   return (
@@ -73,6 +55,14 @@ function HomeNavigationButton() {
         }}
       >
         CONTINUE SHOPING
+      </button>
+      <button
+        onClick={() => {
+          navigate("/orders/"+userId);
+        }}
+        style={{marginLeft:"1rem", background:"green"}}
+      >
+        SHOW ORDERS
       </button>
     </div>
   );

@@ -10,6 +10,8 @@ import OrderDetails from "./OrderDetails";
 import { useNavigate } from "react-router";
 import checkoutHelper from "../../../actions/user/checkoutHelper";
 
+//text
+import axios from "axios";
 
 function Index() {
   // hooks
@@ -37,6 +39,7 @@ function Index() {
   }
 
   // test
+
  
 
   return (

@@ -113,13 +113,13 @@ function OrderDetails({setPaymentState,handlePayment,paymentState,addressState, 
                 <TableHead>
                   <TableRow>
                     <TableCell>
-                      <strong>Product</strong>
+                      <p style={{fontSize:"14px"}}><strong>Product</strong></p>
                     </TableCell>
                     <TableCell align="center">
-                      <strong>Quantity</strong>
+                    <p style={{fontSize:"14px"}}><strong>Quantity</strong></p>
                     </TableCell>
                     <TableCell align="center">
-                      <strong>Price</strong>
+                    <p style={{fontSize:"14px"}}><strong>Price</strong></p>
                     </TableCell>
                   </TableRow>
                 </TableHead>
@@ -132,13 +132,13 @@ function OrderDetails({setPaymentState,handlePayment,paymentState,addressState, 
                       return (
                         <TableRow key={index}>
                           <TableCell component="th" scope="row">
-                            {productInfo.name}
+                          <p style={{fontSize:"14px"}}>{productInfo.name}</p>
                           </TableCell>
                           <TableCell align="center">
-                            {product.quantity}
+                          <p style={{fontSize:"14px"}}>{product.quantity}</p>
                           </TableCell>
                           <TableCell align="center">
-                            ₹{item.totalPrice}
+                          <p style={{fontSize:"14px"}}>₹{item.totalPrice}</p>
                           </TableCell>
                         </TableRow>
                       );
@@ -165,10 +165,10 @@ function OrderDetails({setPaymentState,handlePayment,paymentState,addressState, 
                   <TableBody>
                     <TableRow>
                       <TableCell component="th" scope="row">
-                        <strong>Total Amount</strong>
+                      <p style={{fontSize:"14px"}}><strong>Total Amount</strong></p>
                       </TableCell>
                       <TableCell align="center">
-                        <strong>₹{totalPrice}</strong>
+                      <p style={{fontSize:"14px"}}><strong>₹{totalPrice}</strong></p>
                       </TableCell>
                     </TableRow>
                   </TableBody>
@@ -191,10 +191,20 @@ function OrderDetails({setPaymentState,handlePayment,paymentState,addressState, 
             <input
               type="radio"
               name="payment"
-              value={"OTHERS"}
+              value={"RAZORPAY"}
               onClick={(e) => setPaymentState(e.target.value)}
             />
-            <p>OTHER PAYMENT METHOD</p>
+            <p>RAZORPAY</p>
+            <br />
+          </div>
+          <div className="order__paymentMethod">
+            <input
+              type="radio"
+              name="payment"
+              value={"PAYPAL"}
+              onClick={(e) => setPaymentState(e.target.value)}
+            />
+            <p>PAYPAL</p>
             <br />
           </div>
         </div>

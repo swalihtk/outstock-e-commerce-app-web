@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import AddIcon from "@material-ui/icons/Add";
-import { Form, Col, Row, Button } from "react-bootstrap";
+import { Form, Col, Row, Button, Spinner } from "react-bootstrap";
 import accountHelper from '../../../actions/user/accountHelper';
 import {useDispatch, useSelector} from 'react-redux';
 import {listAllAddress} from "../../../redux/user/addressReducer";
@@ -27,8 +27,12 @@ function ManageAddress() {
   // states
   let [addresses, setAddresses] = useState([]);
   let [loading, setLoading] = useState(false);
+  let [addressObject, setAddressObject]=useState({});
+  let [addressLoading, setAddressLoading]=useState(false);
+  let [editFormError, setEditFormError]=useState("");
+  let [addressId, setAddressId]=useState("");
 
-  // mounte
+  // mount
   useEffect(() => {
     if(addressRedux.address){
       setAddresses(addressRedux.address);
@@ -41,17 +45,29 @@ function ManageAddress() {
     dispatch(listAllAddress(userId));
   }, [userId])
 
+  useEffect(()=>{
+    if(!addressObject) return;
+    setFullName(addressObject.fullName);
+    setMobileNu(addressObject.mobileNu);
+    setAddress(addressObject.address);
+    setTown(addressObject.town);
+    setState(addressObject.state);
+    setLandmark(addressObject.landmark);
+    setAddressId(addressObject._id);
+  }, [addressObject])
+
   // handle actions
   function handleAddressFormShow(e) {
     e.preventDefault();
     setForEdit(false);
+    resetForm();
     setShowAddressForm(true);
   }
 
-  function handleEditFormShow(e){
-      e.preventDefault();
+  function handleEditFormShow(addressId){
       setForEdit(true);
       setShowAddressForm(true);
+      accountHelper.getOneAddress(userId, addressId, setAddressObject, setAddressLoading, setEditFormError);
   }
 
   function handleAddressAdd(e){
@@ -82,14 +98,28 @@ function ManageAddress() {
     setTown("");
     setState("");
     setLandmark("");
+    setAddressId("");
   }
 
   function handleAddressEdit(e){
       e.preventDefault();
+      let body={
+        fullName:fullName,
+        pincode:pincode,
+        address:address,
+        town:town,
+        state:state,
+        landmark:landmark
+      }
+      accountHelper.updateAddress(userId, addressId, body, setAddressLoading, setFormErr,dispatch, setShowAddressForm);
+  }
+
+  function handleDeleteAddress(addressId){
+    accountHelper.deleteAddress(userId, addressId, dispatch);
   }
 
   // test
-  console.log(addresses)
+  // console.log(addressObject);
 
   return (
     <div className="manageAddress__main">
@@ -181,14 +211,22 @@ function ManageAddress() {
               </Row>
               {formErr && <p className="text-danger">{formErr}</p>}
               {submitErr && <p className="text-danger">{submitErr}</p>}
+              {editFormError&& <p className="text-danger">{editFormError}</p>}
               <Button
                 variant="primary"
                 type="submit"
                 onClick={forEdit?handleAddressEdit:handleAddressAdd}
               >
-                Submit
+                {
+                  addressLoading?<Spinner animation="border" size="sm" />
+                  :
+                  "SUBMIT"
+                }
               </Button>
-              <Button variant="danger" style={{marginLeft:"1rem"}} onClick={e=>setShowAddressForm(false)}>Cancell</Button>
+              <Button variant="danger" style={{marginLeft:"1rem"}} onClick={e=>{
+                resetForm();
+                setShowAddressForm(false);
+              }}>Cancell</Button>
             </Form>
           </div>}
         </div>
@@ -198,17 +236,17 @@ function ManageAddress() {
               addresses.map((item, index)=>{
                   let address=item.address;
                 return (
-                    <div className="manageAddress__address_container" key={item._id}>
+                    <div className="manageAddress__address_container" key={address._id}>
                         <p>
                             <strong>{address.fullName}</strong> <strong>{address.mobileNu}</strong>
                             <br />
                             <span>
-                            {address.address}, {address.town}, {address.state} - 67852
+                            {address.address}, {address.town}, {address.state} - {address.pincode}
                             </span>
                         </p>
                         <div className="manageAddress__actions">
-                            <button style={{background:"blue"}} onClick={handleEditFormShow}>Edit</button>
-                            <button style={{background:"red"}}>Delete</button>
+                            <button style={{background:"blue"}} onClick={(e)=>handleEditFormShow(address._id)}>Edit</button>
+                            <button style={{background:"red"}} onClick={(e)=>handleDeleteAddress(address._id)}>Delete</button>
                         </div>
                     </div>
                   )

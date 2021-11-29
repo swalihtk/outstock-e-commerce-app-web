@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { Navigate } from 'react-router';
 import swal from 'sweetalert';
 import { listAllAddress } from '../../redux/user/addressReducer';
 
@@ -50,7 +51,7 @@ const helpers={
         }
     },
 
-    changeUserPassword:async function(userId, verifyPassword, newPassword, setErr, setLoading){
+    changeUserPassword:async function(userId, verifyPassword, newPassword, setErr, setLoading, navigate){
         try{
             setLoading(true);
             let body={
@@ -61,6 +62,7 @@ const helpers={
             setLoading(false);
             if(response.status===201){
                 swal("Password updated succesfully!!", "ok", "success");
+                navigate("/")
             }else{
                 setErr(response.data.err)
             }
@@ -86,6 +88,57 @@ const helpers={
             }
         }catch(e){
             setLoading(false);
+        }
+    },
+
+    getOneAddress:async function(userId, addressId, setAddress, setLoading, setErr){
+        try{
+            setLoading(true);
+            let response=await axios.get(`/user/account/address/getOne/${userId}/${addressId}`);
+            let data=response.data;
+            setLoading(false);
+            if(response.status===200){
+                setAddress(data);
+            }else{
+                setErr(data.error)
+            }
+        }catch(e){
+            setLoading(false);
+            setErr(e.message);
+            return;
+        }
+    },
+
+    updateAddress:async function(userId, addressId, body, setLoading, setErr,dispatch, setShowAddressForm){
+        try{
+            setLoading(true);
+            let response=await axios.put(`/user/account/address/edit?userId=${userId}&addressId=${addressId}`, body);
+            setLoading(false);
+            let data=response.data;
+            if(response.status===201){
+                swal("Address Updated!", "ok", "success");
+                dispatch(listAllAddress(userId));
+                setShowAddressForm(false);
+            }else{
+                setErr(data.error);
+            }
+        }catch(e){
+            setLoading(false);
+            return;
+        }
+    },
+
+    deleteAddress:async function(userId, addressId, dispatch){
+        try{
+            let response=await axios.delete(`/user/account/address/delete?userId=${userId}&addressId=${addressId}`);
+            if(response.status===201){
+                swal("Address Deleted", "ok", "success");
+                dispatch(listAllAddress(userId));
+            }else{
+                return;
+            }
+        }catch(e){
+            return;
         }
     }
 }

@@ -179,27 +179,27 @@ function MyAccountLi() {
           overlay={
             <Menu>
               <Menu.Item key="1">
-                <p style={{fontSize:"12px"}}>
+                <p style={{fontSize:"16px"}}>
                   <Link to="/profile">
                     <AccountCircleIcon /> My Profile
                   </Link>
                 </p>
               </Menu.Item>
-              <Menu.Item key="2" style={{fontSize:"12px"}}>
+              <Menu.Item key="2" style={{fontSize:"16px"}}>
                 <p>
                   <Link to={`/orders/${userId}`}>
                     <ListIcon /> My Orders
                   </Link>
                 </p>
               </Menu.Item>
-              <Menu.Item key="3" style={{fontSize:"12px"}}>
+              <Menu.Item key="3" style={{fontSize:"16px"}}>
                 <p>
                   <Link to="/whishlist">
                     <FavoriteBorderIcon /> My Whislist
                   </Link>
                 </p>
               </Menu.Item>
-              <Menu.Item key="4" style={{fontSize:"12px"}}>
+              <Menu.Item key="4" style={{fontSize:"16px"}}>
                 <p>
                   {
                     logedin&&
