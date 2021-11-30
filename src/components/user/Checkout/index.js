@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Container, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
@@ -18,12 +18,14 @@ function Index() {
   let {userId}=useParams();
   let dispatch=useDispatch();
   let navigate=useNavigate();
-  
+
   // states
   let [addressState,setAddressState]=useState({});
   let [paymentState,setPaymentState]=useState("");
   let [productInfo, setProductInfo]=useState([]);
   let [totalPrice, setTotalPrice] = useState(0);
+  let [paypalCheckout, setPaypalCheckout]=useState(false);
+
 
   // redux
   let cartRedux = useSelector((state) => state.cart);
@@ -39,8 +41,9 @@ function Index() {
   }
 
   // test
-
- 
+  
+  
+  
 
   return (
     <>
@@ -51,7 +54,7 @@ function Index() {
             <Address userId={userId} setAddressState={setAddressState}/>
           </div>
           <div className="col-md-6 col-12">
-            <OrderDetails setPaymentState={setPaymentState} handlePayment={handlePayment} addressState={addressState} paymentState={paymentState} setProductInfo={setProductInfo} setTotalPrice={setTotalPrice} totalPrice={totalPrice}/>
+            <OrderDetails setPaymentState={setPaymentState} handlePayment={handlePayment} addressState={addressState} paymentState={paymentState} setProductInfo={setProductInfo} setTotalPrice={setTotalPrice} totalPrice={totalPrice} paypalCheckout={paypalCheckout} setPaypalCheckout={setPaypalCheckout}/>
           </div>
         </Row>
       </Container>

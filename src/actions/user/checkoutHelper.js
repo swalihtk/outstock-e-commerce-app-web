@@ -52,7 +52,7 @@ const helpers={
         razorPayObject.open();
     },
 
-    placeOrder:async function(userId,orderAddress, paymentMethod,cartItems,totalPrice, navigate, dispatch){
+    placeOrder:async function(userId,orderAddress, paymentMethod,cartItems,totalPrice, navigate, dispatch, handlePaypal){
         if(paymentMethod==="COD"){
             let body={
                 userId,
@@ -80,6 +80,8 @@ const helpers={
 
         }else if("RAZORPAY"){
            this.handleRazerPay(userId,totalPrice, orderAddress, navigate, cartItems);
+        }else{
+            handlePaypal();
         }
     },
 

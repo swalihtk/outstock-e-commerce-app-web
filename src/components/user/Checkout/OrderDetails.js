@@ -1,5 +1,6 @@
 import { Button, Modal } from "react-bootstrap";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, ReactDOM } from "react";
+import checkoutHelper from "../../../actions/user/checkoutHelper";
 
 // table
 import Table from "@material-ui/core/Table";
@@ -11,13 +12,18 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import { useSelector } from "react-redux";
 
-function OrderDetails({setPaymentState,handlePayment,paymentState,addressState, setProductInfo, setTotalPrice,totalPrice}) {
+// paypal
+import PaypalButtonObject from "./PaypalButtons";
+
+function OrderDetails({setPaymentState,handlePayment,paymentState,addressState, setProductInfo, setTotalPrice,totalPrice, paypalRef, razerpayInitState }) {
   // redux
   let cartItems = useSelector((state) => state.cart);
 
   // order stats
   let [products, setProducts] = useState([]);
 
+  // paypal
+ 
   // payment confirmation
   let [showOrderConfirm, setShowOrderConfirm] = useState(false);
   const handleClose = () => setShowOrderConfirm(false);
@@ -55,6 +61,8 @@ function OrderDetails({setPaymentState,handlePayment,paymentState,addressState, 
     });
   }, [products]);
 
+  
+
   useEffect(()=>{
     products.forEach((item, index) => {
       let productInfo = item.productInfo;
@@ -79,14 +87,13 @@ function OrderDetails({setPaymentState,handlePayment,paymentState,addressState, 
 
       <Modal show={showOrderConfirm} onHide={handleClose}>
         <Modal.Header closeButton>
-          {
+         {
               formErr?<p className="text-center text-danger">{formErr}</p>
               :
               <Modal.Title>Do you want to confirm order?</Modal.Title>
             }
         </Modal.Header>
-
-        <Modal.Footer>
+       <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
@@ -198,14 +205,9 @@ function OrderDetails({setPaymentState,handlePayment,paymentState,addressState, 
             <br />
           </div>
           <div className="order__paymentMethod">
-            <input
-              type="radio"
-              name="payment"
-              value={"PAYPAL"}
-              onClick={(e) => setPaymentState(e.target.value)}
-            />
-            <p>PAYPAL</p>
-            <br />
+            {/* <div ref={paypalRef}></div>
+            <br /> */}
+            <PaypalButtonObject />
           </div>
         </div>
         <div className="order__btn">
