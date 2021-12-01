@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { getCartItems } from "../../../redux/user/cartReducer";
 import cartHelper from "../../../actions/user/cartHelper";
 
-function CartItem({ productInfo, item, userId }) {
+function CartItem({ productInfo, item, userId, checkUnAvailableProducts }) {
   let [quantity, setQuanity] = useState(
     item.products ? item.products.quantity : 1
   );
@@ -46,7 +46,7 @@ function CartItem({ productInfo, item, userId }) {
 
   // delete
   function deleteFromCart() {
-    cartHelper.removeFromCart(userId, prodId, dispatch);
+    cartHelper.removeFromCart(userId, prodId, dispatch, checkUnAvailableProducts);
   }
 
   // test
@@ -62,10 +62,17 @@ function CartItem({ productInfo, item, userId }) {
           <h1>{productName}</h1>
           <p>₹{totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</p>
           <div className="cartItems__count">
-            <RemoveIcon onClick={() => countHanlder(0)} />
-            <p>{quantity}</p>
+            {
+              productInfo.quantity<=0?
+              <p className="text-danger">Currently Unavailable!!</p>
+              :
+              <>
+              <RemoveIcon onClick={() => countHanlder(0)} />
+              <p>{quantity}</p>
 
-            <AddIcon onClick={() => countHanlder(1)} />
+              <AddIcon onClick={() => countHanlder(1)} />
+              </>
+            }
           </div>
         </div>
         <div className="cartItems__product_delivery">

@@ -10,7 +10,7 @@
   position: fixed;
   height: 100%;
   width: 240px;
-  background: #0A2558;
+  background: #571f7a;
   transition: all 0.5s ease;
 }
 .sidebar.active{
@@ -152,7 +152,6 @@ nav .search-box .bx-search{
   border: 2px solid #EFEEF1;
   border-radius: 6px;
   height: 50px;
-  min-width: 190px;
   padding: 0 15px 0 2px;
 }
 nav .profile-details img{

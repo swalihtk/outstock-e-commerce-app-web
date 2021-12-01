@@ -29,7 +29,7 @@ function AdminDashboard({ children }) {
       <div className="sidebar">
         <div className="logo-details">
           <i className="bx bxl-c-plus-plus"></i>
-          <span className="logo_name">CodingLab</span>
+          <span className="logo_name">OutStock</span>
         </div>
         <ul className="nav-links" style={{ padding: 0 }}>
           <li>
@@ -111,9 +111,9 @@ function AdminDashboard({ children }) {
             <i className="bx bx-search"></i>
           </div>
           <div className="profile-details">
-            <img src="#" alt="#" />
-            <span className="admin_name">Prem Shahi</span>
-            <i className="bx bx-chevron-down"></i>
+            <img src="https://www.w3schools.com/howto/img_avatar.png" alt="#" />
+            <span className="admin_name">Admin</span>
+          
           </div>
         </nav>
 

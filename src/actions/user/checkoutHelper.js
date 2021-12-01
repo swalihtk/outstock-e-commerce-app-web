@@ -6,11 +6,16 @@ const helpers={
 
     handleRazerPay:async function(userId,totalPrice, address, navigate, cartItems){
         let srcResult=this.loadScript("https://checkout.razorpay.com/v1/checkout.js");
-        
+
+        if(totalPrice>5000000){
+            swal("You can't buy item more than in 10 lack in razerapy!!", "ok", "error");
+            return;
+        }
+
         if(!srcResult) return;
-        let apiResponse=await axios.post("/user/order/razorpay", {amount:totalPrice});
-       
-        let {amount, id, currency}=apiResponse.data;    
+        let apiResponse=await axios.post("/user/order/razorpay", {amount:Math.floor(totalPrice)});
+        let {amount, id, currency}=apiResponse.data; 
+        
         let options={
             "key": "rzp_test_mUwN2eWFR7nBCS", // Enter the Key ID generated from the Dashboard
             "amount": amount.toString(), // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise

@@ -13,6 +13,7 @@ function CartItems() {
 
   // state
   let [products, setProducts] = useState([]);
+  let [emptyItems,setEmptyItem]=useState(false);
 
   let dispatch = useDispatch();
 
@@ -22,11 +23,28 @@ function CartItems() {
     setProducts(cartItems.products);
   }, [cartItems.products])
 
+  // actions
   function handlerPlaceOrder() {
     if(products.length > 0){
       cartHelper.gotoCheckoutPage(navigate, dispatch, userId);
     }else{
       navigate("/");
+    }
+  }
+
+  function checkUnAvailableProducts(){
+    if(!cartItems) return;
+    let total=0;
+    products.forEach((item)=>{
+      let productInfo = item.productInfo;
+      if(productInfo.quantity<=0){
+        total++;
+      }
+    })
+    if(total>=1){
+      setEmptyItem(true);
+    }else{
+      setEmptyItem(false);
     }
   }
 
@@ -38,6 +56,10 @@ function CartItems() {
   useEffect(() => {
     dispatch(getCartItems(userId));
   }, []);
+
+  useEffect(()=>{
+    checkUnAvailableProducts();
+  }, [cartItems])
 
   return (
     <div className="cartItems__main">
@@ -55,18 +77,24 @@ function CartItems() {
                 userId={userId}
                 key={index}
                 item={item}
+                checkUnAvailableProducts={checkUnAvailableProducts}
               />
             );
           })
         ) : (
-          <h1>Not item found</h1>
+          <h1>No item found</h1>
         )}
         {/* End of product main */}
       </div>
 
       {/* Place Order */}
       <div className="cartItems__placeOrder">
-        <button onClick={handlerPlaceOrder}>{products?.length > 0?"PROCEED TO CHECKOUT":"BROWSE PRODUCTS"}</button>
+        {
+          emptyItems?
+          <button style={{background:"red", color:"white"}} disabled>REMOVE UNAVAILABLE TO PROCEED !!</button>
+          :
+          <button onClick={handlerPlaceOrder}>{products?.length > 0?"PROCEED TO CHECKOUT":"BROWSE PRODUCTS"}</button>
+        }
       </div>
     </div>
   );

@@ -100,7 +100,7 @@ function EditProduct(props) {
 
   function editFormHanlder(e){
     e.preventDefault();
-    if(!name || !price || !brand || !discription || !imageOne || !imageTwo || !imageThree) return;
+    if(!name || !price || !brand || !discription || !previewSource1 || !previewSource2 || !previewSource3) return;
     let body = {
       name: name,
       price: price,

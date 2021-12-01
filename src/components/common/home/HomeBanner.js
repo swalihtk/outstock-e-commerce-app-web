@@ -35,9 +35,9 @@ function HomeBanner() {
                   alt="First slide"
                 />
                 </a>
-                <Carousel.Caption>
+                {/* <Carousel.Caption>
                   <h3 style={{textShadow:" 0 0 2px black",color: "white"}}>{item.title}</h3>
-                </Carousel.Caption>
+                </Carousel.Caption> */}
                 </Carousel.Item>
             )
           })

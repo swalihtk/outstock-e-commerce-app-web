@@ -17,7 +17,7 @@ import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 
 function ProductCard({ item, index }) {
   // item distructure
-  let { _id, name, price, productImages, discription, category, offer } = item;
+  let { _id, name, price, productImages, quantity, category, offer } = item;
 
   let navigate = useNavigate();
 
@@ -135,6 +135,7 @@ function ProductCard({ item, index }) {
         }
         </TableCell>
         <TableCell align="center">{category}</TableCell>
+        <TableCell align="center">{quantity}</TableCell>
         <TableCell align="center">
           <img
             style={{ maxWidth: "100px", maxHeight: "100px" }}

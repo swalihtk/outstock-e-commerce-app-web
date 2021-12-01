@@ -129,6 +129,7 @@ function AllProducts({mainCatValue,setMainCatValue,setTotalCount,sort,setSort,se
                 <TableCell align="center">Product Name</TableCell>
                 <TableCell align="center">Product Price</TableCell>
                 <TableCell align="center">Category</TableCell>
+                <TableCell align="center">Quantity</TableCell>
                 <TableCell align="center">Product Image</TableCell>
                 <TableCell align="center">Actions</TableCell>
               </TableRow>

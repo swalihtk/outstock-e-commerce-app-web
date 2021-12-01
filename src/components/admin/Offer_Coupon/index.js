@@ -7,11 +7,11 @@ import "./offers.css"
 function Index() {
     return (
         <AdminDashboard>
-            <Tabs defaultActiveKey="profile" id="uncontrolled-tab-example" className="mb-3">
-                <Tab eventKey="home" title="Offers">
+            <Tabs defaultActiveKey="1" id="uncontrolled-tab-example" className="mb-3">
+                <Tab eventKey="1" title="Offers">
                     <AllOffers />
                 </Tab>
-                <Tab eventKey="profile" title="Coupons">
+                <Tab eventKey="2" title="Coupons">
                     <h1>All Coupons</h1>
                 </Tab>
             </Tabs>

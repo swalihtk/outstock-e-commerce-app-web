@@ -157,16 +157,8 @@ function ProductShowPage({ product, prodId }) {
           <div className="options">
             <p>Product Details</p>
             <p className="btn btn-outline-secondary mr-2">
-              <strong style={{ color: "red" }}>Color: </strong>
-              <span
-                style={{
-                  background: product.color,
-                  width: "10px",
-                  height: "10px",
-                }}
-              >
-                {product.color}
-              </span>
+              <strong style={{ color: "red" }}>Color</strong>
+              <div style={{background:product.color, height:"5px"}}></div>
             </p>
             <p className="btn btn-outline-secondary mr-2">
               <strong style={{ color: "red" }}>Brand: </strong>
@@ -180,16 +172,23 @@ function ProductShowPage({ product, prodId }) {
           <div className="add-cart">
             {
               product.offer?
-              <p className="float-left mr-3"><del>₹{product.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</del> ₹{product.offer.offerPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</p>
+              <p className="float-left mr-3"><del>₹{product?.price?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</del> ₹{product?.offer?.offerPrice?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</p>
               :
-              <p className="float-left mr-3">₹{product.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</p>
+              <p className="float-left mr-3">₹{product?.price?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</p>
             }
-            <input
+            {
+              product?.quantity<1&&
+              <p style={{color:"red", fontSize:"14px"}}>Currently not available</p>
+            }
+            {
+              product?.quantity>0&&
+              <input
               type="button"
               value={inCart ? "Go to cart" : "Add to cart"}
               className="btn btn-success float-left"
               onClick={handleAddToCart}
             />
+            }
             <input
               type="button"
               value="Add to wishlist"
@@ -197,6 +196,7 @@ function ProductShowPage({ product, prodId }) {
               className="btn btn-danger float-left"
             />
             <div className="clearfix"></div>
+              <p style={{fontSize:"16px", marginTop:"1rem"}}>{product?.discription}</p>
           </div>
         </div>
       </div>
