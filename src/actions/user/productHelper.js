@@ -71,6 +71,29 @@ const helpers={
             setUpdateLoading(false);
             return;
         }
+    },
+
+
+    // list offer products
+    listOfferProduct:async function(forBanner, pageNu, setProducts, setLoading){
+        try{
+            setLoading(false);
+            let response=await axios.get("/home/products/getOfferd", {
+                params:{
+                    forBanner,
+                    pageNu
+                }
+            })
+            setLoading(false);
+            if(response.status===200){
+                setProducts(response.data);
+            }else{
+                return;
+            }
+        }catch(e){
+            setLoading(false);
+            return;
+        }
     }
 }
 

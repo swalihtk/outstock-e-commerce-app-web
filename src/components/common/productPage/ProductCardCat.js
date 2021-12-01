@@ -8,7 +8,7 @@ function ProductCardCat({ product }) {
 
   // mount
   useEffect(()=>{
-    
+
     if(!product) return;
 
     let str=product.name.length>30?"...":" "
@@ -29,7 +29,15 @@ function ProductCardCat({ product }) {
             </div>
             <div className="productCard__details">
               <span className="productCard__title">{displayName}</span>
-              <span className="productCard__price">₹{product.price}</span>
+              {
+                product.offer?
+                <>
+                <span className="productCard__price"><del>₹{product.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</del></span>
+                <span className="productCard__price"> ₹{product.offer.offerPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span>
+                </>
+                :
+                <span className="productCard__price">₹{product.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span>
+              }
             </div>
         </div>
 	    </div>

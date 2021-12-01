@@ -13,11 +13,15 @@ function CartPrice() {
       let total = 0;
       cartProducts.products.forEach((item) => {
       let productInfo = item.productInfo;
-      setTotalPrice((total += item.products.quantity * productInfo.price));
+      if(productInfo.offer){
+        setTotalPrice((total += item.products.quantity * productInfo.offer.offerPrice));
+      }else{
+        setTotalPrice((total += item.products.quantity * productInfo.price));
+      }
     });
     }
 
-  
+
   }, [cartProducts]);
 
   return (
@@ -42,7 +46,7 @@ function CartPrice() {
           <strong>Total Amount</strong>
         </h4>
         <h4>
-          <strong>₹{totalPrice}</strong>
+          <strong>₹{totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</strong>
         </h4>
       </div>
     </div>

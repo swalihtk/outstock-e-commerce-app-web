@@ -178,7 +178,12 @@ function ProductShowPage({ product, prodId }) {
             </p>
           </div>
           <div className="add-cart">
-            <p className="float-left mr-3">₹{product.price}</p>
+            {
+              product.offer?
+              <p className="float-left mr-3"><del>₹{product.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</del> ₹{product.offer.offerPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</p>
+              :
+              <p className="float-left mr-3">₹{product.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</p>
+            }
             <input
               type="button"
               value={inCart ? "Go to cart" : "Add to cart"}

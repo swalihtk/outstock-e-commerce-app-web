@@ -69,10 +69,10 @@ function AdminDashboard({ children }) {
             </Link>
           </li>
           <li>
-            <a href="#">
+            <Link to="/admin/offers_coupons">
               <i className="bx bx-coin-stack"></i>
-              <span className="links_name">Stock</span>
-            </a>
+              <span className="links_name">Offers and Coupons</span>
+            </Link>
           </li>
           <li>
             <a href="#">

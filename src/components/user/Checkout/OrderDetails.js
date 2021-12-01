@@ -57,7 +57,11 @@ function OrderDetails({setPaymentState,handlePayment,paymentState,addressState, 
     let total = 0;
     products.forEach((item) => {
       let productInfo = item.productInfo;
-      setTotalPrice((total += item.products.quantity * productInfo.price));
+      if(productInfo.offer){
+        setTotalPrice((total += item.products.quantity * productInfo.offer.offerPrice));
+      }else{
+        setTotalPrice((total += item.products.quantity * productInfo.price));
+      }
     });
   }, [products]);
 
@@ -74,7 +78,7 @@ function OrderDetails({setPaymentState,handlePayment,paymentState,addressState, 
           {
             productId:product.productId,
             quantity:product.quantity,
-            totalPrice:item.totalPrice
+            totalPrice:productInfo.offer?product.quantity*productInfo.offer.offerPrice:product.quantity*productInfo.price
           }
         ]
       })
@@ -135,7 +139,7 @@ function OrderDetails({setPaymentState,handlePayment,paymentState,addressState, 
                     products.map((item, index) => {
                       let productInfo = item.productInfo;
                       let product = item.products
-
+                      let totalPrice=productInfo.offer?product.quantity*productInfo.offer.offerPrice:product.quantity*productInfo.price;
                       return (
                         <TableRow key={index}>
                           <TableCell component="th" scope="row">
@@ -145,7 +149,7 @@ function OrderDetails({setPaymentState,handlePayment,paymentState,addressState, 
                           <p style={{fontSize:"14px"}}>{product.quantity}</p>
                           </TableCell>
                           <TableCell align="center">
-                          <p style={{fontSize:"14px"}}>₹{item.totalPrice}</p>
+                          <p style={{fontSize:"14px"}}>₹{totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</p>
                           </TableCell>
                         </TableRow>
                       );
@@ -175,7 +179,7 @@ function OrderDetails({setPaymentState,handlePayment,paymentState,addressState, 
                       <p style={{fontSize:"14px"}}><strong>Total Amount</strong></p>
                       </TableCell>
                       <TableCell align="center">
-                      <p style={{fontSize:"14px"}}><strong>₹{totalPrice}</strong></p>
+                      <p style={{fontSize:"14px"}}><strong>₹{totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</strong></p>
                       </TableCell>
                     </TableRow>
                   </TableBody>

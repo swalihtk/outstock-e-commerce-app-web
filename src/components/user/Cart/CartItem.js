@@ -32,15 +32,25 @@ function CartItem({ productInfo, item, userId }) {
   }
 
   useEffect(() => {
-    setTotalPrice(item.totalPrice);
     setQuanity(item.products.quantity);
     setProdId(item.products.productId);
   }, [item]);
+  useEffect(()=>{
+    if(!productInfo) return;
+    if(productInfo.offer){
+      setTotalPrice(item.products.quantity*productInfo.offer.offerPrice);
+    }else{
+      setTotalPrice(item.products.quantity*productInfo.price)
+    }
+  }, [productInfo])
 
   // delete
   function deleteFromCart() {
     cartHelper.removeFromCart(userId, prodId, dispatch);
   }
+
+  // test
+  
 
   return (
     <div className="cartItems__productMain">
@@ -50,7 +60,7 @@ function CartItem({ productInfo, item, userId }) {
         </div>
         <div className="cartItems__product_details">
           <h1>{productName}</h1>
-          <p>{totalPrice}</p>
+          <p>₹{totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</p>
           <div className="cartItems__count">
             <RemoveIcon onClick={() => countHanlder(0)} />
             <p>{quantity}</p>

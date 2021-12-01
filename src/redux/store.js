@@ -13,6 +13,7 @@ import { addressReducer } from "./user/addressReducer";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { subCategoryListReducer } from "./home/AllProductSub";
 import { tempReducer } from "./user/tempFile";
+import { adminOfferReducer } from "./admin/offerReducer";
 
 const rootReducer = combineReducers({
   // user
@@ -25,7 +26,8 @@ const rootReducer = combineReducers({
   // admin
   adminLogedin: adminLoginFetchReducer,
   productListAdmin: productShowReducer,
-
+  adminOffer:adminOfferReducer,
+  
   // home
   categoryList: listCategoryHomeReducer,
   productDetailsHome: fetchProductDetailsHomeReducer,

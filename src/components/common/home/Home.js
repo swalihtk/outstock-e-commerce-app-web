@@ -7,6 +7,7 @@ import HomeBanner from "./HomeBanner";
 import HomeCategory from "./HomeCategory";
 import LatestProduct from "./LatestProduct";
 import "./style.css";
+import OfferProduct from "./OfferProduct";
 
 function Home() {
   let { loading } = useSelector((state) => state.spinner);
@@ -26,6 +27,7 @@ function Home() {
         <HomeCategory />
         <HomeBanner />
         <LatestProduct />
+        <OfferProduct />
       </>
     );
   }

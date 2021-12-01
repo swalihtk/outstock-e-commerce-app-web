@@ -1,0 +1,53 @@
+.offerList__actions button{
+    border:none;
+    margin-left: 1rem;
+    font-size: small;
+    font-weight: 500;
+    padding:3px 5px;
+    border-radius: 5px;
+}
+
+.allOffers__list{
+    margin-top: 1rem;
+}
+
+.allOffers__title{
+    display: flex;
+    justify-content: space-around;
+}
+
+.allOffers__title h1{
+    font-size: 1.5rem;
+}
+
+.allOffers__title button{
+    border: none;
+    font-weight: 600;
+    padding: 0 5px;
+    border-radius: 5px;
+}
+
+.allOffers__form{
+   display: grid;
+   place-items: center;
+}
+
+.allOffers__form input{
+    border-radius: 5px;
+    width: 60%;
+    padding:5px 5px;
+}
+
+.allOffers__form label{
+    margin-top: 1rem;
+}
+
+.allOffers__form button{
+    margin-top: 1rem;
+    border-radius: 5px;
+    padding:3px 5px;
+    background-color: aqua;
+    border: 1px solid #6666;
+    color:#333;
+    font-weight: 500;
+}
