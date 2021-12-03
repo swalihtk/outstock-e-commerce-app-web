@@ -14,8 +14,8 @@ function SubCategory({ sub, mainCategory }) {
           let link = `/subcategory?category=${mainCategoryNew}&subcategory=${itemModi}`;
 
           return (
-            <Menu.Item key={index}>
-              <p style={{ fontSize: "12px" }}>
+            <Menu.Item key={index} style={{fontSize:"16px"}}>
+              <p>
                 <Link to={link}>
                   {item}
                 </Link>

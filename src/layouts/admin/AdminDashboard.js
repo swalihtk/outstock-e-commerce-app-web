@@ -1,5 +1,5 @@
 import axios from "axios";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import "./style.css";
 
@@ -23,6 +23,18 @@ function AdminDashboard({ children }) {
         alert("Something went wrong");
       });
   }
+
+  // state
+  let [month, setMonth]=useState('');
+  let [year, setYear]=useState('');
+
+  // mount
+  useEffect(()=>{
+    let date=new Date();
+    setMonth(date.getMonth()+1);
+    setYear(date.getFullYear());
+  }, [])
+
 
   return (
     <>
@@ -65,20 +77,20 @@ function AdminDashboard({ children }) {
           <li>
             <Link to="/admin/orders?page=1">
               <i className="bx bx-book-alt"></i>
-              <span className="links_name">Total order</span>
+              <span className="links_name">Orders</span>
             </Link>
           </li>
           <li>
             <Link to="/admin/offers_coupons">
               <i className="bx bx-coin-stack"></i>
-              <span className="links_name">Offers and Coupons</span>
+              <span className="links_name">Offers, Coupons</span>
             </Link>
           </li>
           <li>
-            <a href="#">
+            <Link to={`/admin/sales_report?page=1&year=${year}&month=${month}&startDay=${1}&endDay=${31}`}>
               <i className="bx bx-message"></i>
-              <span className="links_name">Messages</span>
-            </a>
+              <span className="links_name">Sales Report</span>
+            </Link>
           </li>
           <li>
             <a href="#">

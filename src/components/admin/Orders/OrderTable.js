@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Form, Modal } from "react-bootstrap";
 import orderHelper from "../../../actions/admin/orderHelper";
 
-function OrderTable({ order, getAllOrders }) {
+function OrderTable({ order, getAllOrders, index }) {
   // state
   let [showOrderDetails, setShowOrderDetails] = useState(false);
   let [orderDetails, setOrderDetails] = useState({});
@@ -101,7 +101,9 @@ function OrderTable({ order, getAllOrders }) {
       {/* Table */}
       <TableRow key={"1"}>
         <TableCell component="th" scope="row">
-          {"1"}
+          {
+            index
+          }
         </TableCell>
         <TableCell align="center">{orderDetails?._id}</TableCell>
         <TableCell align="center">{address?.FullName}</TableCell>

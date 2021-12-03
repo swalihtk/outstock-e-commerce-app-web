@@ -16,8 +16,8 @@ function MainCategory({ category }) {
         <Dropdown
           overlay={
             <Menu>
-              <Menu.Item key={-1}>
-                <p style={{ fontSize: "12px" }}>
+              <Menu.Item key={-1} style={{fontSize:"16px"}}>
+                <p>
                   <Link to={`/category/${routeCategory}`}>
                     All
                   </Link>

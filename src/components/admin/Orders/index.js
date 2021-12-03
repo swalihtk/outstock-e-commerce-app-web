@@ -11,7 +11,7 @@ import Paper from "@material-ui/core/Paper";
 import OrderTable from "./OrderTable";
 import { Pagination } from "antd";
 import orderHelper from "../../../actions/admin/orderHelper";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import {Placeholder} from "react-bootstrap"
 
 function Index() {
@@ -20,6 +20,10 @@ function Index() {
   let [allOrders, setAllOrders]=useState([]);
   let [totalOrders, setTotalOrders]=useState(0);
   let [loading,setLoading]=useState(false);
+  let [defaultPage, setDefaultPage]=useState(1);
+
+  // hooks
+  let navigate=useNavigate();
 
   // query
   let [searchParams,setSearchParams]=useSearchParams();
@@ -28,14 +32,15 @@ function Index() {
   // mount
   useEffect(()=>{
     getAllOrders();
-  }, [])
+  }, [searchParams])
 
   // actions
   function handlePageChange(e){ 
-    orderHelper.listAllOrders(e, setAllOrders, setTotalOrders, setLoading);
+    navigate(`/admin/orders?page=${e}`)
   }
 
   function getAllOrders(){
+    setDefaultPage(pageNu);
     orderHelper.listAllOrders(pageNu, setAllOrders, setTotalOrders, setLoading);
   }
 
@@ -88,7 +93,7 @@ function Index() {
                 {
                   allOrders.length>0?
                     allOrders.map((item, index)=>{
-                      return <OrderTable key={index} order={item} getAllOrders={getAllOrders}/>
+                      return <OrderTable index={index+1} key={index} order={item} getAllOrders={getAllOrders}/>
                     })
                   :
                   <TableRow>
@@ -100,7 +105,7 @@ function Index() {
           </TableContainer>
           <Pagination
             style={{ marginTop: "1rem" }}
-            defaultCurrent={1}
+            defaultCurrent={defaultPage}
             total={(totalOrders/10)*10}
             onChange={handlePageChange}
           />
