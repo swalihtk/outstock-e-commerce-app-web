@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import {useNavigate} from 'react-router-dom';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 
-function SalesFilter({month, year, startDay, endDay}) {
+function SalesFilter({month, year, startDay, endDay, pdfHandler}) {
 
     // let arrays
     let allMonths=["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
@@ -69,6 +69,9 @@ function SalesFilter({month, year, startDay, endDay}) {
                 <label>To</label>
                 <input type="number" min={1} max={31} value={dayEnd} onChange={(e)=>setDayEnd(e.target.value)}/>
                 <button onClick={handleDateChange}><ArrowForwardIosIcon /></button>
+            </div>
+            <div className="salesFilter__button">
+                <button onClick={pdfHandler}>DOWNLOAD PDF</button>
             </div>
         </div>
     )

@@ -93,16 +93,10 @@ function AdminDashboard({ children }) {
             </Link>
           </li>
           <li>
-            <a href="#">
-              <i className="bx bx-heart"></i>
-              <span className="links_name">Favrorites</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
+            <Link to="/admin/settings">
               <i className="bx bx-cog"></i>
-              <span className="links_name">Setting</span>
-            </a>
+              <span className="links_name">Settings</span>
+            </Link>
           </li>
           <li className="log_out">
             <a href="#" onClick={logoutAdmin}>

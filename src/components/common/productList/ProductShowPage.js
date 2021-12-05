@@ -4,9 +4,9 @@ import "./style.css";
 import ReactImageMagnify from "react-image-magnify";
 import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
 import { Alert } from "react-bootstrap";
 import { addToCart } from "../../../redux/user/cartReducer";
+import Swal from "sweetalert2";
 
 function ProductShowPage({ product, prodId }) {
   let productImages = product.productImages;
@@ -50,7 +50,23 @@ function ProductShowPage({ product, prodId }) {
       navigate("/cart");
     } else {
       dispatch(addToCart(userId, product._id));
-      setVisible(true);
+      const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+      })
+      
+      Toast.fire({
+        icon: 'success',
+        title: 'Cart added successfully!!!'
+      })
+
       setInCart(true);
     }
   }

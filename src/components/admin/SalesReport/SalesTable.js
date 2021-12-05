@@ -7,7 +7,7 @@ function SalesTable(props) {
     let {allOrders}=props;
 
     return (
-        <div className="container mt-4" style={{height:"60vh"}}>
+        <div className="container mt-4" style={{height:"60vh"}} id="sales_report_table">
             <Table striped bordered hover>
             <thead>
                 <tr>

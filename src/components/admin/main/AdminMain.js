@@ -7,6 +7,7 @@ import AdminLogin from "./AdminLogin";
 import "./style.css";
 import Dashboard from "./Dashboard";
 
+
 function AdminMain() {
   let { loading, logedin } = useSelector((state) => state.adminLogedin);
   let dispatch = useDispatch();
@@ -16,6 +17,10 @@ function AdminMain() {
     dispatch(isAdminLogedIn());
   }, []);
 
+  useEffect(()=>{
+    
+  },[])
+
   if (loading) {
     return <ContentSpinner variant="warning" />;
   } else {
@@ -24,6 +29,7 @@ function AdminMain() {
         <>
           <AdminDashboard container={<Dashboard />}>
             <Dashboard />
+           
           </AdminDashboard>
         </>
       );

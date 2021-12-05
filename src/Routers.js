@@ -85,6 +85,7 @@ function Routers() {
             <Route path="/admin/orders" element={<AdminOrders />} />
             <Route path="/admin/offers_coupons" element={<OfferAndCoupon />}/>
             <Route path="/admin/sales_report" element={<AdminSalesReport/>} />
+            <Route path="/admin/settings" element={<AdminSalesReport/>} />
           </>
         )}
       </Routes>
