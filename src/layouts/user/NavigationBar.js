@@ -112,39 +112,33 @@ function NavigationBar({ iconShow }) {
           <>
             <li className="navbar__myAccount">
             {/* <MyAccountLi /> */}
-            <Dropdown>
-              <Dropdown.Toggle variant="success" id="dropdown-basic" style={{background:"none", border:"none", color:"black"}}>
-              {
-                logedin?
-                "My Account"
-                :
-                <Link style={{fontWeight:"600", background:"#f0f0f0", padding:"3px 20px"}} to="/login">Login</Link>
-              }
-              </Dropdown.Toggle>
-
-              <Dropdown.Menu>
-                <Dropdown.Item href="#/action-1">
+            <div className="dropdown">
+              <button className="dropbtn">
+                {
+              logedin?
+              "My Account"
+              :
+              <Link style={{fontWeight:"600", background:"#f0f0f0", padding:"3px 20px"}} to="/login">Login</Link>
+                }
+              </button>
+              <div id="myDropdown" className="dropdown-content">
                   <Link to="/profile">
                     <AccountCircleIcon /> My Profile
                   </Link>
-                </Dropdown.Item>
-                <Dropdown.Item href="#/action-2">
-                   <Link to={`/orders/${userId}`}>
+                  <Link to={`/orders/${userId}`}>
                     <ListIcon /> My Orders
                   </Link>
-                </Dropdown.Item>
-                <Dropdown.Item href="#/action-3">
                   <Link to="/whishlist">
-                      <FavoriteBorderIcon /> My Whislist
-                    </Link>
-                </Dropdown.Item>
-                <Dropdown.Item href="#/action-3">
-                    <Link to="/logout">
+                    <FavoriteBorderIcon /> Whislist
+                  </Link>
+                  {
+                    logedin&&
+                      <Link to="/logout">
                       <ExitToAppIcon /> Logout
                     </Link>
-                </Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
+                  }
+              </div>
+            </div>
             </li>
           <li className="navbar__cart"><Link to="/cart"><ShoppingCartIcon style={{fontSize:"15px",marginLeft:"1rem" }}/> Cart <Badge bg="secondary">{count}</Badge></Link></li>
           </>

@@ -53,11 +53,11 @@ function Routers() {
           path="/cart"
           element={logedin ? <Cart /> : <Navigate to="/login" />}
         />
-        <Route path="/cart/checkout/:userId" element={<Checkout />} />
-        <Route path="/orders/success/:userId" element={<OrderSuccess />} />
-        <Route path="/orders/:userId" element={<Order />} />
-        <Route path="/order_details" element={<OrderDetails />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route path="/cart/checkout/:userId" element={logedin ? <Cart /> : <Navigate to="/login" />} />
+        <Route path="/orders/success/:userId" element={ logedin ? <OrderSuccess /> : <Navigate to="/login" />} />
+        <Route path="/orders/:userId" element={ logedin ? <Order /> : <Navigate to="/login" />} />
+        <Route path="/order_details" element={ logedin ? <OrderDetails /> : <Navigate to="/login" />} />
+        <Route path="/profile" element={ logedin ? <Profile /> : <Navigate to="/login" />} />
         <Route
           path="/login"
           element={logedin ? <Navigate to="/" /> : <Login />}

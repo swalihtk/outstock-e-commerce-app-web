@@ -1,9 +1,6 @@
 import React from "react";
-import { NavDropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import SubCategory from "./SubCategory";
-import { Menu, Dropdown, Space } from "antd";
-
 
 function MainCategory({ category }) {
   let subCategory = category.subCategery;
@@ -11,27 +8,17 @@ function MainCategory({ category }) {
 
   return (
     <div className="mainCategory__main">
-    <Space direction="vertical">
-      <Space wrap>
-        <Dropdown
-          overlay={
-            <Menu>
-              <Menu.Item key={-1} style={{fontSize:"16px"}}>
-                <p>
-                  <Link to={`/category/${routeCategory}`}>
+      <div className="dropdown">
+        <button className="dropbtn">
+        {category.categoryName}
+        </button>
+        <div id="myDropdown" className="dropdown-content">
+          <Link to={`/category/${routeCategory}`}>
                     All
-                  </Link>
-                </p>
-              </Menu.Item>
-              <SubCategory sub={subCategory} mainCategory={category.categoryName} />
-            </Menu>
-          }
-          placement="bottomLeft"
-        >
-          <p style={{ margin: 0 }}>{category.categoryName}</p>
-        </Dropdown>
-      </Space>
-    </Space>
+          </Link>
+          <SubCategory sub={subCategory} mainCategory={category.categoryName} />
+        </div>
+      </div>
     </div>
   );
 }

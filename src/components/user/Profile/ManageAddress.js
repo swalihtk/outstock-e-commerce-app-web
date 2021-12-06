@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import AddIcon from "@material-ui/icons/Add";
-import { Form, Col, Row, Button, Spinner } from "react-bootstrap";
 import accountHelper from '../../../actions/user/accountHelper';
 import {useDispatch, useSelector} from 'react-redux';
 import {listAllAddress} from "../../../redux/user/addressReducer";
+import validationHelper from "../../../utils/validationHelpers";
+import {Col, Form, Row, Spinner, Button} from 'react-bootstrap';
 
 function ManageAddress() {
   // address form states
@@ -18,6 +19,10 @@ function ManageAddress() {
   let [submitErr, setSubmitErr] = useState("");
   let [showAddressForm, setShowAddressForm] = useState(false);
   let [forEdit, setForEdit]=useState(false);
+
+  // form erros
+  let [mobileNuErr, setMobileNuErr]=useState("");
+  let [pincodeErr, setPincodeErr]=useState("");
 
   // hooks
   let dispatch=useDispatch();
@@ -152,8 +157,16 @@ function ManageAddress() {
                     type="text"
                     placeholder="Enter Mobile No."
                     value={mobileNu}
-                    onChange={(e) => setMobileNu(e.target.value)}
+                    onChange={(e) => {
+                      validationHelper.phoneInputChangeHandler(e.target.value, setMobileNuErr)
+                      setMobileNu(e.target.value)}}
+                    onBlur={(e) => {
+                        validationHelper.phoneInputBlurHandler(mobileNu, setMobileNuErr)
+                      }}
                   />
+                  {
+                    mobileNuErr&&<span className="text-danger">{mobileNuErr}</span>
+                  }
                 </Form.Group>
               </Row>
               <Form.Group className="mb-3" controlId="formGridAddress2">
@@ -171,8 +184,16 @@ function ManageAddress() {
                     type="text"
                     placeholder="123456"
                     value={pincode}
-                    onChange={(e) => setPincode(e.target.value)}
+                    onChange={(e) => {
+                      validationHelper.postalCodeInputChangeHandler(e.target.value, setPincodeErr)
+                      setPincode(e.target.value)}}
+                      onBlur={(e) => {
+                          validationHelper.postalCodeInputBlurHandler(pincode, setPincodeErr)
+                        }}
                   />
+                  {
+                    pincodeErr&&<span className="text-danger">{pincodeErr}</span>
+                  }
                 </Form.Group>
 
                 <Form.Group as={Col} controlId="formGridPassword">
