@@ -8,22 +8,24 @@ import {
   NavDropdown,
   Badge,
   Offcanvas,
+  DropdownButton,
 } from "react-bootstrap";
 import "./NavigationBar.css";
 import { useDispatch, useSelector } from "react-redux";
 import { isUserLogedIn } from "../../redux/user/logincheckReducer";
 import { Link, useNavigate } from "react-router-dom";
-import { LinearProgress } from "@material-ui/core";
+import { LinearProgress,  } from "@material-ui/core";
 import axios from "axios";
 import { getCartItems } from "../../redux/user/cartReducer";
 import SearchIcon from "@material-ui/icons/Search";
 import MenuIcon from "@material-ui/icons/Menu";
-import { Menu, Dropdown, Space } from "antd";
+import {Menu,Space } from "antd";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import ListIcon from "@material-ui/icons/List";
+import {Dropdown} from 'react-bootstrap';
 
 let linkStyle = {
   textDecoration: "none",
@@ -39,6 +41,8 @@ function NavigationBar({ iconShow }) {
 
   // userDetails
   let [userName, setUserName] = useState("");
+
+  
 
   // navigate
   let navigate = useNavigate();
@@ -107,12 +111,46 @@ function NavigationBar({ iconShow }) {
           {iconShow&&
           <>
             <li className="navbar__myAccount">
-            <MyAccountLi />
-          </li>
+            {/* <MyAccountLi /> */}
+            <Dropdown>
+              <Dropdown.Toggle variant="success" id="dropdown-basic" style={{background:"none", border:"none", color:"black"}}>
+              {
+                logedin?
+                "My Account"
+                :
+                <Link style={{fontWeight:"600", background:"#f0f0f0", padding:"3px 20px"}} to="/login">Login</Link>
+              }
+              </Dropdown.Toggle>
+
+              <Dropdown.Menu>
+                <Dropdown.Item href="#/action-1">
+                  <Link to="/profile">
+                    <AccountCircleIcon /> My Profile
+                  </Link>
+                </Dropdown.Item>
+                <Dropdown.Item href="#/action-2">
+                   <Link to={`/orders/${userId}`}>
+                    <ListIcon /> My Orders
+                  </Link>
+                </Dropdown.Item>
+                <Dropdown.Item href="#/action-3">
+                  <Link to="/whishlist">
+                      <FavoriteBorderIcon /> My Whislist
+                    </Link>
+                </Dropdown.Item>
+                <Dropdown.Item href="#/action-3">
+                    <Link to="/logout">
+                      <ExitToAppIcon /> Logout
+                    </Link>
+                </Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+            </li>
           <li className="navbar__cart"><Link to="/cart"><ShoppingCartIcon style={{fontSize:"15px",marginLeft:"1rem" }}/> Cart <Badge bg="secondary">{count}</Badge></Link></li>
           </>
           }
           <div className="navbar__offcanvas">
+            
             <MenuIcon onClick={handleShow} />
             <Offcanvas
               style={{ width: "50vw" }}

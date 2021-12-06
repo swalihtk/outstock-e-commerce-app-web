@@ -33,14 +33,14 @@ function HomeCategory() {
     return (
       <div>
         <div className="homeCategory__main shadow-sm">
-          <Link to="/">
+          <a href="#offer_products">
                 <LocalOfferIcon />
                 Offers
-          </Link>
-          <Link to="/">
+          </a>
+          <a href="#trending_products">
                 <WhatshotIcon />
                 Trending Product
-          </Link>
+          </a>
           <div className="homeCategory__mainCategorys">
           {categorys.map((category) => {
             return <MainCategory key={category._id} category={category} />;

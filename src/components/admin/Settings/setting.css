@@ -1,0 +1,12 @@
+.adminAccount__chngPassword {
+  margin-top: 2rem;
+  border: 1px solid #444;
+  width: 30%;
+  cursor: pointer;
+}
+
+.adminAccount__chngPassword button {
+  border: none;
+  padding: 3px 10px;
+  background: none;
+}

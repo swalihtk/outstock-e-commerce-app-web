@@ -31,7 +31,17 @@ function OrderProduct({ productInfo, orderDetails }) {
               <div className="orderProduct__details">
                 <h1>{item.name}</h1>
                 <p>
-                  <strong>Price: </strong>₹{item.price}
+                  {
+                    item.offer?
+                    <>
+                    <strong>Price: </strong><del>₹{item.price}</del> ₹{item.offer.offerPrice}
+                    </>
+                    :
+                    <>
+                    <strong>Price: </strong>₹{item.price}
+                    </>
+                  }
+                  
                 </p>
                 <p>
                   <strong>Color: </strong>{item.color}

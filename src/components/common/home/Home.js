@@ -8,6 +8,7 @@ import HomeCategory from "./HomeCategory";
 import LatestProduct from "./LatestProduct";
 import "./style.css";
 import OfferProduct from "./OfferProduct";
+import TrendingProducts from "./TrendingProducts";
 
 function Home() {
   let { loading } = useSelector((state) => state.spinner);
@@ -26,6 +27,7 @@ function Home() {
 
         <HomeCategory />
         <HomeBanner />
+        <TrendingProducts />
         <LatestProduct />
         <OfferProduct />
       </>

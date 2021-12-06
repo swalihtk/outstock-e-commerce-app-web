@@ -32,6 +32,7 @@ import AdminOrders from "./components/admin/Orders/index";
 import Profile from "./components/user/Profile/index";
 import OfferAndCoupon from "./components/admin/Offer_Coupon";
 import AdminSalesReport from "./components/admin/SalesReport";
+import AdminSettings from "./components/admin/Settings/index";
 
 function Routers() {
   let { logedin } = useSelector((state) => state.userLogin);
@@ -85,7 +86,7 @@ function Routers() {
             <Route path="/admin/orders" element={<AdminOrders />} />
             <Route path="/admin/offers_coupons" element={<OfferAndCoupon />}/>
             <Route path="/admin/sales_report" element={<AdminSalesReport/>} />
-            <Route path="/admin/settings" element={<AdminSalesReport/>} />
+            <Route path="/admin/settings" element={<AdminSettings/>} />
           </>
         )}
       </Routes>

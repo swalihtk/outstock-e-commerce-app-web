@@ -75,9 +75,10 @@ const helpers={
 
 
     // list offer products
-    listOfferProduct:async function(forBanner, pageNu, setProducts, setLoading){
+    listOfferProduct:async function(forBanner, pageNu, setProducts, setLoading, setErr){
         try{
             setLoading(false);
+            setErr(false);
             let response=await axios.get("/home/products/getOfferd", {
                 params:{
                     forBanner,
@@ -88,9 +89,11 @@ const helpers={
             if(response.status===200){
                 setProducts(response.data);
             }else{
+                setErr(true);
                 return;
             }
         }catch(e){
+            setErr(true);
             setLoading(false);
             return;
         }

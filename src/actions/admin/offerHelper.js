@@ -72,13 +72,39 @@ const helpers={
             })
 
             if(response.status===201){
-                swal("Offer Applyed!!", "ok", "success");
+                swal("Offer Applied!!", "ok", "success");
                 showForm(false);
                 dispatch(showAllProductAdmin(1, "", "", -1));
             }else{
                 return;
             }
         }catch(e){
+            return;
+        }
+    },
+
+    // @desc apply offer for category
+    applyOfferForCategory:async function(categoryName, subCategoryName, offerName, offerId, expires, percentage, setLoading, setShowForm){
+        try{
+            setLoading(true);
+            let response=await axios.post("/admin/offers/apply_offer_for_category", {
+                categoryName,
+                subCategoryName,
+                offerName,
+                offerId,
+                expires,
+                percentage
+            })
+            setLoading(false);
+            if(response.status===200){
+                swal("Offer Applied for Category!!", "ok", "success");
+                setShowForm(false);
+            }else{
+                swal("Something went wrong!!", "ok", "error");
+                return;
+            }
+        }catch(e){
+            swal("Something went wrong!!", "ok", "error");
             return;
         }
     }

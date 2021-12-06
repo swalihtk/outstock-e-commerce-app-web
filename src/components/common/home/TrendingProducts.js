@@ -1,27 +1,27 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { Spinner } from "react-bootstrap";
-import "../style.css";
-import ProductCard from "./ProductCard";
+import React, { useEffect, useState } from 'react'
+import axios from 'axios';
+import {Spinner} from 'react-bootstrap';
+import ProductCard from './ProductCard';
 import error from "../../../error.png"
 
-function LatestProduct() {
-  let [products, setProducts] = useState([]);
-  let [loading, setLoading] = useState(false);
-  let [err, setErr]=useState(false);
+function TrendingProducts() {
+    let [products, setProducts] = useState([]);
+    let [loading, setLoading] = useState(false);
+    let [err, setErr]=useState(false);
 
   useEffect(() => {
     setLoading(true);
     setErr(false);
     axios
-      .get("/home/products/listLatest")
+      .get("/home/products/get_trending")
       .then((response) => {
+        setErr(false);
         setLoading(false);
         setProducts(response.data);
       })
       .catch((err) => {
-        setLoading(false);
         setErr(true);
+        setLoading(false);
       });
 
     return () => {
@@ -58,28 +58,27 @@ function LatestProduct() {
           }}
         >
            <img src={error} style={{objectFit:"contain", width:"100%", height:"100%"}}/>
-           <p className="text-danger">Error on fetching latest products!!</p>
+           <p className="text-danger">Error on fetching trending products!!</p>
         </div>
       );
   }
   else {
     return (
-      <section>
+      <section id="trending_products">
         <div className="container text-center mt-4">
-          <h1 style={{ color: "black", fontSize:"1.4rem" }}>Latest Products</h1>
+          <h1 style={{ color: "black", fontSize:"1.4rem" }}>Trending Products</h1>
         </div>
         <div className="shell">
           <div className="container">
             <div className="row">
               {products.map((item, key) => {
-                return <ProductCard product={item} key={item._id} />;
+                return <ProductCard product={item.productDetails} key={item._id} />;
               })}
             </div>
           </div>
         </div>
       </section>
     );
-  }
 }
-
-export default LatestProduct;
+}
+export default TrendingProducts;

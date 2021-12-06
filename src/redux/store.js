@@ -14,6 +14,7 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import { subCategoryListReducer } from "./home/AllProductSub";
 import { tempReducer } from "./user/tempFile";
 import { adminOfferReducer } from "./admin/offerReducer";
+import adminRouteReducer from "./admin/adminRoutersReducer"
 
 const rootReducer = combineReducers({
   // user
@@ -27,6 +28,7 @@ const rootReducer = combineReducers({
   adminLogedin: adminLoginFetchReducer,
   productListAdmin: productShowReducer,
   adminOffer:adminOfferReducer,
+  adminRouters:adminRouteReducer,
   
   // home
   categoryList: listCategoryHomeReducer,

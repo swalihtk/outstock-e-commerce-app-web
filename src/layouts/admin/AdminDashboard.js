@@ -1,5 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { Breadcrumb } from "react-bootstrap";
+import { useSelector } from "react-redux";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import "./style.css";
 
@@ -35,6 +37,33 @@ function AdminDashboard({ children }) {
     setYear(date.getFullYear());
   }, [])
 
+  // @desc admin images set
+  let [profileImage, setProfileImage]=useState("");
+  let {info}=useSelector(state=>state.adminLogedin);
+  
+  useEffect(()=>{
+    if(!info.profileImage) return;
+    setProfileImage(info.profileImage);
+  }, [info])
+
+  // @desc admin searching
+  let [searchText,setSearchText]=useState("");
+  let [searchSuggestion, setSearchSuggestion]=useState([]);
+
+  let searchRouteList=useSelector(state=>state.adminRouters.routes);
+  
+  useEffect(()=>{
+    return ()=>setSearchSuggestion([]);
+  },[])
+
+  function handleOnSearchChange(e){
+    setSearchText(e.target.value);
+    if(!e.target.value) setSearchSuggestion([]);
+    else setSearchSuggestion(searchRouteList.filter(item=>{
+      let regExp=new RegExp(e.target.value, "i");
+      return item.tag.filter(value=>value.match(regExp)).length>0;
+    }))
+  }
 
   return (
     <>
@@ -113,11 +142,27 @@ function AdminDashboard({ children }) {
             <span className="dashboard">Dashboard</span>
           </div>
           <div className="search-box">
-            <input type="text" placeholder="Search..." />
-            <i className="bx bx-search"></i>
+            <input type="text" placeholder="Search..." value={searchText} onChange={handleOnSearchChange}/>
+            {/* <i className="bx bx-search"></i> */}
+            
+            {/* Autocomplete div */}
+              <div className="autoComplete">
+                <ul>
+                 {
+                   searchSuggestion.length>0&&
+                   searchSuggestion.map((item,index)=>{
+                     return <Link key={index} to={item.link}><li>{
+                       item.tag.map(value=> value+" /")
+                       }</li></Link>  
+                   })
+                  }
+                </ul>
+              </div>
+            {/* End of autocomplete div */}
           </div>
+
           <div className="profile-details">
-            <img src="https://www.w3schools.com/howto/img_avatar.png" alt="#" />
+            <img src={profileImage?profileImage:"https://www.w3schools.com/howto/img_avatar.png"} alt="#" />
             <span className="admin_name">Admin</span>
           
           </div>

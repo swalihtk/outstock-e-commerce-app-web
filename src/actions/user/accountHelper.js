@@ -140,7 +140,28 @@ const helpers={
         }catch(e){
             return;
         }
-    }
+    },
+
+    changeAdminPassword:async function(userId, verifyPassword, newPassword, setErr, setLoading, navigate){
+        try{
+            setLoading(true);
+            let body={
+                verifyPassword:verifyPassword,
+                newPassword:newPassword
+            }
+            let response=await axios.put("/user/account/changePassword/"+userId, body);
+            setLoading(false);
+            if(response.status===201){
+                swal("Password updated succesfully!!", "ok", "success");
+                navigate("/admin")
+            }else{
+                setErr(response.data.err)
+            }
+        }catch(e){
+            console.log(e);
+            return;
+        }
+    },
 }
 
 

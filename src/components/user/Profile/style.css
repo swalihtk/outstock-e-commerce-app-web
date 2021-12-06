@@ -15,8 +15,8 @@
 }
 
 .myAccount__profilePhoto{
-    width: 20vw;
-    height: 20vh;
+    width: 8rem;
+    height: 8rem;
     margin-top: 1rem;
     display: flex;
     flex-direction: column;
@@ -26,7 +26,8 @@
 .myAccount__profilePhoto img{
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    object-fit: fill;
+    border-radius: 50%;
 }
 
 .myAccount__profilePhoto label{

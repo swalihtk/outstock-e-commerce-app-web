@@ -49,7 +49,7 @@ function ImageCroper(props) {
         canvas.width = cropConfig.width;
         canvas.height = cropConfig.height;
         const ctx = canvas.getContext('2d');
-        
+        console.log(cropConfig.width+" ----------------- "+cropConfig.height)
         ctx.drawImage(
             sourceImage,
             cropConfig.x * scaleX,

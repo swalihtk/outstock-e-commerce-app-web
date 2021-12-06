@@ -8,6 +8,8 @@ const ADMIN_LOGIN_ERROR = "ADMIN_LOGIN_ERROR";
 const initialState = {
   loading: true,
   logedin: undefined,
+  adminId:"",
+  info:{},
   error: "",
 };
 
@@ -47,6 +49,7 @@ const adminLoginFetchReducer = (state = initialState, action) => {
         loading: false,
         logedin: action.payload.login,
         adminId: action.payload.userId,
+        info:action.payload.info,
         error: "",
       };
 

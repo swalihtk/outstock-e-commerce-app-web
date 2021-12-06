@@ -120,7 +120,7 @@ function Dashboard() {
             <div className="number">
               {
                 dashDataLoading?
-                <Spinner animation="border" size="small" variant="success"/>
+                <Spinner animation="grow" variant="warning"/>
                 :
                 totalOrder.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
               }
@@ -134,7 +134,7 @@ function Dashboard() {
             <div className="box-topic">Total Sales</div>
             <div className="number">{
             dashDataLoading?
-            <Spinner animation="border" size="small" variant="success"/>
+            <Spinner animation="grow" variant="warning"/>
             :
             totalSales.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</div>
           </div>
@@ -145,7 +145,7 @@ function Dashboard() {
             <div className="box-topic">Total Profit</div>
             <div className="number">₹{
             dashDataLoading?
-            <Spinner animation="border" size="small" variant="success"/>
+            <Spinner animation="grow" variant="warning"/>
             :
             totalRevenue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</div>
           </div>
@@ -156,7 +156,7 @@ function Dashboard() {
             <div className="box-topic">Total Return</div>
             <div className="number">{
             dashDataLoading?
-            <Spinner animation="border" size="small" variant="success"/>
+            <Spinner animation="grow" variant="warning"/>
             :
             totalReturns.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</div>
           </div>

@@ -431,6 +431,24 @@ nav .profile-details i{
   padding:2px 6px;
 }
 
+.autoComplete{
+  background-color: white;
+  border-radius: 10px;
+}
+
+.autoComplete ul{
+  list-style-type: none;
+  font-size: 16px;
+  padding:0 5px;
+}
+
+.autoComplete ul li{
+  margin-top: 0.4rem;
+  border-bottom: 1px solid #f7d4d7;
+  padding:15px 5px;
+  color:blue;
+}
+
 @media screen and (max-width:700px){
   .croper__main{
     flex-direction: column;
