@@ -3,6 +3,7 @@ import AdminDashboard from '../../../layouts/admin/AdminDashboard'
 import {Tabs, Tab} from "react-bootstrap";
 import AllOffers from './AllOffers';
 import "./offers.css"
+import AllCoupons from './AllCoupons';
 
 function Index() {
     return (
@@ -12,7 +13,7 @@ function Index() {
                     <AllOffers />
                 </Tab>
                 <Tab eventKey="2" title="Coupons">
-                    <h1>All Coupons</h1>
+                    <AllCoupons />
                 </Tab>
             </Tabs>
         </AdminDashboard>

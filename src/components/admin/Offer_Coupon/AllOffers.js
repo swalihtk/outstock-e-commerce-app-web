@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {Table, Modal, Button} from "react-bootstrap";
+import {Table, Modal, Button, Placeholder} from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllOffers } from "../../../redux/admin/offerReducer";
 import offerHelper from "../../../actions/admin/offerHelper";
@@ -128,7 +128,13 @@ function AllOffers() {
             }}>ADD NEW OFFER</button>
       </div>
       <div className="allOffers__list container">
-        <Table striped bordered hover>
+       {
+       offerRedux.loading?
+        <Placeholder as="p" animation="glow">
+          <Placeholder xs={12} />
+        </Placeholder>
+       :
+       <Table striped bordered hover>
           <thead>
             <tr>
               <th>#</th>
@@ -156,7 +162,7 @@ function AllOffers() {
                 })
             }
           </tbody>
-        </Table>
+        </Table>}
       </div>
     </div>
     </>

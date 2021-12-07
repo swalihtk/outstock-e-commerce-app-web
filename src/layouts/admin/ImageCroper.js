@@ -61,7 +61,7 @@ function ImageCroper(props) {
             cropConfig.width,
             cropConfig.height
         );
-
+        
         return canvas.toDataURL();
     }
 
