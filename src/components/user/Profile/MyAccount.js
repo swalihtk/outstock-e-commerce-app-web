@@ -54,11 +54,11 @@ function MyAccount() {
         e.preventDefault();
         setIsChanged(false);
         if(!userId) return;
-        accountHelper.updateUserDetails(userId, firstName, lastName, username, email, setDetailUpdateLoading, setDetailErr, getUserDetails, setIsChanged);
+        accountHelper.updateUserDetails(userId, firstName, lastName, username, email,userDetails.email, setDetailUpdateLoading, setDetailErr, getUserDetails, setIsChanged);
     }
     function handleImageOnChange(e){
-        setHaveImage(true);
         if(!e.target.files) return;
+        setHaveImage(true);
         setPreviewSource(URL.createObjectURL(e.target.files[0]));
         setShowSaveImage(true);
     }
@@ -76,7 +76,7 @@ function MyAccount() {
                 {
                 showSaveImage?
                 imageUpdateLoading?
-                <Spinner animation="border" variant="primary" />
+                <Spinner animation="grow" variant="primary" />
                 :
                 <SaveIcon style={{cursor:"pointer", color:"green"}} onClick={handleSaveProfileImage}/>
                 :
@@ -106,10 +106,12 @@ function MyAccount() {
                         setIsChanged(true);
                         setEmail(e.target.value);
                     }}/><br/>
-                    {
-                        isChanged&&
-                        <button type="submit">UPDATE</button>
-                    }
+                        {
+                            isChanged?
+                            <button>UPDATE</button>
+                            :
+                            <button disabled>UPDATE</button>
+                        }
                       {detailUpdateLoading&&<Spinner animation="border" variant="danger" />}
                       {detailErr&&<p className="text-center text-danger">{detailErr}</p>}
 

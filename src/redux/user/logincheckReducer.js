@@ -10,6 +10,7 @@ const initialState = {
   logedin: undefined,
   userId: "",
   error: "",
+  userInfo:{}
 };
 
 // action
@@ -48,6 +49,7 @@ const userLoginFetchReducer = (state = initialState, action) => {
         loading: false,
         logedin: action.payload.login,
         userId: action.payload.userId,
+        userInfo:action.payload.response
       };
 
     case FETCH_ERROR:
@@ -55,6 +57,7 @@ const userLoginFetchReducer = (state = initialState, action) => {
         loading: false,
         logedin: undefined,
         error: action.payload,
+        userInfo:{}
       };
 
     default:
@@ -69,7 +72,11 @@ function isUserLogedIn() {
     axios
       .get("/user/auth/check")
       .then((response) => {
-        dispatch(fetchLoginSuccess(response.data));
+        if(response.status===200 && response.data.login){
+          dispatch(fetchLoginSuccess(response.data));
+        }else{
+          dispatch(fetchLoginError("error"));
+        }
       })
       .catch((err) => {
         dispatch(fetchLoginError(err.message));

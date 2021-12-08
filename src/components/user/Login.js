@@ -82,9 +82,9 @@ function Login() {
                         error&&<p className="text-danger mt-2 text-center">{errorMessage}</p>
                     }
 
-                    <Button variant="primary" className="login-button mt-3" style={{border:"1px solid green"}} type="submit">
+                    {/* <Button variant="primary" className="login-button mt-3" style={{border:"1px solid green"}} type="submit">
                         Login with OTP <PhoneIcon style={{marginLeft:"0.5rem"}} />
-                    </Button>
+                    </Button> */}
                 </Form>
 
                 {/* Login or horizonental line */}

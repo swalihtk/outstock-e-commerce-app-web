@@ -41,10 +41,18 @@ const helpers={
             setDashDataLoading(false);
             if(response.status===200 && response.data.allOrders){
                 let data=response.data;
-                setTotalOrders(data.allOrders);
-                setTotalSales(data.totalSales);
-                setTotalReturns(data.totalReturns);
-                setTotalRevenue(data.totalRevenue);
+                if(data.allOrders){
+                    setTotalOrders(data.allOrders);
+                }
+                if(data.totalSales){
+                    setTotalSales(data.totalSales);
+                }
+                if(data.totalReturns){
+                    setTotalReturns(data.totalReturns);
+                }
+                if(data.totalRevenue){
+                    setTotalRevenue(data.totalRevenue);
+                }
             }else{
                 setTotalOrders(0);
                 setTotalSales(0);

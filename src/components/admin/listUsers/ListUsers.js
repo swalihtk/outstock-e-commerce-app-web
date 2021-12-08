@@ -142,11 +142,11 @@ function ListUsers() {
               </TableBody>
             </Table>
           </TableContainer>
-          <Pagination
+          {/* <Pagination
             style={{ marginTop: "1rem" }}
             defaultCurrent={1}
             total={50}
-          />
+          /> */}
         </div>
       </div>
     );

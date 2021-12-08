@@ -73,3 +73,19 @@
   padding: 5px 0px;
   margin-bottom: 2rem;
 }
+
+/* Apply Coupon */
+.applyCoupon__main {
+  border: 1px solid #333;
+  display: flex;
+  border-radius: 5px;
+  margin-left: 2rem;
+  margin-right: 2rem;
+}
+
+.applyCoupon__main input {
+  flex: 1;
+  padding: 5px;
+  border: none;
+  font-size: 16px;
+}

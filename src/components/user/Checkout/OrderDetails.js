@@ -1,6 +1,7 @@
-import { Button, Modal } from "react-bootstrap";
+import { Button, Modal, Spinner } from "react-bootstrap";
 import React, { useEffect, useState, ReactDOM } from "react";
 import checkoutHelper from "../../../actions/user/checkoutHelper";
+import couponActions from "../../../actions/user/couponAction";
 
 // table
 import Table from "@material-ui/core/Table";
@@ -12,12 +13,11 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import { useSelector } from "react-redux";
 
-// paypal
-import PaypalButtonObject from "./PaypalButtons";
 
 function OrderDetails({setPaymentState,handlePayment,paymentState,addressState, setProductInfo, setTotalPrice,totalPrice, paypalRef, razerpayInitState }) {
   // redux
   let cartItems = useSelector((state) => state.cart);
+  let { loading, logedin, userId } = useSelector((state) => state.userLogin);
 
   // order stats
   let [products, setProducts] = useState([]);
@@ -85,6 +85,28 @@ function OrderDetails({setPaymentState,handlePayment,paymentState,addressState, 
     })
   }, [products])
 
+  // ******* Coupon Handler *******
+  let [couponCode, setCouponCode]=useState("");
+  let [applyCouponTrue, setApplyCouponTrue]=useState(false);
+  let [couponApplying, setCouponApplying]=useState(false);
+  let [couponErr, setCouponErr]=useState("");
+
+  function setUpApplyCouponTrue(){
+    setCouponCode("");
+    setApplyCouponTrue(true);
+  }
+
+  function applyCouponHandler(){
+    if(!couponCode) return;
+
+    let body={
+      userId:userId,
+      couponCode:couponCode,
+      totalPrice:totalPrice
+    }
+    couponActions.applyCoupon(setCouponApplying, setCouponErr, body, setTotalPrice);
+  }
+
   return (
     <>
       {/* Modal */}
@@ -111,9 +133,27 @@ function OrderDetails({setPaymentState,handlePayment,paymentState,addressState, 
       </Modal>
       <div className="orderDetails__main">
         <div className="orderDetails__coupon text-center mt-4">
-          <Button className="btn-light">
+          {
+            applyCouponTrue?
+            <>
+            <div className="applyCoupon__main">
+            <input type="text" value={couponCode} onChange={e=>setCouponCode(e.target.value)} />
+            
+            {
+              couponApplying?
+              <Spinner animation="border" style={{marginRight:"1rem", fontSize:"1rem"}} variant="primary" />
+              :
+              <Button className="btn-primary" onClick={applyCouponHandler}>Apply</Button>}
+            </div>
+            {
+              couponErr&&<p className="text-center text-danger">{couponErr}</p>
+            }
+            </>
+            :
+            <Button className="btn-light" onClick={setUpApplyCouponTrue}>
             <strong>Have a coupon? </strong>Click here to enter the coupon
           </Button>
+          }
         </div>
         <div className="orderDetails__body">
           <h1>Your Order</h1>
@@ -209,9 +249,7 @@ function OrderDetails({setPaymentState,handlePayment,paymentState,addressState, 
             <br />
           </div>
           <div className="order__paymentMethod">
-            {/* <div ref={paypalRef}></div>
-            <br /> */}
-            <PaypalButtonObject />
+                    {/* Payapl */}
           </div>
         </div>
         <div className="order__btn">

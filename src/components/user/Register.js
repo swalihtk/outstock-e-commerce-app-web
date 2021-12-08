@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { Form, Button, Spinner } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import NavigationBar from '../../layouts/user/NavigationBar'
 import {useNavigate} from 'react-router-dom';
 import ContentSpinner from '../../layouts/user/ContentSpinner';
@@ -16,6 +16,7 @@ function Register() {
     let [username, setUsername]=useState("");
     let [password, setPassword]=useState("");
     let [email, setEmail]=useState("");
+    let [referalCode, setReferalCode]=useState("");
 
     // error
     let [error, setError]=useState(false);
@@ -23,14 +24,13 @@ function Register() {
 
     // router navigator
     let navigoter=useNavigate();
-    
+    let [searchParams, setSearchParams]=useSearchParams();
 
     // form submit action
     function registerUser(e){
         e.preventDefault();
-        axios.post("/user/auth/signup", {
-            username,email,password
-        }).then(response=>{
+        let body=referalCode?{username, email, password, referal:referalCode}:{username, email, password};
+        axios.post("/user/auth/signup", body).then(response=>{
             let data=response.data;
             if(data.error){
                 setError(true);
@@ -48,7 +48,10 @@ function Register() {
 
     useEffect(()=>{
         dispatch(loadSpinner());
-    }, [])
+        let referal=searchParams.get("refcode");
+        if(!referal) return;
+        setReferalCode(referal);
+     }, [])
     
 
     return (
@@ -74,6 +77,10 @@ function Register() {
                     <Form.Group className="mt-4" controlId="formBasicPassword">
                         <Form.Label>Password</Form.Label>
                         <Form.Control type="password" className="register-input" value={password} placeholder="Password" onChange={e=>setPassword(e.target.value)} required/>
+                    </Form.Group>
+                    <Form.Group className="mt-4" controlId="formBasicPassword">
+                        <Form.Label>Referal Code (optionel)</Form.Label>
+                        <Form.Control type="text" className="register-input" value={referalCode} placeholder="Referal" onChange={e=>setReferalCode(e.target.value)}/>
                     </Form.Group>
                     <Button variant="primary" className="register-button" type="submit">
                         Register

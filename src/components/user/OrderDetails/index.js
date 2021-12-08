@@ -4,9 +4,10 @@ import NavigationBar from "../../../layouts/user/NavigationBar";
 import OrderAddress from "./OrderAddress";
 import "./OrderDetails.css";
 import OrderProduct from "./OrderProduct";
-import OrderStatus from "./OrderStatus";
 import {useSearchParams} from "react-router-dom"
 import orderHelper from "../../../actions/user/orderHelper";
+import Login from "../Login";
+import { useDispatch, useSelector } from "react-redux";
 
 function Index() {
 
@@ -38,6 +39,10 @@ function Index() {
   // test
   //console.log(orderDetails);
   
+  // **** checking login *******
+  let { logedin } = useSelector((state) => state.userLogin);
+  if(!logedin) return <Login />
+
   return (
     <>
       <NavigationBar iconShow={true} />

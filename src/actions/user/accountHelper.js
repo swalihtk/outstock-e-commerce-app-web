@@ -26,13 +26,14 @@ const helpers={
         }
     },
 
-    updateUserDetails:async function(userId, firstname, lastname, username, email, setLoading, setErr, getUserDetails){
+    updateUserDetails:async function(userId, firstname, lastname, username, email,existingEmail, setLoading, setErr, getUserDetails){
         try{
             let body={
                 firstName:firstname,
                 lastName:lastname,
                 username:username,
-                email:email
+                email:email,
+                existingEmail:existingEmail
             }
             setLoading(true);
             let response=await axios.put("/user/account/changeDetails/"+userId, body);

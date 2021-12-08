@@ -44,8 +44,8 @@ function AllCoupons() {
 
   // *************** edit coupons ***********
   let [editing, setEditing]=useState(false);
-  let [editExpires, setEditExpires]=useState("00-00-0000");
-  let [editDiscount, setEditDiscount]=useState(0);
+  let [editExpires, setEditExpires]=useState("");
+  let [editDiscount, setEditDiscount]=useState("");
   let [editFormErr, setEditFormErr]=useState("");
   let [showEditForm, setShowEditForm]=useState(false);
   let [editId, setEditId]=useState("");
@@ -56,7 +56,7 @@ function AllCoupons() {
     if(!couponDetails) return;
     setEditDiscount(couponDetails.discount);
     setEditExpires(couponDetails.expires);
-  }, [JSON.stringify(couponDetails)])
+  }, [couponDetails])
 
   function showEditFormHandler(id){
     setShowEditForm(true);

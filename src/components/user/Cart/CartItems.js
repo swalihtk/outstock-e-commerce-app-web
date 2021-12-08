@@ -34,6 +34,7 @@ function CartItems() {
 
   function checkUnAvailableProducts(){
     if(!cartItems) return;
+    if(!products) return;
     let total=0;
     products.forEach((item)=>{
       let productInfo = item.productInfo;
@@ -60,6 +61,7 @@ function CartItems() {
   useEffect(()=>{
     checkUnAvailableProducts();
   }, [cartItems])
+
 
   return (
     <div className="cartItems__main">

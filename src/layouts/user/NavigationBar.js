@@ -1,14 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {
-  Container,
-  Form,
-  FormControl,
-  Nav,
-  Navbar,
-  NavDropdown,
   Badge,
   Offcanvas,
-  DropdownButton,
 } from "react-bootstrap";
 import "./NavigationBar.css";
 import { useDispatch, useSelector } from "react-redux";
@@ -26,6 +19,7 @@ import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import ListIcon from "@material-ui/icons/List";
 import {Dropdown} from 'react-bootstrap';
+import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
 
 let linkStyle = {
   textDecoration: "none",
@@ -131,6 +125,9 @@ function NavigationBar({ iconShow }) {
                   <Link to="/whishlist">
                     <FavoriteBorderIcon /> Whislist
                   </Link>
+                  <Link to="/wallet">
+                    <AccountBalanceWalletIcon /> wallet
+                  </Link>
                   {
                     logedin&&
                       <Link to="/logout">
@@ -181,6 +178,11 @@ function NavigationBar({ iconShow }) {
                 <p>
                   <Link to="/whishlist">
                     <FavoriteBorderIcon /> My Whislist
+                  </Link>
+                </p>
+                <p>
+                <Link to="/wallet">
+                    <AccountBalanceWalletIcon /> wallet
                   </Link>
                 </p>
                 <hr />

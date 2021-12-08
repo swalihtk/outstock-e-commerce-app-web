@@ -13,7 +13,7 @@ function SubCategory({ sub, mainCategory }) {
 
           return (
             <>
-            <Link to={link}>
+            <Link to={link} key={index}>
               {item}
             </Link>
           </>

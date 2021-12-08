@@ -12,8 +12,10 @@ import checkoutHelper from "../../../actions/user/checkoutHelper";
 
 //text
 import axios from "axios";
+import Login from "../Login";
 
 function Index() {
+
   // hooks
   let {userId}=useParams();
   let dispatch=useDispatch();
@@ -42,8 +44,9 @@ function Index() {
 
   // test
   
-  
-  
+  // **** checking login *******
+  let { logedin } = useSelector((state) => state.userLogin);
+  if(!logedin) return <Login />
 
   return (
     <>

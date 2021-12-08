@@ -3,11 +3,19 @@ import { Container } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import NavigationBar from "../../../layouts/user/NavigationBar";
 import { isUserLogedIn } from "../../../redux/user/logincheckReducer";
+import Login from "../Login";
 import "./cart.css";
 import CartItems from "./CartItems";
 import CartPrice from "./CartPrice";
 
-function index() {
+function Index() {
+
+  // ********* check login *********
+  let { logedin } = useSelector((state) => state.userLogin);
+
+  
+  if(!logedin) return <Login/>
+
   return (
     <>
       <NavigationBar iconShow={true} />
@@ -25,4 +33,4 @@ function index() {
   );
 }
 
-export default index;
+export default Index;

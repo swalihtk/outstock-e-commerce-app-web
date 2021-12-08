@@ -33,6 +33,7 @@ import Profile from "./components/user/Profile/index";
 import OfferAndCoupon from "./components/admin/Offer_Coupon";
 import AdminSalesReport from "./components/admin/SalesReport";
 import AdminSettings from "./components/admin/Settings/index";
+import Wallet from "./components/user/Wallet/index";
 
 function Routers() {
   let { logedin } = useSelector((state) => state.userLogin);
@@ -51,13 +52,14 @@ function Routers() {
         <Route path="/" element={<Home />} />
         <Route
           path="/cart"
-          element={logedin ? <Cart /> : <Navigate to="/login" />}
+          element={<Cart />}
         />
-        <Route path="/cart/checkout/:userId" element={logedin ? <Cart /> : <Navigate to="/login" />} />
-        <Route path="/orders/success/:userId" element={ logedin ? <OrderSuccess /> : <Navigate to="/login" />} />
-        <Route path="/orders/:userId" element={ logedin ? <Order /> : <Navigate to="/login" />} />
-        <Route path="/order_details" element={ logedin ? <OrderDetails /> : <Navigate to="/login" />} />
-        <Route path="/profile" element={ logedin ? <Profile /> : <Navigate to="/login" />} />
+        <Route path="/cart/checkout/:userId" element={<Checkout />} />
+        <Route path="/orders/success/:userId" element={<OrderSuccess />} />
+        <Route path="/orders/:userId" element={ <Order />} />
+        <Route path="/order_details" element={ <OrderDetails /> } />
+        <Route path="/wallet" element={ <Wallet /> } />
+        <Route path="/profile" element={<Profile />} />
         <Route
           path="/login"
           element={logedin ? <Navigate to="/" /> : <Login />}

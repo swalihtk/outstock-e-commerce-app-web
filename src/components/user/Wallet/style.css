@@ -1,0 +1,40 @@
+.wallet__totalAmount {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.referal__share {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.referal__share button {
+  border: none;
+  padding: 2px 5px;
+}
+
+.referal__code_modal {
+    text-align: right;
+}
+
+.referal__code_modal input {
+  width: -webkit-fill-available;
+  padding: 3px;
+  border-radius: 5px;
+}
+
+.referal__code_modal button {
+  margin-top: 1rem;
+  padding: 1px 5px;
+  border-radius: 5px;
+}
+
+@media screen and (max-width: 700px) {
+  .referal__share h4 {
+    font-size: 1rem;
+  }
+  .referal__share button {
+    font-size: 12px;
+  }
+}
