@@ -13,6 +13,7 @@ import checkoutHelper from "../../../actions/user/checkoutHelper";
 //text
 import axios from "axios";
 import Login from "../Login";
+import OtherFooter from "../../../layouts/user/OtherFooter";
 
 function Index() {
 
@@ -26,7 +27,6 @@ function Index() {
   let [paymentState,setPaymentState]=useState("");
   let [productInfo, setProductInfo]=useState([]);
   let [totalPrice, setTotalPrice] = useState(0);
-  let [paypalCheckout, setPaypalCheckout]=useState(false);
 
 
   // redux
@@ -42,7 +42,7 @@ function Index() {
     checkoutHelper.placeOrder(userId,addressState, paymentState, productInfo, totalPrice,navigate, dispatch);
   }
 
-  // test
+  
   
   // **** checking login *******
   let { logedin } = useSelector((state) => state.userLogin);
@@ -57,9 +57,11 @@ function Index() {
             <Address userId={userId} setAddressState={setAddressState}/>
           </div>
           <div className="col-md-6 col-12">
-            <OrderDetails setPaymentState={setPaymentState} handlePayment={handlePayment} addressState={addressState} paymentState={paymentState} setProductInfo={setProductInfo} setTotalPrice={setTotalPrice} totalPrice={totalPrice} paypalCheckout={paypalCheckout} setPaypalCheckout={setPaypalCheckout}/>
+            <OrderDetails setPaymentState={setPaymentState} handlePayment={handlePayment} addressState={addressState} paymentState={paymentState} setProductInfo={setProductInfo} setTotalPrice={setTotalPrice} totalPrice={totalPrice} />
           </div>
         </Row>
+        <br/>
+        <OtherFooter />
       </Container>
     </>
   );

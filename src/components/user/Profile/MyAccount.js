@@ -9,10 +9,10 @@ import SaveIcon from '@material-ui/icons/Save';
 function MyAccount() {
 
     // state 
-    let [username, setUsername]=useState("....");
-    let [email, setEmail]=useState("....");
-    let [firstName, setFirstname]=useState("....");
-    let [lastName, setLastname]=useState("...");
+    let [username, setUsername]=useState("");
+    let [email, setEmail]=useState("");
+    let [firstName, setFirstname]=useState("");
+    let [lastName, setLastname]=useState("");
 
     let [detailUpdateLoading, setDetailUpdateLoading]=useState(false);
     let [imageUpdateLoading, setImageUpdateLoading]=useState(false);
@@ -20,7 +20,7 @@ function MyAccount() {
     let [detailErr, setDetailErr]=useState("");
     let [imageErr, setImageErr]=useState("");
 
-    let [userDetails, setUserDetails]=useState({});
+    let [userDetails, setUserDetails]=useState(undefined);
 
     let [isChanged, setIsChanged]=useState(0);
     let [previewSource, setPreviewSource]=useState("");
@@ -39,8 +39,8 @@ function MyAccount() {
         if(!userDetails) return;
         setUsername(userDetails.username);
         setEmail(userDetails.email);
-        setFirstname(userDetails.firstname);
-        setLastname(userDetails.lastname);
+        setFirstname(userDetails.firstname?userDetails.firstname:"");
+        setLastname(userDetails.lastname?userDetails.lastName:"");
         setPreviewSource(userDetails.profileImage)
     },[userDetails])
 
@@ -57,7 +57,7 @@ function MyAccount() {
         accountHelper.updateUserDetails(userId, firstName, lastName, username, email,userDetails.email, setDetailUpdateLoading, setDetailErr, getUserDetails, setIsChanged);
     }
     function handleImageOnChange(e){
-        if(!e.target.files) return;
+        if(!e.target.files[0]) return;
         setHaveImage(true);
         setPreviewSource(URL.createObjectURL(e.target.files[0]));
         setShowSaveImage(true);

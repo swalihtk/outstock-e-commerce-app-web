@@ -25,8 +25,7 @@ function LatestProduct() {
       });
 
     return () => {
-      setProducts([]);
-      setLoading(false);
+      
     };
   }, []);
 

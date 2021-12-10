@@ -11,6 +11,10 @@ function HomeBanner() {
   // mount
   useEffect(()=>{
     bannerHelper.getAllBanners(setAllBanners, setLoading);
+
+    return ()=>{
+      
+    }
   },[])
 
   return (

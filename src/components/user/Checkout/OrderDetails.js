@@ -2,6 +2,8 @@ import { Button, Modal, Spinner } from "react-bootstrap";
 import React, { useEffect, useState, ReactDOM } from "react";
 import checkoutHelper from "../../../actions/user/checkoutHelper";
 import couponActions from "../../../actions/user/couponAction";
+import axios from 'axios';
+import { PayPalButton } from "react-paypal-button-v2";
 
 // table
 import Table from "@material-ui/core/Table";
@@ -14,7 +16,7 @@ import Paper from "@material-ui/core/Paper";
 import { useSelector } from "react-redux";
 
 
-function OrderDetails({setPaymentState,handlePayment,paymentState,addressState, setProductInfo, setTotalPrice,totalPrice, paypalRef, razerpayInitState }) {
+function OrderDetails({setPaymentState,handlePayment,paymentState,addressState, setProductInfo, setTotalPrice,totalPrice}) {
   // redux
   let cartItems = useSelector((state) => state.cart);
   let { loading, logedin, userId } = useSelector((state) => state.userLogin);
@@ -84,6 +86,35 @@ function OrderDetails({setPaymentState,handlePayment,paymentState,addressState, 
       })
     })
   }, [products])
+
+
+  // ********* paypal *************
+  let [paypalSdkReady, setPaypalSdkReady]=useState(false);
+  useEffect(() => {
+    const getPayapalId=async ()=>{
+      let {data:paypalId}=await axios.get("/user/order/paypal/config");
+      let script=window.document.createElement("script");
+      script.type="text/javascript";
+      script.src=`https://www.paypal.com/sdk/js?client-id=${paypalId}`;
+      script.async=true;
+      script.onload=()=>{
+        setPaypalSdkReady(true);
+      }
+      window.document.body.appendChild(script);
+    }
+    
+    if(!window.paypal){
+      getPayapalId();
+    }else{
+      setPaypalSdkReady(true);
+    }
+
+  }, [])
+
+  function handlePaypalSuccess(){
+    setPaymentState("PAYPAL")
+    handlePayment();
+  }
 
   // ******* Coupon Handler *******
   let [couponCode, setCouponCode]=useState("");
@@ -250,6 +281,13 @@ function OrderDetails({setPaymentState,handlePayment,paymentState,addressState, 
           </div>
           <div className="order__paymentMethod">
                     {/* Payapl */}
+                    {
+                      paypalSdkReady&&Object.keys(addressState).length !== 0&&
+                      <PayPalButton
+                      amount={totalPrice}
+                      onSuccess={handlePaypalSuccess}
+                      />
+                    }
           </div>
         </div>
         <div className="order__btn">

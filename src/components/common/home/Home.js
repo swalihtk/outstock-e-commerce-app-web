@@ -17,6 +17,10 @@ function Home() {
 
   useEffect(() => {
     dispatch(loadSpinner());
+
+    return ()=>{
+      
+    }
   }, []);
 
   if (loading) {

@@ -21,7 +21,7 @@ function ProductCard({ product }) {
       <div className="col-6 col-md-3">
         <div className="productCard__main">
             <div className="productCard__card">
-              <Link to={`/productdetails/${product._id}`}>
+              <Link to={`/productdetails/${product._id}`} target="_blank">
                 <div className="productCard__img">
                   <img src={product.productImages[0].img} alt="" />
                 </div>

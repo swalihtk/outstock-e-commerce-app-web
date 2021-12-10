@@ -4,6 +4,7 @@ import Login from "../Login";
 import AllOrders from "./AllOrders";
 import "./order.css";
 import { useDispatch, useSelector } from "react-redux";
+import OtherFooter from "../../../layouts/user/OtherFooter";
 
 function Index() {
   let { logedin } = useSelector((state) => state.userLogin);
@@ -14,6 +15,9 @@ function Index() {
     <>
       <NavigationBar iconShow={true} />
       <AllOrders />
+
+      <br />
+      <OtherFooter />
     </>
   );
 }

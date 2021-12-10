@@ -5,7 +5,7 @@ import ProfileNavigation from './ProfileNavigation';
 import "./style.css";
 import { useDispatch, useSelector } from "react-redux";
 import {useSearchParams} from 'react-router-dom';
-import HomeFooter from '../../../layouts/user/HomeFooter';
+import OtherFooter from '../../../layouts/user/OtherFooter';
 
 function Index() {
 
@@ -22,7 +22,7 @@ function Index() {
         <NavigationBar iconShow={true}/>
         <ProfileNavigation routerQuery={routerQuery}/>
         <br/>
-        <HomeFooter />
+        <OtherFooter />
         </>
     )
 }

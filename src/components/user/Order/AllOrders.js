@@ -20,7 +20,7 @@ function AllOrders() {
   //console.log(allOrders);
 
   return (
-    <div className="allOrders__main">
+    <div className="allOrders__main" style={{minHeight:"75vh"}}>
       <h1>All Orders</h1>
 
       <Container>

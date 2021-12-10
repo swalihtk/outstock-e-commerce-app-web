@@ -25,6 +25,10 @@ function HomeCategory() {
 
   useEffect(() => {
     dispatch(getAllCategoryHome());
+
+    return ()=>{
+      
+    }
   }, []);
 
   if (loading) {

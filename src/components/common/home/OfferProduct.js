@@ -14,6 +14,10 @@ function OfferProduct() {
     // mount
     useEffect(()=>{
         productHelper.listOfferProduct(true, 1, setProducts, setLoading, setErr);
+
+        return ()=>{
+         
+        }
     }, [products])
 
     if (loading) {

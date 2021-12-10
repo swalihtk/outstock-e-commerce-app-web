@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Container } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import NavigationBar from "../../../layouts/user/NavigationBar";
+import OtherFooter from "../../../layouts/user/OtherFooter";
 import { isUserLogedIn } from "../../../redux/user/logincheckReducer";
 import Login from "../Login";
 import "./cart.css";
@@ -20,7 +21,7 @@ function Index() {
     <>
       <NavigationBar iconShow={true} />
       <Container>
-        <div className="row">
+        <div className="row" style={{minHeight:"80vh"}}>
           <div className="col-md-8 col-12">
             <CartItems />
           </div>
@@ -28,6 +29,8 @@ function Index() {
             <CartPrice />
           </div>
         </div>
+        <br/>
+        <OtherFooter />
       </Container>
     </>
   );

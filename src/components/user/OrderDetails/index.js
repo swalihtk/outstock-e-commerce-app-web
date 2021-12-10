@@ -8,6 +8,7 @@ import {useSearchParams} from "react-router-dom"
 import orderHelper from "../../../actions/user/orderHelper";
 import Login from "../Login";
 import { useDispatch, useSelector } from "react-redux";
+import OtherFooter from "../../../layouts/user/OtherFooter";
 
 function Index() {
 
@@ -52,7 +53,7 @@ function Index() {
         >
           Order Details
         </h1>
-        <Row>
+        <Row style={{minHeight:"70vh"}}>
           <div className="col-md-12 col-12">
             <OrderAddress orderDetails={orderDetails.orderDetails} handleOrderCancel={handleOrderCancel}/>
           </div>
@@ -60,6 +61,7 @@ function Index() {
             <OrderProduct productInfo={orderDetails.productsInfo} orderDetails={orderDetails.orderDetails}/>
           </div>
         </Row>
+        <OtherFooter />
       </Container>
     </>
   );

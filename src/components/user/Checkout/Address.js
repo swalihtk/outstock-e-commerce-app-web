@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Row, Form, Button, Col } from "react-bootstrap";
+import formValidater from '../../../utils/validationHelpers';
 
 // table
 import { makeStyles } from "@material-ui/core/styles";
@@ -59,12 +60,21 @@ function Address({userId, setAddressState}) {
     }
   }
 
+  // error
+  let [mobileNuErr, setMobileNuErr]=useState("");
+  let [pincodeErr, setPincodeErr]=useState("");
+  let [fullNameErr, setFullNameErr]=useState("");
+
   // function address add
   function addNewAddress(e){
     e.preventDefault()
     if(!fullName || !mobileNu || !pincode || !address || !town || !state || !landmark){
         setFormErr("You need to fill all fields!!");
         return;
+    }
+    if(mobileNuErr || pincodeErr || fullNameErr){
+      setFormErr("Please provide valid details!!");
+      return;
     }
     setFormErr("");
     let body={
@@ -181,12 +191,27 @@ function Address({userId, setAddressState}) {
             <Row className="mb-3">
               <Form.Group as={Col} controlId="formGridEmail">
                 <Form.Label>FullName</Form.Label>
-                <Form.Control type="text" placeholder="Enter Fullname" value={fullName} onChange={(e)=>setFullName(e.target.value)}/>
+                <Form.Control type="text" placeholder="Enter Fullname" value={fullName} onChange={(e)=>{
+                  formValidater.nameInputChangeHandler(e.target.value, setFullNameErr);
+                  setFullName(e.target.value)}}
+                  onBlur={(e)=>{
+                    formValidater.nameInputBlurHandler(e.target.value, setFullNameErr);
+                  }}
+                  />
+                  <span className="text-danger">{fullNameErr}</span>
               </Form.Group>
 
               <Form.Group as={Col} controlId="formGridPassword">
                 <Form.Label>Mobile</Form.Label>
-                <Form.Control type="text" placeholder="Enter Mobile No." value={mobileNu} onChange={(e)=>setMobileNu(e.target.value)}/>
+                <Form.Control type="text" placeholder="Enter Mobile No." value={mobileNu} onChange={(e)=>{
+                  formValidater.phoneInputChangeHandler(e.target.value, setMobileNuErr);
+                  setMobileNu(e.target.value)}
+                  }
+                  onBlur={(e)=>{
+                    formValidater.phoneInputBlurHandler(e.target.value, setMobileNuErr);
+                  }}
+                  />
+                <span className="text-danger">{mobileNuErr}</span>
               </Form.Group>
             </Row>
             <Form.Group className="mb-3" controlId="formGridAddress2">
@@ -196,7 +221,15 @@ function Address({userId, setAddressState}) {
             <Row className="mb-3">
               <Form.Group as={Col} controlId="formGridEmail">
                 <Form.Label>Pincode</Form.Label>
-                <Form.Control type="text" placeholder="123456" value={pincode} onChange={(e)=>setPincode(e.target.value)}/>
+                <Form.Control type="text" placeholder="123456" value={pincode} onChange={(e)=>{
+                  formValidater.postalCodeInputChangeHandler(e.target.value, setPincodeErr);
+                  setPincode(e.target.value)
+                  }}
+                  onBlur={(e)=>{
+                    formValidater.postalCodeInputBlurHandler(e.target.value, setPincodeErr);
+                    }}
+                  />
+                  <span className="text-danger">{pincodeErr}</span>
               </Form.Group>
 
               <Form.Group as={Col} controlId="formGridPassword">
