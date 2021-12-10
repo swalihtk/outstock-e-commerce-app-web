@@ -43,10 +43,10 @@ function AdminAccount() {
 
     // actions form
     function handleImageOnChange(e){
-        setHaveImage(true);
-        if(!e.target.files) return;
+        if(!e.target.files[0]) return;
         setPreviewSource(URL.createObjectURL(e.target.files[0]));
         setShowSaveImage(true);
+        setHaveImage(true);
     }
     function handleSaveProfileImage(e){
         accountHelper.updateProfilePhoto(adminId, previewSource, setImageUpdateLoading, setImageErr, setShowSaveImage);    
@@ -110,7 +110,7 @@ function AdminAccount() {
         </Modal>
         {/* End of password change modal */}
         <div className="myAccount__main">
-            {haveImage&&<ImageCroper imageToCrop={previewSource} setBoolean={setHaveImage} setPreview={setPreviewSource} aspectRatio={1,1}/>}
+            {haveImage&&<ImageCroper imageToCrop={previewSource} haveImage={haveImage} setBoolean={setHaveImage} setPreview={setPreviewSource} aspectRatio={1,1}/>}
             <div className="myAccount__profilePhoto">
                 <img src={previewSource?previewSource:"https://cdn-icons-png.flaticon.com/512/147/147144.png"} alt="" />
                 {

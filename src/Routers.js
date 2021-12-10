@@ -58,7 +58,7 @@ function Routers() {
         <Route path="/orders/success/:userId" element={<OrderSuccess />} />
         <Route path="/orders/:userId" element={ <Order />} />
         <Route path="/order_details" element={ <OrderDetails /> } />
-        <Route path="/wallet" element={ <Wallet /> } />
+        {/* <Route path="/wallet" element={ <Wallet /> } /> */}
         <Route path="/profile" element={<Profile />} />
         <Route
           path="/login"

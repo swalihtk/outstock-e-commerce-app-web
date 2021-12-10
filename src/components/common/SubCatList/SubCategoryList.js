@@ -24,7 +24,7 @@ function SubCategoryList({ mainCat, subCat }) {
               SubCategory <span style={{ color: "red" }}>"{subCat}"</span>
             </h3>
           </div>
-          <h3 className="text-center" style={{ marginTop: "3rem" }}>
+          <h3 className="text-center" style={{ marginTop: "3rem",height:"30vh" }}>
             ☹️☹️ No Product found in this category
           </h3>
         </section>

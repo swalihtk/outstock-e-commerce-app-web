@@ -93,4 +93,8 @@ div.homeCategory__main {
     .productCard__details{
         height: 10vh;
     }
+
+    .productCard__title{
+      font-size: 12px;
+    }
 }

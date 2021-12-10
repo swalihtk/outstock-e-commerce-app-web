@@ -66,7 +66,7 @@ function OrderTable({ order, getAllOrders, index }) {
           <div className="order__items">
             {productInfo.map((item, index) => {
               return (
-                <div className="order__items_details">
+                <div className="order__items_details" key={index}>
                   <div className="order__items_img">
                     <img
                       src={item?.productImages?.[0].img}

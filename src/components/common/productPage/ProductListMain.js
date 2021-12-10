@@ -6,6 +6,7 @@ import CategoryProduct from "./CategoryProduct";
 import HomeCategory from "../home/HomeCategory";
 import { fetchProductsCateg } from "../../../redux/home/AllProduct";
 import { useDispatch } from "react-redux";
+import HomeFooter from "../../../layouts/user/HomeFooter";
 
 function ProductListMain() {
   let { category } = useParams();
@@ -15,6 +16,7 @@ function ProductListMain() {
       <NavigationBar iconShow={true} />
       <HomeCategory />
       <CategoryProduct categoryName={category} />
+      <HomeFooter />
     </>
   );
 }

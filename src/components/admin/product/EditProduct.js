@@ -83,16 +83,19 @@ function EditProduct(props) {
 
   // actions (image) (onchange)
   function handleImageOne(e){
+    if(!e.target.files[0]) return;
     setImageOne(e.target.files[0]);
     setImage1(true);
     setPreviewSource1(URL.createObjectURL(e.target.files[0]));
   }
   function handleImageTwo(e){
+    if(!e.target.files[0]) return;
     setImageTwo(e.target.files[0]);
     setImage2(true);
     setPreviewSource2(URL.createObjectURL(e.target.files[0]));
   }
   function handleImageThree(e){
+    if(!e.target.files[0]) return;
     setImageThree(e.target.files[0]);
     setImage3(true);
     setPreviewSource3(URL.createObjectURL(e.target.files[0]));
@@ -127,13 +130,13 @@ function EditProduct(props) {
       {/* Croper */}
 
       {
-        image1&&<ImageCroper imageToCrop={previewSource1} setBoolean={setImage1} setPreview={setPreviewSource1} aspectRatio={700/500}/>
+        image1&&<ImageCroper imageToCrop={previewSource1} haveImage={setImage1} setBoolean={setImage1} setPreview={setPreviewSource1} aspectRatio={700/500}/>
       } 
       {
-        image2&&<ImageCroper imageToCrop={previewSource2} setBoolean={setImage2} setPreview={setPreviewSource2} aspectRatio={700/500}/>
+        image2&&<ImageCroper imageToCrop={previewSource2} haveImage={setImage2} setBoolean={setImage2} setPreview={setPreviewSource2} aspectRatio={700/500}/>
       }
       {
-        image3&&<ImageCroper imageToCrop={previewSource3} setBoolean={setImage3} setPreview={setPreviewSource3} aspectRatio={700/500}/>
+        image3&&<ImageCroper imageToCrop={previewSource3} haveImage={setImage3} setBoolean={setImage3} setPreview={setPreviewSource3} aspectRatio={700/500}/>
       }
 
       {/* New Form */}

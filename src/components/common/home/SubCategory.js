@@ -12,11 +12,9 @@ function SubCategory({ sub, mainCategory }) {
           let link = `/subcategory?category=${mainCategoryNew}&subcategory=${itemModi}`;
 
           return (
-            <>
             <Link to={link} key={index}>
               {item}
             </Link>
-          </>
           )
         })
       }

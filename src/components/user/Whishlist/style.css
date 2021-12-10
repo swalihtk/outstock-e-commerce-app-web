@@ -1,0 +1,50 @@
+.whishlist{
+    background-color: white;
+    margin-top: 1rem;
+    box-shadow: 0 2px 4px 0 rgb(0 0 0 / 8%);
+}
+
+.whishlist h1{
+    font-size: 17px;
+    font-weight: 500;
+}
+
+.whishlist__product__container{
+    max-height: 80vh;
+    overflow-y: auto;
+    width: 100%;
+}
+
+.whishlist__img{
+    width: 100px;
+    height: 100px;
+}
+
+.whislist__product{
+    display: flex;
+    height: 18vh;
+}
+
+.whishlist__img img{
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+}
+
+.whishlist__product__details{
+    flex: 1;
+    margin-left: 1rem;
+}
+
+.whishlist__product__details h1{
+    font-size: 15px;
+}
+
+.whishlist__product__details p{
+    font-size: 22px;
+    font-weight: 500;
+}
+
+.whilist__dlt_btn{
+    cursor: pointer;
+}

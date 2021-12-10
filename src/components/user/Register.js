@@ -79,8 +79,7 @@ function Register() {
                         <Form.Control type="password" className="register-input" value={password} placeholder="Password" onChange={e=>setPassword(e.target.value)} required/>
                     </Form.Group>
                     <Form.Group className="mt-4" controlId="formBasicPassword">
-                        <Form.Label>Referal Code (optionel)</Form.Label>
-                        <Form.Control type="text" className="register-input" value={referalCode} placeholder="Referal" onChange={e=>setReferalCode(e.target.value)}/>
+                        <Form.Control type="hidden" className="register-input" value={referalCode} placeholder="Referal" onChange={e=>setReferalCode(e.target.value)}/>
                     </Form.Group>
                     <Button variant="primary" className="register-button" type="submit">
                         Register

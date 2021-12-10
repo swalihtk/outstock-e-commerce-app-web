@@ -4,6 +4,7 @@ import AddIcon from "@material-ui/icons/Add";
 import { useDispatch } from "react-redux";
 import { getCartItems } from "../../../redux/user/cartReducer";
 import cartHelper from "../../../actions/user/cartHelper";
+import whishlistHelper from "../../../actions/user/whishlistController";
 
 function CartItem({ productInfo, item, userId, checkUnAvailableProducts }) {
   let [quantity, setQuanity] = useState(
@@ -49,6 +50,14 @@ function CartItem({ productInfo, item, userId, checkUnAvailableProducts }) {
     cartHelper.removeFromCart(userId, prodId, dispatch, checkUnAvailableProducts);
   }
 
+  // Add to whishlist
+  let [whishlistAdding, setWhishlistAdding]=useState(false);
+  let [whishListErr, setWhishlistErr]=useState("");
+
+  function saveForLater(){
+    whishlistHelper.addToWhishlist(setWhishlistAdding, setWhishlistErr, userId, prodId, dispatch);
+  }
+
   // test
   
 
@@ -84,7 +93,7 @@ function CartItem({ productInfo, item, userId, checkUnAvailableProducts }) {
       {/* Cart actions  */}
       <div className="cartItems__action">
         <div className="cartItems__actionButton">
-          <button>SAVE FOR LATER</button>
+          <button onClick={saveForLater}>SAVE FOR LATER</button>
         </div>
         <div className="cartItems__actionButton">
           <button onClick={deleteFromCart}>REMOVE</button>

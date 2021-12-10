@@ -15,6 +15,7 @@ function BannerAddForm({setAddFormShow}) {
 
   // action
   function imageChangeHandler(e) {
+    if(!e.target.files[0]) return;
     setIsImage(true);
     setBannerImage(e.target.files[0]);
     
@@ -47,7 +48,7 @@ function BannerAddForm({setAddFormShow}) {
 
   return (
     <>
-     {isImage&&<ImageCroper imageToCrop={bannerImgPrv} setBoolean={setIsImage} setPreview={setBannerImgPrv} aspectRatio={16/9}/>}
+     {isImage&&<ImageCroper imageToCrop={bannerImgPrv} haveImage={isImage} setBoolean={setIsImage} setPreview={setBannerImgPrv} aspectRatio={250/60}/>}
     <div className="bannerAddForm__main container">
       <Form onSubmit={createNewBanner}>
         <Form.Group className="mb-3" controlId="formBasicEmail">

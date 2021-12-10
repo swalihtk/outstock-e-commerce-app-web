@@ -9,6 +9,7 @@ import LatestProduct from "./LatestProduct";
 import "./style.css";
 import OfferProduct from "./OfferProduct";
 import TrendingProducts from "./TrendingProducts";
+import HomeFooter from "../../../layouts/user/HomeFooter";
 
 function Home() {
   let { loading } = useSelector((state) => state.spinner);
@@ -30,6 +31,8 @@ function Home() {
         <TrendingProducts />
         <LatestProduct />
         <OfferProduct />
+
+        <HomeFooter />
       </>
     );
   }

@@ -97,7 +97,7 @@ function Index() {
                     })
                   :
                   <TableRow>
-                    <h1>No orders found</h1>
+                    <TableCell align="center">No Orders</TableCell>
                   </TableRow>
                 }
               </TableBody>

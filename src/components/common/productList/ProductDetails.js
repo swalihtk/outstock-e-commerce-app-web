@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import ContentSpinner from "../../../layouts/user/ContentSpinner";
+import HomeFooter from "../../../layouts/user/HomeFooter";
 import NavigationBar from "../../../layouts/user/NavigationBar";
 import { getProductDetails } from "../../../redux/home/productDetails";
 import ProductShowPage from "./ProductShowPage";
@@ -37,6 +38,7 @@ function ProductDetails() {
             subCategory={product.subCategory}
           />
         </div>
+        <HomeFooter />
       </>
     );
   }

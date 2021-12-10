@@ -69,8 +69,11 @@ function MyAccount() {
     // test
    
     return (
+        <>
+        {/* Image Crop Modal */}
+        {haveImage&&<ImageCroper imageToCrop={previewSource} haveImage={haveImage} setBoolean={setHaveImage} setPreview={setPreviewSource} aspectRatio={1,1}/>}
+        {/* End of Image Crop Modal */}
         <div className="myAccount__main">
-            {haveImage&&<ImageCroper imageToCrop={previewSource} setBoolean={setHaveImage} setPreview={setPreviewSource} aspectRatio={1,1}/>}
             <div className="myAccount__profilePhoto">
                 <img src={previewSource?previewSource:"https://cdn-icons-png.flaticon.com/512/147/147144.png"} alt="" />
                 {
@@ -118,6 +121,7 @@ function MyAccount() {
                 </form>
             </div> 
         </div>
+        </>
     )
 }
 

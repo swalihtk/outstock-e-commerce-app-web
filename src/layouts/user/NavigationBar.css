@@ -169,3 +169,11 @@ a{
 .dropdown a:hover {background-color: #ddd;}
 
 .show {display: block;}
+
+.footer__links li a{
+  color: white !important;
+}
+
+.offcanvas-body{
+  height: 100% !important;
+}

@@ -21,6 +21,7 @@ import ListIcon from "@material-ui/icons/List";
 import {Dropdown} from 'react-bootstrap';
 import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
 
+
 let linkStyle = {
   textDecoration: "none",
   color: "#000000",
@@ -116,16 +117,16 @@ function NavigationBar({ iconShow }) {
                 }
               </button>
               <div id="myDropdown" className="dropdown-content">
-                  <Link to="/profile">
+                  <Link to="/profile?link=my_account">
                     <AccountCircleIcon /> My Profile
                   </Link>
                   <Link to={`/orders/${userId}`}>
                     <ListIcon /> My Orders
                   </Link>
-                  <Link to="/whishlist">
+                  <Link to="/profile?link=my_whishlist">
                     <FavoriteBorderIcon /> Whislist
                   </Link>
-                  <Link to="/wallet">
+                  <Link to="/profile?link=my_wallet">
                     <AccountBalanceWalletIcon /> wallet
                   </Link>
                   {
@@ -160,7 +161,7 @@ function NavigationBar({ iconShow }) {
               </Offcanvas.Header>
               <Offcanvas.Body>
                 <p>
-                  <Link to="/profile">
+                  <Link to="/profile?link=my_account">
                     <AccountCircleIcon /> My Profile
                   </Link>
                 </p>
@@ -171,7 +172,7 @@ function NavigationBar({ iconShow }) {
                 </p>
                 <hr />
                 <p>
-                  <Link to="/orders">
+                  <Link to={`/orders/${userId}`}>
                     <ListIcon /> My Orders
                   </Link>
                 </p>
@@ -181,7 +182,7 @@ function NavigationBar({ iconShow }) {
                   </Link>
                 </p>
                 <p>
-                <Link to="/wallet">
+                <Link to="/profile?link=my_wallet">
                     <AccountBalanceWalletIcon /> wallet
                   </Link>
                 </p>

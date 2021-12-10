@@ -12,7 +12,7 @@ function AllOffers() {
     let [totalItems, setTotalItems]=useState(1);
     const [show, setShow] = useState(false);
     let [isForEditing, setIsForEditing]=useState(false);
-    let [offerDetails,setOfferDetails]=useState({hello:"hello"});
+    let [offerDetails,setOfferDetails]=useState(undefined);
 
     // form states
     let [offerName, setOfferName]=useState("..");

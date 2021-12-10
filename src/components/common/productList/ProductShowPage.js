@@ -7,11 +7,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { Alert } from "react-bootstrap";
 import { addToCart } from "../../../redux/user/cartReducer";
 import Swal from "sweetalert2";
+import whishlistAction from "../../../actions/user/whishlistController";
 
 function ProductShowPage({ product, prodId }) {
   let productImages = product.productImages;
   let navigate = useNavigate();
   let { products } = useSelector((state) => state.cart);
+
 
   let [inCart, setInCart] = useState(false);
   useEffect(() => {
@@ -54,7 +56,7 @@ function ProductShowPage({ product, prodId }) {
         toast: true,
         position: 'top-end',
         showConfirmButton: false,
-        timer: 3000,
+        timer: 1000,
         timerProgressBar: true,
         didOpen: (toast) => {
           toast.addEventListener('mouseenter', Swal.stopTimer)
@@ -118,6 +120,20 @@ function ProductShowPage({ product, prodId }) {
     },
     enlargedImageContainerStyle: { background: "#fff", zIndex: 9 },
   };
+
+
+  //  Add to whishlist
+  let [whishlistAdding, setWhishListAdding]=useState(false);
+  let [whishlistErr, setWhishlistErr]=useState("");
+
+  function addToWhishlist(){
+
+    if(!logedin){
+      navigate("/login");
+      return;
+    }
+    whishlistAction.addToWhishlist(setWhishListAdding, setWhishlistErr, userId, prodId, dispatch);
+  } 
 
   return (
     <div className="container">
@@ -210,6 +226,7 @@ function ProductShowPage({ product, prodId }) {
               value="Add to wishlist"
               style={{ marginLeft: "1rem" }}
               className="btn btn-danger float-left"
+              onClick={addToWhishlist}
             />
             <div className="clearfix"></div>
               <p style={{fontSize:"16px", marginTop:"1rem"}}>{product?.discription}</p>
