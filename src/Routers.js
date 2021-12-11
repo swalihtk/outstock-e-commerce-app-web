@@ -22,7 +22,7 @@ import Logout from "./components/user/Logout";
 import Register from "./components/user/Register";
 import { isAdminLogedIn } from "./redux/admin/adminLoginReducer";
 import { isUserLogedIn } from "./redux/user/logincheckReducer";
-import Cart from "./components/user/Cart/Index";
+import Cart from "./components/user/Cart/index";
 import Checkout from "./components/user/Checkout/index";
 import OrderSuccess from "./components/user/Success/index";
 import Order from "./components/user/Order/index";

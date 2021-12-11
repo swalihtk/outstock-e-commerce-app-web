@@ -9,6 +9,7 @@ import "./cart.css";
 import CartItems from "./CartItems";
 import CartPrice from "./CartPrice";
 
+
 function Index() {
 
   // ********* check login *********
