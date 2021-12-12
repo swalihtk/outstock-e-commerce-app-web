@@ -48,7 +48,7 @@ function OfferProduct() {
               }}
             >
                <img src={error} style={{objectFit:"contain", width:"100%", height:"100%"}}/>
-               <p className="text-danger">Error on fetching offers!!</p>
+               <p className="text-danger">something went wrong!!</p>
             </div>
           );
       }
