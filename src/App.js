@@ -8,15 +8,18 @@ import "antd/dist/antd.css";
 import { useEffect } from "react";
 
 // axios
-axios.defaults.baseURL = "http://127.0.0.1:3001/";
+axios.defaults.baseURL = "http://127.0.0.1:8000/api/";
 axios.defaults.withCredentials = true;
 
 function App() {
 
+  useEffect(()=>{
+    console.log(process.env);
+  },[])
+
   useEffect(async()=>{
     await axios.get("/admin/offers/checkOfferExpires");
   }, []);
-
   return (
     <Provider store={store}>
       <div className="App">
