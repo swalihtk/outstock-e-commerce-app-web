@@ -101,6 +101,10 @@ a{
     display: none;
   }
 
+  .navbar__home_icon{
+    width: 40px;
+  }
+
   .navbar__home_icon img{
     max-width: 60px;
   }
@@ -111,7 +115,7 @@ a{
   }
 
   .navbar__search_list{
-    flex: 0.6;
+    flex: 1;
   }
 
   .navbar__search{
