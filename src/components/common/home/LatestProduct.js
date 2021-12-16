@@ -63,7 +63,7 @@ function LatestProduct() {
   }
   else {
     return (
-      <section>
+      <section style={{boxShadow:"box-shadow: 0 1px 1px 0 rgb(0 0 0 / 16%)"}}>
         <div className="container text-center mt-4">
           <h1 style={{ color: "black", fontSize:"1.4rem" }}>Latest Products</h1>
         </div>

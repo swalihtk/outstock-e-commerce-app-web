@@ -54,7 +54,7 @@ function OfferProduct() {
       }
       else {
         return (
-          <section id="offer_products">
+          <section id="offer_products" style={{boxShadow:"box-shadow: 0 1px 1px 0 rgb(0 0 0 / 16%)"}}>
             <div className="container text-center mt-4">
               <h1 style={{ color: "black", fontSize:"1.4rem" }}>New Offers</h1>
             </div>
