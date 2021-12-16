@@ -8,7 +8,7 @@ import "antd/dist/antd.css";
 import { useEffect } from "react";
 
 // axios
-axios.defaults.baseURL = "/api/";
+axios.defaults.baseURL = "/api";
 axios.defaults.withCredentials = true;
 
 function App() {

@@ -38,6 +38,10 @@ div.homeCategory__main {
     font-size: 12px;
   }
 
+  .homeCategory__main a{
+    font-size: small;
+  }
+
   .homeCategory__mainCategorys {
     display: none;
   }
