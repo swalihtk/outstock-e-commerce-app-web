@@ -84,7 +84,8 @@ function NavigationBar({ iconShow }) {
     return <LinearProgress color="secondary" />;
   } else {
     return (
-      <div className="navbar__main shadow-sm">
+      <>
+      <div className="navbar__main">
         <ul className="navbar__list">
           <li className="navbar__home_icon">
             <Link to="/">
@@ -199,7 +200,22 @@ function NavigationBar({ iconShow }) {
           </div>
         </ul>
                 
+        </div>
+
+         {/* Ul for search bar responsive */}          
+        <div className="navbar__search_mob__main">
+        <ul className="navbar__search_mob">
+        <li className="navbar__search_list_mob">
+            <div className="navbar__search">
+              <input type="text" placeholder="search products.." value={searchText} onChange={(e) => setSearchText(e.target.value)}/>
+              <button onClick={searchProductNavigate}>
+                <SearchIcon />
+              </button>
+            </div>
+          </li>
+        </ul>
       </div>
+      </>
     );
   }
 }
