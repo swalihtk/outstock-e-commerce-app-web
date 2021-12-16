@@ -32,6 +32,7 @@ function Index() {
   // redux
   let cartRedux = useSelector((state) => state.cart);
 
+
   // useEffect
   useEffect(()=>{
     dispatch(listAllAddress(userId));
@@ -39,6 +40,7 @@ function Index() {
 
   // actions
   function handlePayment() {
+    if(productInfo.length<1) return;
     checkoutHelper.placeOrder(userId,addressState, paymentState, productInfo, totalPrice,navigate, dispatch);
   }
 

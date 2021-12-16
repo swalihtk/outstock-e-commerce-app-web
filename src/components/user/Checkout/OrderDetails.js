@@ -24,7 +24,8 @@ function OrderDetails({setPaymentState,handlePayment,paymentState,addressState, 
   // order stats
   let [products, setProducts] = useState([]);
 
-  // paypal
+
+
  
   // payment confirmation
   let [showOrderConfirm, setShowOrderConfirm] = useState(false);
@@ -53,7 +54,7 @@ function OrderDetails({setPaymentState,handlePayment,paymentState,addressState, 
   useEffect(() => {
     if (!cartItems.products) return;
     setProducts(cartItems.products);
-  }, []);
+  }, [cartItems]);
 
   useEffect(() => {
     let total = 0;
