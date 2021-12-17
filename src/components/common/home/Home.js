@@ -24,7 +24,7 @@ function Home() {
   }, []);
 
   if (loading) {
-    return <ContentSpinner variant="secondary" />;
+    return <ContentSpinner variant="info" />;
   } else {
     return (
       <>

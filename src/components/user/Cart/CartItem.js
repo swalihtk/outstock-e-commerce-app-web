@@ -68,7 +68,11 @@ function CartItem({ productInfo, item, userId, checkUnAvailableProducts }) {
           <img src={image} alt="" />
         </div>
         <div className="cartItems__product_details">
-          <h1>{productName}</h1>
+          <h1>{productName.length>47?
+            productName.substr(0, 47)+"..."
+            :
+            productName
+        }</h1>
           <p>₹{totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</p>
           <div className="cartItems__count">
             {

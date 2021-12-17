@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import { Container, Row } from "react-bootstrap";
+import { Container, Placeholder, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import NavigationBar from "../../../layouts/user/NavigationBar";
@@ -31,7 +31,7 @@ function Index() {
 
   // redux
   let cartRedux = useSelector((state) => state.cart);
-
+  let addressRedux = useSelector((state) => state.address);
 
   // useEffect
   useEffect(()=>{
@@ -39,13 +39,13 @@ function Index() {
   }, [])
 
   // actions
-  function handlePayment() {
+  function handlePayment(paymentState) {
     if(productInfo.length<1) return;
     checkoutHelper.placeOrder(userId,addressState, paymentState, productInfo, totalPrice,navigate, dispatch);
   }
 
-  
-  
+  let loading=true;  
+
   // **** checking login *******
   let { logedin } = useSelector((state) => state.userLogin);
   if(!logedin) return <Login />
@@ -56,10 +56,20 @@ function Index() {
       <Container>
         <Row>
           <div className="col-md-6 col-12">
-            <Address userId={userId} setAddressState={setAddressState}/>
+            {
+            addressRedux.loading?
+            (
+              <div style={{marginTop:"3rem"}}>
+                <Placeholder as="p" animation="glow">
+                  <Placeholder xs={12} />
+                </Placeholder>
+              </div>
+            )
+            :
+            (<Address userId={userId} setAddressState={setAddressState}/>)}
           </div>
           <div className="col-md-6 col-12">
-            <OrderDetails setPaymentState={setPaymentState} handlePayment={handlePayment} addressState={addressState} paymentState={paymentState} setProductInfo={setProductInfo} setTotalPrice={setTotalPrice} totalPrice={totalPrice} />
+            <OrderDetails setPaymentState={setPaymentState} handlePayment={handlePayment} addressState={addressState} paymentState={paymentState} setProductInfo={setProductInfo} productDetails={productInfo} setTotalPrice={setTotalPrice} totalPrice={totalPrice} />
           </div>
         </Row>
         <br/>
