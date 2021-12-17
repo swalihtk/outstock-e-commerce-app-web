@@ -16,7 +16,8 @@ function Index() {
   let { logedin } = useSelector((state) => state.userLogin);
   
 
-  if(!logedin) return <Login/>
+  if(!logedin) return <Login/>;
+
   return (
     <>
       <NavigationBar iconShow={true} />

@@ -11,8 +11,8 @@ const helpers={
                 }
             })
 
-            if(response.status===200){
-                setLoading(false);
+            setLoading(false);
+            if(response.data.allBanners){
                 setAllBanners(response.data.allBanners);
             }
         }catch(e){

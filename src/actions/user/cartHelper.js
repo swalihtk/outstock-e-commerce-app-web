@@ -1,23 +1,23 @@
 import axios from "axios";
 import { getCartItems } from "../../redux/user/cartReducer";
 import {listAllAddress} from "../../redux/user/addressReducer";
+import swal from "sweetalert";
 
 const helpers = {
-  cartCountManger: (userId, productId, action) => {
-    return new Promise((resolve, reject) => {
-      axios
-        .post("/user/cart/countmanage", {
-          userId,
-          productId,
-          action,
-        })
-        .then((response) => {
-          resolve(response);
-        })
-        .catch((err) => {
-          reject(err);
-        });
-    });
+  cartCountManger: async (userId, productId, quantity, setLoading) => {
+    try{
+      setLoading(true);
+      let response=await axios.post("/user/cart/countmanage", {userId,productId,quantity:parseInt(quantity)});
+      setLoading(false);
+      if(response.status===201){
+        return;
+      }else{
+        swal("something went wrong!!", "ok", "error");
+      }
+    }catch(e){
+      setLoading(false);
+      swal("something went wrong!!", "ok", "error");
+    }
   },
 
   removeFromCart: async (userId, productId, dispatch) => {
