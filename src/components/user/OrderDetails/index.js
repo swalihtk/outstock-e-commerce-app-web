@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Container, Row } from "react-bootstrap";
+import { Container, Row, Spinner } from "react-bootstrap";
 import NavigationBar from "../../../layouts/user/NavigationBar";
 import OrderAddress from "./OrderAddress";
 import "./OrderDetails.css";
@@ -21,6 +21,7 @@ function Index() {
 
   // state
   let [orderDetails,setOrderDetails]=useState({});
+  let [detailsLoading, setDetailsLoading]=useState(false);
 
   // mount
   useEffect(()=>{
@@ -34,7 +35,7 @@ function Index() {
 
   // mount action
   function getCompleteOrderDetails(){
-    orderHelper.getUserOrderDetails(userId, orderId, setOrderDetails);
+    orderHelper.getUserOrderDetails(userId, orderId, setOrderDetails, setDetailsLoading);
   }
 
   // test
@@ -53,14 +54,22 @@ function Index() {
         >
           Order Details
         </h1>
-        <Row style={{minHeight:"70vh"}}>
+        {
+        detailsLoading?
+        (
+          <div style={{display:"grid", placeItems:"center", height:"70vh"}}>
+            <Spinner animation="border" variant="primary" />
+          </div>
+        )
+        :
+        (<Row style={{minHeight:"70vh"}}>
           <div className="col-md-12 col-12">
             <OrderAddress orderDetails={orderDetails.orderDetails} handleOrderCancel={handleOrderCancel}/>
           </div>
           <div className="col-md-12 col-12">
             <OrderProduct productInfo={orderDetails.productsInfo} orderDetails={orderDetails.orderDetails}/>
           </div>
-        </Row>
+        </Row>)}
         <OtherFooter />
       </Container>
     </>

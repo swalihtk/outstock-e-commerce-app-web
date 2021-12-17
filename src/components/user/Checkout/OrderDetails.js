@@ -1,4 +1,4 @@
-import { Button, Modal, Spinner } from "react-bootstrap";
+import { Button, Modal, Placeholder, Spinner } from "react-bootstrap";
 import React, { useEffect, useState, ReactDOM } from "react";
 import checkoutHelper from "../../../actions/user/checkoutHelper";
 import couponActions from "../../../actions/user/couponAction";
@@ -16,16 +16,13 @@ import Paper from "@material-ui/core/Paper";
 import { useSelector } from "react-redux";
 
 
-function OrderDetails({setPaymentState,handlePayment,paymentState,addressState, setProductInfo, setTotalPrice,totalPrice}) {
+function OrderDetails({setPaymentState,handlePayment,paymentState,addressState, setProductInfo, setTotalPrice,totalPrice, productDetails}) {
   // redux
   let cartItems = useSelector((state) => state.cart);
-  let { loading, logedin, userId } = useSelector((state) => state.userLogin);
+  let { userId } = useSelector((state) => state.userLogin);
 
   // order stats
   let [products, setProducts] = useState([]);
-
-
-
  
   // payment confirmation
   let [showOrderConfirm, setShowOrderConfirm] = useState(false);
@@ -55,7 +52,7 @@ function OrderDetails({setPaymentState,handlePayment,paymentState,addressState, 
     if (!cartItems.products) return;
     setProducts(cartItems.products);
   }, [cartItems]);
-
+  
   useEffect(() => {
     let total = 0;
     products.forEach((item) => {
@@ -75,19 +72,37 @@ function OrderDetails({setPaymentState,handlePayment,paymentState,addressState, 
       let productInfo = item.productInfo;
       let product = item.products;
 
-      setProductInfo(prev=>{
-        return [
-          ...prev,
-          {
-            productId:product.productId,
-            quantity:product.quantity,
-            totalPrice:productInfo.offer?product.quantity*productInfo.offer.offerPrice:product.quantity*productInfo.price
-          }
-        ]
-      })
+
+      // setProductInfo((prev)=>{
+        
+      //   let indexof=prev.findIndex(item=>item.productId===product.productId);
+      //   if(indexof!==-1){
+      //     return;
+      //   }
+
+      //   return [
+      //     ...prev,
+      //     {
+      //       productId:product.productId,
+      //       quantity:product.quantity,
+      //       totalPrice:productInfo.offer?product.quantity*productInfo.offer.offerPrice:product.quantity*productInfo.price
+      //     }
+      //   ]
+      // }
+      // )
+
+      let indexof=productDetails.findIndex(item=>item.productId===product.productId);
+      if(indexof!==-1) return;
+      setProductInfo([...productDetails,{
+        productId:product.productId,
+        quantity:product.quantity,
+        totalPrice:productInfo.offer?product.quantity*productInfo.offer.offerPrice:product.quantity*productInfo.price
+      }])
     })
   }, [products])
 
+
+  
 
   // ********* paypal *************
   let [paypalSdkReady, setPaypalSdkReady]=useState(false);
@@ -114,7 +129,7 @@ function OrderDetails({setPaymentState,handlePayment,paymentState,addressState, 
 
   function handlePaypalSuccess(){
     setPaymentState("PAYPAL")
-    handlePayment();
+    handlePayment("PAYPAL");
   }
 
   // ******* Coupon Handler *******
@@ -138,7 +153,7 @@ function OrderDetails({setPaymentState,handlePayment,paymentState,addressState, 
     }
     couponActions.applyCoupon(setCouponApplying, setCouponErr, body, setTotalPrice);
   }
-
+  
   return (
     <>
       {/* Modal */}
@@ -157,7 +172,7 @@ function OrderDetails({setPaymentState,handlePayment,paymentState,addressState, 
           </Button>
           {
             !formErr&&
-            <Button variant="primary" onClick={handlePayment}>
+            <Button variant="primary" onClick={()=>handlePayment(paymentState)}>
               Confirm
             </Button>
           } 
@@ -191,7 +206,18 @@ function OrderDetails({setPaymentState,handlePayment,paymentState,addressState, 
           <h1>Your Order</h1>
           <hr />
           <div className="orderDetails__bodyTable">
-            <TableContainer component={Paper}>
+
+            {
+            cartItems.loading?
+            (
+              <div>
+                <Placeholder as="p" animation="glow">
+                  <Placeholder xs={12} />
+                </Placeholder>
+              </div>
+            )
+            :
+            (<TableContainer component={Paper}>
               <Table aria-label="simple table">
                 <TableHead>
                   <TableRow>
@@ -215,7 +241,11 @@ function OrderDetails({setPaymentState,handlePayment,paymentState,addressState, 
                       return (
                         <TableRow key={index}>
                           <TableCell component="th" scope="row">
-                          <p style={{fontSize:"14px"}}>{productInfo.name}</p>
+                          <p style={{fontSize:"14px"}}>{productInfo.name?.length>40?
+                          productInfo.name.substr(0,40)+"..."
+                          :
+                          productInfo.name
+                        }</p>
                           </TableCell>
                           <TableCell align="center">
                           <p style={{fontSize:"14px"}}>{product.quantity}</p>
@@ -237,9 +267,19 @@ function OrderDetails({setPaymentState,handlePayment,paymentState,addressState, 
                   )}
                 </TableBody>
               </Table>
-            </TableContainer>
+            </TableContainer>)}
 
-            <div className="orderDetails__total">
+            {
+            cartItems.loading?
+              (
+                <div style={{marginTop:"5rem"}}>
+                  <Placeholder as="p" animation="glow">
+                    <Placeholder xs={12} />
+                  </Placeholder>
+                </div>
+              )
+            :
+            (<div className="orderDetails__total">
               <TableContainer component={Paper}>
                 <Table aria-label="simple table">
                   <TableHead>
@@ -257,7 +297,7 @@ function OrderDetails({setPaymentState,handlePayment,paymentState,addressState, 
                   </TableBody>
                 </Table>
               </TableContainer>
-            </div>
+            </div>)}
           </div>
         </div>
         <div className="order__payment">

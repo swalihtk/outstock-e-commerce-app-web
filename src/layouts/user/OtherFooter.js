@@ -33,7 +33,7 @@ function OtherFooter() {
 
       <div className="footer-copyright text-center py-3">
         © {new Date().getFullYear()} Copyright:
-        <a href="/"> Outstock.com</a>
+        <a href="/"> {window.location.host}</a>
       </div>
     </footer>
   );

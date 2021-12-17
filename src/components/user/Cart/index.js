@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Container } from "react-bootstrap";
+import { Container, Spinner } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import NavigationBar from "../../../layouts/user/NavigationBar";
 import OtherFooter from "../../../layouts/user/OtherFooter";
@@ -14,10 +14,9 @@ function Index() {
 
   // ********* check login *********
   let { logedin } = useSelector((state) => state.userLogin);
-
   
-  if(!logedin) return <Login/>
 
+  if(!logedin) return <Login/>
   return (
     <>
       <NavigationBar iconShow={true} />

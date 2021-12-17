@@ -58,6 +58,7 @@ const helpers={
     },
 
     placeOrder:async function(userId,orderAddress, paymentMethod,cartItems,totalPrice, navigate, dispatch){
+       
         if(paymentMethod==="COD" || paymentMethod==="PAYPAL"){
             let body={
                 userId,

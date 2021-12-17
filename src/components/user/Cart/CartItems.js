@@ -5,6 +5,7 @@ import { isUserLogedIn } from "../../../redux/user/logincheckReducer";
 import { getCartItems, cartCountMange } from "../../../redux/user/cartReducer";
 import CartItem from "./CartItem";
 import cartHelper from "../../../actions/user/cartHelper";
+import { Spinner } from "react-bootstrap";
 
 function CartItems() {
   let navigate = useNavigate();
@@ -67,7 +68,12 @@ function CartItems() {
     <div className="cartItems__main">
       <h1>My Cart ({cartItems.count})</h1>
       <hr />
-
+      {
+        cartItems.loading?
+        <div style={{display:"grid", height:"10vh", placeItems:"center"}}>
+          <Spinner animation="border" variant="success" />
+        </div>
+        :
       <div className="cartItems__container">
         {/* Cartitems product */}
         {products && products.length > 0 ? (
@@ -88,6 +94,9 @@ function CartItems() {
         )}
         {/* End of product main */}
       </div>
+      }
+
+
 
       {/* Place Order */}
       <div className="cartItems__placeOrder">

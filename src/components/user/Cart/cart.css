@@ -25,7 +25,7 @@
 
 .cartItems__product_img {
   margin-top: 1rem;
-  width: 10vw;
+  width: 20vw;
   height: 15vh;
 }
 
@@ -182,10 +182,13 @@
 @media screen and (max-width: 1000px) {
   .cartItems__product_img {
     height: 10vh;
+    width: 50vw;
+    margin-left: 10px;
   }
 
   .cartItems__product_details {
-    margin-left: 1rem;
+    /* margin-left: 1rem; */
+    padding: 0 5px;
   }
 
   .cartItems__product_details h1 {

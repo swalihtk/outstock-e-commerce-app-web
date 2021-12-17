@@ -126,6 +126,7 @@ function ListUsers() {
               <TableBody>
                 {listUsers &&
                   listUsers.map((user, index) => {
+                    if(user.role==="admin") return;
                     return (
                       <Users
                         key={user._id}
