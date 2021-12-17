@@ -1,6 +1,5 @@
 /* admin login */
 .admin-login{
-    background-color: #3B8AFF;
     height: 100vh;
 }
 
@@ -9,6 +8,7 @@
     height: 80vh;
     border-radius: 20px;
     padding:2rem;
+    box-shadow: 0 2px 4px 0 rgb(0 0 0 / 23%);
 }
 
 

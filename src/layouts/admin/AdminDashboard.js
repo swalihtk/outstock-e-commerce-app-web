@@ -19,7 +19,7 @@ function AdminDashboard({ children }) {
     axios
       .get("/admin/auth/signout")
       .then((response) => {
-        window.location.reload();
+        window.location.assign("/admin");
       })
       .catch((err) => {
         alert("Something went wrong");

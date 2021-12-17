@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { getCartItems } from "../../../redux/user/cartReducer";
 import cartHelper from "../../../actions/user/cartHelper";
 import whishlistHelper from "../../../actions/user/whishlistController";
+import { Spinner } from "react-bootstrap";
 
 function CartItem({ productInfo, item, userId, checkUnAvailableProducts }) {
   let [quantity, setQuanity] = useState(
@@ -22,14 +23,10 @@ function CartItem({ productInfo, item, userId, checkUnAvailableProducts }) {
   let [prodId, setProdId] = useState(item.products.productId);
 
   let dispatch = useDispatch();
+  let [countLoad, setCountLoad]=useState(false);
 
-  async function countHanlder(action) {
-    try {
-      await cartHelper.cartCountManger(userId, prodId, action);
-      dispatch(getCartItems(userId));
-    } catch (err) {
-      return;
-    }
+  function countHandler(quantity) {
+    cartHelper.cartCountManger(userId, prodId, quantity, setCountLoad);
   }
 
   useEffect(() => {
@@ -58,6 +55,8 @@ function CartItem({ productInfo, item, userId, checkUnAvailableProducts }) {
     whishlistHelper.addToWhishlist(setWhishlistAdding, setWhishlistErr, userId, prodId, dispatch);
   }
 
+  
+
   // test
   
 
@@ -75,17 +74,43 @@ function CartItem({ productInfo, item, userId, checkUnAvailableProducts }) {
         }</h1>
           <p>₹{totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</p>
           <div className="cartItems__count">
-            {
-              productInfo.quantity<=0?
-              <p className="text-danger">Currently Unavailable!!</p>
+              {
+              countLoad?
+              (
+                <div style={{display:"grid",placeItems:"center", width:"3vw",height:"3vh"}}>
+                  <Spinner animation="border" variant="primary" size="sm"/>
+                </div>
+                
+              )
               :
-              <>
-              <RemoveIcon onClick={() => countHanlder(0)} />
-              <p>{quantity}</p>
-
-              <AddIcon onClick={() => countHanlder(1)} />
-              </>
-            }
+              
+                
+                  productInfo.quantity>3?
+                  (
+                    <select className="quantity_select" value={quantity} onChange={(e)=>{
+                      setQuanity(e.target.value);
+                      countHandler(e.target.value);
+                      }}>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    </select>
+                  ):
+                  productInfo.quantity<=0?
+                  <p className="text-danger">Currently Available</p>
+                  :
+                  (
+                    <select className="quantity_select" value={quantity} onChange={(e)=>{
+                      setQuanity(e.target.value);
+                      countHandler(e.target.value);
+                      }}>
+                    {Array.from(Array(productInfo.quantity), (val,index)=><option key={index}>{index+1}</option>)}
+                    </select>
+                    )
+                }
+              
+              
           </div>
         </div>
         <div className="cartItems__product_delivery">

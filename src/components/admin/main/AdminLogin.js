@@ -41,9 +41,9 @@ function AdminLogin() {
         <div className="admin-login">
             <div className="container">
                 <div className="row">
-                    <div className="col-12 col-md-2">
+                    <div className="col-12 col-md-3">
                     </div>
-                    <div className="col-12 col-md-8 mt-4">
+                    <div className="col-12 col-md-5 mt-4">
                         <div className="admin-login-container">
                             <h1 className="text-center">Admin Login </h1>
                         <Form onSubmit={loginAdmin}>
@@ -70,7 +70,7 @@ function AdminLogin() {
                         </Form>
                         </div>
                     </div>
-                    <div className="col-12 col-md-2">
+                    <div className="col-12 col-md-3">
                     </div>
                 </div>
             </div>

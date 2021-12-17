@@ -14,9 +14,9 @@ function CartPrice() {
       cartProducts.products.forEach((item) => {
       let productInfo = item.productInfo;
       if(productInfo.offer){
-        setTotalPrice((total += item.products.quantity * productInfo.offer.offerPrice));
+        setTotalPrice(Math.round((total += item.products.quantity * productInfo.offer.offerPrice)));
       }else{
-        setTotalPrice((total += item.products.quantity * productInfo.price));
+        setTotalPrice(Math.round((total += item.products.quantity * productInfo.price)));
       }
     });
     }

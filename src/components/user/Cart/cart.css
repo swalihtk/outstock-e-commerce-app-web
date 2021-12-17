@@ -2,7 +2,7 @@
 .cartItems__main {
   margin-top: 3rem;
   box-shadow: 0 2px 4px 0 rgb(0 0 0 / 23%);
-  padding:5px 10px;
+  padding: 5px 10px;
 }
 
 .cartItems__main h1 {
@@ -25,7 +25,7 @@
 
 .cartItems__product_img {
   margin-top: 1rem;
-  width: 20vw;
+  width: 10vw;
   height: 15vh;
 }
 
@@ -108,7 +108,7 @@
   margin-top: 3rem;
   margin-bottom: 1rem;
   box-shadow: 0 2px 4px 0 rgb(0 0 0 / 23%);
-  padding:10px;
+  padding: 10px;
 }
 
 .cartPrice__main h1 {
@@ -220,3 +220,12 @@
     font-size: 0.8rem;
   }
 }
+
+/* quantity_select */
+
+.quantity_select {
+  padding: 2px 20px;
+  font-weight: 600;
+}
+
+/* end of quantity_select */
