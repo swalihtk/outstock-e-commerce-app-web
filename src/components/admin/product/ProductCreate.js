@@ -175,7 +175,7 @@ function ProductCreate({setShowAddProduct}) {
 
           <div className="col-6 col-md-6 product__form">
             <label>SubCategory</label><br/>
-            <select value={setSubCatValue} onChange={e=>setSubCatValue(e.target.value)}>
+            <select value={subCatValue} onChange={e=>setSubCatValue(e.target.value)}>
               {
                 subCategoryArray.map((item, index)=>{
                   return <option key={index}>{item}</option>
