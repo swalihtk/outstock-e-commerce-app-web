@@ -1,20 +1,22 @@
-# Outstock E-Commerce-App Client Side
+# Outstock E-Commerce-App Client Side 🛒🛍️
 
-## description
+## description 📝
 <p> An E-Commerce Application built with MERN Stack and third party APIs. It includes completed featurs of normal E-Commerce Application </p>
 
 ### Project Link: www.outstock.swaliht.tech
 
 <p> The Application has divided into three parts. 1. User , 2. Guest, 3. Admin </p>
 
-## Guest Features
+## Features 🪶
+
+### Guest Features 🙂
 - Products Category
 - Products Search
 - Trending Products
 - Offerd Products
 - Products filtering
 
-## User Features
+### User Features 👤
 - Authentication
 - Cart
 - Whishlist
@@ -30,7 +32,7 @@
 - Address Manage
 - Image Crop
 
-## Admin Features
+### Admin Features 🧑‍💻
 - Authentication
 - User Managment
 - Product Management
@@ -46,7 +48,7 @@
 - Crop
 
 
-## Technologies Used
+## Technologies Used ⚙️⚙️
 - React
 - Node
 - Express
