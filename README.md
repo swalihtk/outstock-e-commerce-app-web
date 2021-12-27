@@ -2,9 +2,10 @@
 
 ## description
 <p> An E-Commerce Application built with MERN Stack and third party APIs. It includes completed featurs of normal E-Commerce Application </p>
-<p> The Application has divided into three parts. 1. User , 2. Guest, 3. Admin </p>
 
 ### Project Link: www.outstock.swaliht.tech
+
+<p> The Application has divided into three parts. 1. User , 2. Guest, 3. Admin </p>
 
 ## Guest Features
 - Products Category
